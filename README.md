@@ -20,7 +20,11 @@ npm run dev      # site en local sur http://localhost:4321/station-0/
 | --- | --- |
 | `npm run dev` | Site en local, rechargé à chaque modification |
 | `npm run build` | Vérifie les types puis construit le site dans `dist/` |
+| `npm run check:types` | Vérifie les types seuls |
 | `npm run lint` | Vérifie le style et la qualité du code (Biome) |
 | `npm run format` | Corrige automatiquement le formatage |
 | `npm test` | Tests de logique (Vitest) |
 | `npm run test:e2e` | Tests de parcours et d'accessibilité (Playwright + axe) |
+| `npm run check:deprecated` | Échoue si une dépendance directe est dépréciée sur npm |
+
+La CI (`.github/workflows/ci.yml`) lance toutes ces vérifications, plus `npm audit`, à chaque Pull Request.
