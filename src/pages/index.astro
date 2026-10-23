@@ -2,13 +2,17 @@
 import BaseLayout from "../components/BaseLayout.astro";
 import { formatNote } from "../lib/bareme";
 import { mostAccessible, toCatalogueRace } from "../lib/catalogue";
+import { todayInParis } from "../lib/dates";
 import { withBase } from "../lib/paths";
-import { baremeConfig, races } from "../lib/races-data";
+import { baremeConfig, events, races } from "../lib/races-data";
 import { SITE } from "../lib/site";
 
 const base = import.meta.env.BASE_URL;
-const catalogue = races.map((race) => toCatalogueRace(race, baremeConfig));
-const starters = mostAccessible(catalogue, 3);
+const buildDate = todayInParis();
+const catalogue = races.map((race) =>
+	toCatalogueRace(race, baremeConfig, events, buildDate),
+);
+const starters = mostAccessible(catalogue, 3, buildDate);
 ---
 
 <BaseLayout>

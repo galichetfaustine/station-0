@@ -55,9 +55,13 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Priorité de la saisie manuelle** : elle remplace les dates collectées de la même course **dans la même ville** ; une ville nouvelle s'ajoute. | La spec ne disait pas comment reconnaître « la même » date ; règle proposée, à valider. SPECS §6. |
 | 2026-10-23 | **Champ `courses`** dans chaque fichier de dates : les courses couvertes par la source. | Afficher « Dates vérifiées le… » même pour une course sans date (XENOM). SPECS §4. |
 | 2026-10-23 | **Dates manuelles initiales** = relevés de l'étude US0.6 (59 dates) ; les dates HYROX valent pour Open solo et Doubles (mêmes événements) ; lien HYROX vers l'accueil. | Consigne de Faustine (US1.6). |
+| 2026-10-23 | **Affichage des dates** : fenêtre de 18 mois aussi à l'affichage ; un événement sur plusieurs jours reste visible jusqu'à son dernier jour ; la fiche reçoit jusqu'à 6 dates et le navigateur garde les 3 premières encore à venir. | « Une date passée n'apparaît jamais, même si la dernière reconstruction a échoué » (US1.4). |
+| 2026-10-23 | **Date du jour à l'heure de Paris** (`Europe/Paris`), au build comme dans le navigateur. | Cible France ; évite un décalage d'un jour autour de minuit. |
+| 2026-10-23 | **Lien d'inscription par date** : « Inscriptions sur hyrox.com » (accueil) pour HYROX, « S'inscrire » vers la page de l'événement pour les autres. | Décision n° 2 de la revue du Lot 0. |
 
 ## Points ouverts
 
 | Depuis | Sujet | À traiter |
 | --- | --- | --- |
 | 2026-10-23 | **Turf Games et XENOM** : notes en partie « à confirmer » (aucun règlement détaillé public ; guides Turf bloqués lors de la vérification). | Lot 1 |
+| 2026-10-23 | **Budget JavaScript de la page Courses : ~49 Ko** avant compression (~18 Ko compressé), dont 39 Ko de runtime Svelte : au ras des 50 Ko. Préciser si le budget s'entend compressé ou non ; sinon, prévoir d'alléger avant d'ajouter des fonctions à l'îlot. | Lot 4 (performance) |

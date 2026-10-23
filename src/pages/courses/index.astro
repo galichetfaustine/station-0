@@ -2,10 +2,14 @@
 import BaseLayout from "../../components/BaseLayout.astro";
 import Catalogue from "../../components/Catalogue.svelte";
 import { toCatalogueRace } from "../../lib/catalogue";
+import { todayInParis } from "../../lib/dates";
 import { withBase } from "../../lib/paths";
-import { baremeConfig, races } from "../../lib/races-data";
+import { baremeConfig, events, races } from "../../lib/races-data";
 
-const catalogue = races.map((race) => toCatalogueRace(race, baremeConfig));
+const buildDate = todayInParis();
+const catalogue = races.map((race) =>
+	toCatalogueRace(race, baremeConfig, events, buildDate),
+);
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -15,7 +19,7 @@ const base = import.meta.env.BASE_URL;
 		11 courses notées de 1 à 5 sur la course à pied, la force, le cardio et la gym, à partir de leur règlement.
 		<a href={withBase(base, "/methode/")}>Comment on note</a>
 	</p>
-	<Catalogue client:load races={catalogue} base={base} />
+	<Catalogue client:load races={catalogue} base={base} buildDate={buildDate} />
 </BaseLayout>
 
 <style>

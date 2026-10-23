@@ -8,6 +8,14 @@ import {
 	formatNote,
 } from "../../lib/bareme";
 import { formatDuration } from "../../lib/catalogue";
+import {
+	COUNTRY_LABELS,
+	formatCheckedOn,
+	formatEventDates,
+	lastChecked,
+	todayInParis,
+	upcomingEvents,
+} from "../../lib/dates";
 import { withBase } from "../../lib/paths";
 import {
 	FORMAT_LABELS,
@@ -15,7 +23,7 @@ import {
 	registrationLabel,
 	siteName,
 } from "../../lib/race-page";
-import { baremeConfig, races } from "../../lib/races-data";
+import { baremeConfig, eventFiles, events, races } from "../../lib/races-data";
 import type { Race } from "../../lib/schemas";
 
 export function getStaticPaths() {
@@ -37,6 +45,9 @@ const { categories, globale } = computeNotes(
 );
 const base = import.meta.env.BASE_URL;
 const pendingNote = "Note à venir — règlement non public";
+// Jusqu'à 6 dates sont envoyées : le navigateur retire les dates passées depuis le build et garde les 3 premières.
+const upcoming = upcomingEvents(events, race.slug, todayInParis()).slice(0, 6);
+const checkedOn = lastChecked(eventFiles, race.slug);
 ---
 
 <BaseLayout title={race.nom} description={race.pourQui}>
@@ -114,9 +125,31 @@ const pendingNote = "Note à venir — règlement non public";
 	</section>
 
 	<!-- 4. Prochaines dates -->
-	<section aria-labelledby="dates">
+	<section aria-labelledby="dates" class="dates">
 		<h2 id="dates">Prochaines dates</h2>
-		<p>Pas de date annoncée pour le moment.</p>
+		<ul class="events" data-max="3">
+			{
+				upcoming.map((event, index) => (
+					<li data-end={event.dateFin ?? event.date} hidden={index >= 3}>
+						<span class="when">{formatEventDates(event)}</span>
+						<span class="where">
+							{event.ville} ({COUNTRY_LABELS[event.pays]})
+						</span>
+						<a href={event.lienInscription} target="_blank" rel="noopener">
+							{race.siteOfficiel === "https://hyrox.com" ? "Inscriptions sur hyrox.com" : "S'inscrire"}
+							<span class="visually-hidden">
+								{" "}
+								à {race.nom}, {event.ville}
+							</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<p class="no-date" hidden={upcoming.length > 0}>Pas de date annoncée.</p>
+		<p class="muted">
+			{checkedOn ? `Dates vérifiées le ${formatCheckedOn(checkedOn)}.` : "Dates pas encore vérifiées."}
+		</p>
 		<p>
 			<a class="button" href={race.siteOfficiel} target="_blank" rel="noopener">{registrationLabel(race)}</a>
 		</p>
@@ -158,6 +191,26 @@ const pendingNote = "Note à venir — règlement non public";
 		<p>Pas sûr que ce soit pour toi ? Le quiz d'orientation arrive bientôt.</p>
 	</section>
 </BaseLayout>
+
+<script>
+	// Filet de sécurité (§6) : masque une date passée si la dernière reconstruction du site a échoué.
+	import { todayInParis } from "../../lib/dates";
+
+	const today = todayInParis();
+	for (const list of document.querySelectorAll<HTMLUListElement>(".events")) {
+		const max = Number(list.dataset.max ?? 3);
+		const items = [...list.querySelectorAll<HTMLLIElement>("li")].filter((item) => {
+			const past = (item.dataset.end ?? "") < today;
+			if (past) item.remove();
+			return !past;
+		});
+		items.forEach((item, index) => {
+			item.hidden = index >= max;
+		});
+		const empty = list.parentElement?.querySelector<HTMLElement>(".no-date");
+		if (empty) empty.hidden = items.length > 0;
+	}
+</script>
 
 <style>
 	.hero {
@@ -305,5 +358,53 @@ const pendingNote = "Note à venir — règlement non public";
 
 	.next {
 		border-bottom: 0;
+	}
+
+	.events {
+		display: grid;
+		gap: var(--space-2);
+		padding: 0;
+		list-style: none;
+	}
+
+	.events li {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-1) var(--space-3);
+		align-items: center;
+		padding: var(--space-3);
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius);
+		background: var(--color-surface);
+	}
+
+	.events li[hidden] {
+		display: none;
+	}
+
+	.when {
+		font-weight: 700;
+	}
+
+	.where {
+		grid-column: 1;
+		color: var(--color-text-muted);
+	}
+
+	.events a {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
 	}
 </style>

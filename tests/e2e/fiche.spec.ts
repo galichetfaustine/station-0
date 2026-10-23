@@ -48,7 +48,9 @@ test("HYROX : le lien d'inscription mène à la page d'accueil de hyrox.com", as
 	page,
 }) => {
 	await page.goto("courses/hyrox-doubles/");
-	const link = page.getByRole("link", { name: "Inscriptions sur hyrox.com" });
+	const link = page.locator("a.button", {
+		hasText: "Inscriptions sur hyrox.com",
+	});
 	await expect(link).toHaveAttribute("href", "https://hyrox.com");
 	await expect(link).toHaveAttribute("target", "_blank");
 });
