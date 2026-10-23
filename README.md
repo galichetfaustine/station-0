@@ -21,7 +21,8 @@ npm run dev      # site en local sur http://localhost:4321/station-0/
 | Commande | Rôle |
 | --- | --- |
 | `npm run dev` | Site en local, rechargé à chaque modification |
-| `npm run build` | Vérifie les types puis construit le site dans `dist/` |
+| `npm run build` | Valide les données, vérifie les types puis construit le site dans `dist/` |
+| `npm run validate:data` | Vérifie tous les fichiers de `data/` (un message par champ fautif) |
 | `npm run check:types` | Vérifie les types seuls |
 | `npm run lint` | Vérifie le style et la qualité du code (Biome) |
 | `npm run format` | Corrige automatiquement le formatage |
