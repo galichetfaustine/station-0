@@ -46,7 +46,7 @@ Neuf choix restent ouverts. Pour chacun, je recommande une option et tu passes l
 | D2 | Framework des parties interactives (quiz, WOD, minuteur) | **Svelte 5** : environ 10 fois moins de JavaScript envoyé que React sur un petit site, syntaxe proche du HTML, plus facile à relire pour toi. | **React 19** : plus de ressources en ligne et compétence très demandée en alternance, mais un runtime d'environ 45 Ko à charger. | Validé |
 | D3 | Hébergement | **GitHub Pages + GitHub Actions** : gratuit sur dépôt public, un seul compte, la collecte des dates tourne au même endroit que le site. | **Cloudflare** (qui possède Astro depuis janvier 2026) : réseau plus rapide, mais un compte et un outil de plus. | Validé |
 | D4 | Mise à jour des dates | **Commit automatique** quand les données passent la validation ; Pull Request à relire seulement en cas d'anomalie. | Pull Request systématique : plus sûr, mais demande ton intervention à chaque changement. | Validé |
-| D5 | Spartan Sprint (course à obstacles 5 km) | **Ne pas l'inclure en V1** : ce n'est pas une course fitness hybride et ça brouille les recommandations du quiz. | L'ajouter comme 11e course « cousine », marquée à part. | Modifié |
+| D5 | Spartan Sprint (course à obstacles 5 km) | **Ne pas l'inclure en V1** : ce n'est pas une course fitness hybride et ça brouille les recommandations du quiz. | L'ajouter comme 11e course « cousine », marquée à part. | Modifié : incluse comme 11e course « cousine » |
 | D6 | Mode du générateur de WOD | **Tout aléatoire en 1 clic**, avec des verrous optionnels (course, niveau, matériel, format). Le time cap (15 ou 20 min) est la seule contrainte toujours respectée. | Formulaire obligatoire avant de générer. | Validé |
 | D7 | Résultat du quiz | **1 course + 1 alternative**, l'alternative n'apparaît que si son score dépasse 60 % et qu'elle vient d'un autre organisateur. | Toujours afficher une alternative. | Validé |
 | D8 | Typographies | **Barlow Condensed** (titres, proche du logo) + **Inter** (texte), libres de droits, hébergées sur le site. | Autre paire condensée + linéale. | Validé |
@@ -308,14 +308,14 @@ Le site est statique : des pages HTML générées à l'avance, avec du JavaScrip
 
 | Brique | Choix | Pourquoi |
 | --- | --- | --- |
-| Framework | **Astro 6** (sortie stable début 2026), export statique | Fait pour les sites de contenu ; n'envoie du JavaScript que pour les « îlots » interactifs ; valide les données JSON avec un schéma. |
-| Langage | **TypeScript** en mode strict | Les erreurs de données et de logique sont détectées avant la mise en ligne. |
+| Framework | **Astro 7** (sortie le 22/06/2026 ; la 6 n'est plus mise à jour), export statique | Fait pour les sites de contenu ; n'envoie du JavaScript que pour les « îlots » interactifs ; valide les données JSON avec un schéma. |
+| Langage | **TypeScript 6** en mode strict (la 7 n'est pas encore acceptée par les outils Astro et Svelte) | Les erreurs de données et de logique sont détectées avant la mise en ligne. |
 | Îlots interactifs | **Svelte 5** (D2) | Peu de JavaScript envoyé, code lisible. |
 | Style | **CSS natif** (variables, nesting, container queries) | Aucune dépendance qui peut être dépréciée ; les navigateurs actuels savent tout faire. |
 | Polices | Barlow Condensed + Inter, hébergées sur le site via l'API Fonts d'Astro | Pas d'appel à Google, donc pas de question RGPD. |
-| Runtime | **Node.js LTS** : 26 dès son passage en LTS (octobre 2026), sinon 24 | Astro 6 exige Node 22 minimum ; on vise la LTS avec la fin de vie la plus lointaine. |
+| Runtime | **Node.js 26** (LTS le 28/10/2026, fin de vie avril 2029), fixé dans `.nvmrc` et `engines` | Astro 7 exige Node 22.23 minimum ; on vise la LTS avec la fin de vie la plus lointaine. |
 | Tests | **Vitest** (logique), **Playwright** (parcours), **axe-core** (accessibilité) | Les règles du quiz et du générateur sont du code pur, faciles à tester. |
-| Qualité | **Biome** (lint et formatage en un outil) | Un seul outil au lieu de deux ; à confirmer au Lot 0, sinon ESLint + Prettier. |
+| Qualité | **Biome** (lint et formatage en un outil, hors fichiers Markdown) | Un seul outil au lieu de deux ; activement maintenu (vérifié au Lot 0). |
 | Hébergement et automatisation | **GitHub Pages + GitHub Actions** (D3) | Tests, collecte des dates et déploiement au même endroit. |
 | Mises à jour | **Dependabot** | Propose chaque semaine les mises à jour de dépendances, testées par la CI. |
 
@@ -335,7 +335,7 @@ src/
   styles/           tokens.css (DA), global.css
 scripts/collect/    un collecteur par source + validation
 .github/workflows/  ci.yml, collect-dates.yml (nuit), deploy.yml
-docs/               specs, décisions (ADR)
+docs/               SPECS.md, DECISIONS.md (journal), adr/ (décisions techniques), sources-dates.md
 CLAUDE.md           règles du projet pour Claude Code
 ```
 
@@ -358,7 +358,7 @@ Cinq lots livrés dans l'ordre 0 → 1 → 2 → 3 → 4. Le Lot 1 est un site u
 
 ### Lot 0 — Socle (taille M)
 
-- **US0.1 Initialiser le projet.** Astro 6, TypeScript strict, Svelte, Biome, Vitest, Playwright.
+- **US0.1 Initialiser le projet.** Astro 7, TypeScript strict, Svelte, Biome, Vitest, Playwright.
   - `npm run dev`, `test` et `build` passent sur un projet vide.
   - La version de Node est fixée dans le dépôt.
 - **US0.2 Intégration continue.** À chaque Pull Request : lint, types, tests, build, audit des dépendances.
