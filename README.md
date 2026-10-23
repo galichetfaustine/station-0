@@ -2,6 +2,8 @@
 
 Trouve ta première course hybride, et commence à t'y préparer aujourd'hui.
 
+Site en ligne : https://galichetfaustine.github.io/station-0/ (mis à jour à chaque fusion sur `main`).
+
 Les règles du projet sont dans [`CLAUDE.md`](CLAUDE.md), les specs dans [`docs/SPECS.md`](docs/SPECS.md).
 
 ## Démarrer
