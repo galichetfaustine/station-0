@@ -1,11 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 const card = (page: import("@playwright/test").Page, name: string) =>
-	page
-		.locator(".cards > li.card")
-		.filter({
-			has: page.getByRole("heading", { level: 2, name, exact: true }),
-		});
+	page.locator(".cards > li.card").filter({
+		has: page.getByRole("heading", { level: 2, name, exact: true }),
+	});
 
 test("les cartes montrent la prochaine date, ou « Pas de date annoncée » en fin de liste", async ({
 	page,
