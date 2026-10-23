@@ -1,25 +1,35 @@
 <script lang="ts">
-// Îlot du catalogue (US1.1) : la liste est rendue au build, les filtres s'activent avec JavaScript.
+// Îlot du catalogue (US1.1, US1.4) : la liste est rendue au build, les filtres s'activent avec JavaScript.
+// Au chargement, la date du jour remplace celle du build : une date passée depuis n'est jamais affichée.
 import { onMount } from "svelte";
-import { CATEGORIES, CATEGORY_LABELS } from "../lib/bareme";
+import { CATEGORIES, CATEGORY_LABELS, formatNote } from "../lib/bareme";
 import {
 	applyFilters,
 	type CatalogueFilters,
 	type CatalogueRace,
+	COUNTRY_VALUES,
 	DEFAULT_FILTERS,
+	nextEvent,
 	parseFilters,
 	serializeFilters,
 } from "../lib/catalogue";
+import { COUNTRY_LABELS, formatEventDates, todayInParis } from "../lib/dates";
+import { withBase } from "../lib/paths";
 import Gauge from "./Gauge.svelte";
 
 interface Props {
 	races: CatalogueRace[];
+	/** Sous-dossier du site, pour les liens vers les fiches. */
+	base: string;
+	/** Date du build (AAAA-MM-JJ), remplacée par la date du jour dans le navigateur. */
+	buildDate: string;
 }
-const { races }: Props = $props();
+const { races, base, buildDate }: Props = $props();
 
 let filters = $state<CatalogueFilters>({ ...DEFAULT_FILTERS });
 let ready = $state(false);
-const visible = $derived(applyFilters(races, filters));
+let today = $state(buildDate);
+const visible = $derived(applyFilters(races, filters, today));
 
 const FORMAT_LABELS = {
 	solo: "Solo",
@@ -30,6 +40,7 @@ const FORMAT_LABELS = {
 
 onMount(() => {
 	filters = parseFilters(new URLSearchParams(window.location.search));
+	today = todayInParis();
 	ready = true;
 });
 
@@ -88,6 +99,19 @@ $effect(() => {
 		</label>
 
 		<label class="field">
+			Pays
+			<select
+				value={filters.pays ?? ""}
+				onchange={(event) => (filters.pays = (event.currentTarget.value || null) as CatalogueFilters["pays"])}
+			>
+				<option value="">Tous</option>
+				{#each COUNTRY_VALUES as code (code)}
+					<option value={code}>{COUNTRY_LABELS[code]}</option>
+				{/each}
+			</select>
+		</label>
+
+		<label class="field">
 			Trier par
 			<select
 				value={filters.tri}
@@ -102,6 +126,11 @@ $effect(() => {
 			<input type="checkbox" checked={filters.sansCourse} onchange={(event) => (filters.sansCourse = event.currentTarget.checked)} />
 			Sans course à pied
 		</label>
+
+		<label class="choice">
+			<input type="checkbox" checked={filters.dans3Mois} onchange={(event) => (filters.dans3Mois = event.currentTarget.checked)} />
+			Date dans les 3 mois
+		</label>
 	</form>
 {/if}
 
@@ -109,18 +138,24 @@ $effect(() => {
 
 <ul class="cards">
 	{#each visible as race (race.slug)}
+		{@const next = nextEvent(race, today)}
 		<li class="card">
 			<div class="head">
 				<div>
-					<h2>{race.nom}</h2>
+					<h2><a href={withBase(base, `/courses/${race.slug}/`)}>{race.nom}</a></h2>
 					<p class="meta">{race.organisateur} · {race.duree}</p>
 				</div>
-				<p class="global">
-					<span class="global-value">{race.noteGlobale ?? "?"}</span><span class="global-max">/5</span>
-					<span class="visually-hidden">de difficulté globale{race.noteGlobale === null ? ", à confirmer" : ""}</span>
-				</p>
+				{#if race.noteGlobale === null}
+					<p class="global pending">Note à venir — règlement non public</p>
+				{:else}
+					<p class="global">
+						<span class="global-value">{formatNote(race.noteGlobale)}</span><span class="global-max">/5</span>
+						<span class="visually-hidden">de difficulté globale</span>
+					</p>
+				{/if}
 			</div>
 			<div class="gauges">
+				<Gauge label="Globale" note={race.noteGlobale} />
 				{#each CATEGORIES as category (category)}
 					<Gauge label={CATEGORY_LABELS[category]} note={race.notes[category].note} />
 				{/each}
@@ -133,6 +168,13 @@ $effect(() => {
 					<li class="badge badge-obstacles">Course à obstacles</li>
 				{/if}
 			</ul>
+			{#if next}
+				<p class="next">
+					Prochaine date : <strong>{formatEventDates(next)}</strong> · {next.ville} ({COUNTRY_LABELS[next.pays]})
+				</p>
+			{:else}
+				<p class="next none">Pas de date annoncée</p>
+			{/if}
 		</li>
 	{:else}
 		<li class="empty">Aucune course ne correspond à ces filtres.</li>
@@ -223,6 +265,26 @@ $effect(() => {
 		margin-bottom: var(--space-1);
 	}
 
+	h2 a {
+		text-decoration: none;
+	}
+
+	/* Toute la carte est cliquable via le lien du titre. */
+	.card {
+		position: relative;
+	}
+
+	h2 a::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius);
+	}
+
+	h2 a:hover {
+		text-decoration: underline;
+	}
+
 	.meta {
 		margin: 0;
 		color: var(--color-text-muted);
@@ -235,6 +297,17 @@ $effect(() => {
 		font-weight: 800;
 		line-height: 1;
 		white-space: nowrap;
+	}
+
+	.global.pending {
+		max-width: 9rem;
+		font-family: var(--font-text);
+		font-weight: 600;
+		font-size: 0.875rem;
+		line-height: 1.3;
+		white-space: normal;
+		text-align: right;
+		color: var(--color-text-muted);
 	}
 
 	.global-value {
@@ -266,6 +339,15 @@ $effect(() => {
 		border-radius: 999px;
 		font-size: 0.875rem;
 		font-weight: 600;
+	}
+
+	.next {
+		margin: 0;
+		font-size: 0.875rem;
+	}
+
+	.next.none {
+		color: var(--color-text-muted);
 	}
 
 	.empty {

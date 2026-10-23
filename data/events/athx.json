@@ -1,0 +1,150 @@
+{
+	"source": "athx",
+	"verifieLe": "2026-10-23T17:20:00.199Z",
+	"courses": ["athx"],
+	"evenements": [
+		{
+			"course": "athx",
+			"date": "2027-01-23",
+			"dateFin": "2027-01-24",
+			"ville": "Londres",
+			"pays": "GB",
+			"lienInscription": "https://athxgames.com/events/01krwxxbqkjzzbhpdj52356qkc"
+		},
+		{
+			"course": "athx",
+			"date": "2027-02-13",
+			"dateFin": "2027-02-14",
+			"ville": "Paris",
+			"pays": "FR",
+			"lienInscription": "https://athxgames.com/events/01krwy3qs5q0357mrpx9b4qxtf"
+		},
+		{
+			"course": "athx",
+			"date": "2027-02-20",
+			"ville": "Valencia",
+			"pays": "ES",
+			"lienInscription": "https://athxgames.com/events/01krwy548m3x7bt4j8bvvmr8j8"
+		},
+		{
+			"course": "athx",
+			"date": "2027-03-06",
+			"dateFin": "2027-03-07",
+			"ville": "Milan",
+			"pays": "IT",
+			"lienInscription": "https://athxgames.com/events/01ktkx9y8tf4a4g88n2jrprvxb"
+		},
+		{
+			"course": "athx",
+			"date": "2027-03-20",
+			"ville": "Bruxelles",
+			"pays": "BE",
+			"lienInscription": "https://athxgames.com/events/01krwy5v1j0w519tw157rjf94m"
+		},
+		{
+			"course": "athx",
+			"date": "2027-04-10",
+			"ville": "Saint-Gall",
+			"pays": "CH",
+			"lienInscription": "https://athxgames.com/events/01krwy682mdagrw81v49eryjfh"
+		},
+		{
+			"course": "athx",
+			"date": "2027-04-17",
+			"ville": "Stuttgart",
+			"pays": "DE",
+			"lienInscription": "https://athxgames.com/events/01krwy6n4pfbcrvdntsnxx1ve5"
+		},
+		{
+			"course": "athx",
+			"date": "2027-05-08",
+			"dateFin": "2027-05-09",
+			"ville": "Madrid",
+			"pays": "ES",
+			"lienInscription": "https://athxgames.com/events/01krwy7hrp6bp8ndj7p1487n0n"
+		},
+		{
+			"course": "athx",
+			"date": "2027-05-22",
+			"ville": "Francfort",
+			"pays": "DE",
+			"lienInscription": "https://athxgames.com/events/01krwy8bb5rcgrnwpbcczzbray"
+		},
+		{
+			"course": "athx",
+			"date": "2027-05-28",
+			"dateFin": "2027-05-29",
+			"ville": "Montpellier",
+			"pays": "FR",
+			"lienInscription": "https://athxgames.com/events/01ktkxbvzg4bf5b0xp1vr4rgc9"
+		},
+		{
+			"course": "athx",
+			"date": "2027-06-05",
+			"dateFin": "2027-06-06",
+			"ville": "Glasgow",
+			"pays": "GB",
+			"lienInscription": "https://athxgames.com/events/01krwy8tkc67qrvhyxrkf7rr2a"
+		},
+		{
+			"course": "athx",
+			"date": "2027-08-14",
+			"dateFin": "2027-08-15",
+			"ville": "Berlin",
+			"pays": "DE",
+			"lienInscription": "https://athxgames.com/events/01krwybw82cd8h9reednq08rdy"
+		},
+		{
+			"course": "athx",
+			"date": "2027-08-20",
+			"dateFin": "2027-08-22",
+			"ville": "Birmingham",
+			"pays": "GB",
+			"lienInscription": "https://athxgames.com/events/01krwycnfs1czxhzqvvsqtcjhh"
+		},
+		{
+			"course": "athx",
+			"date": "2027-08-28",
+			"ville": "Hambourg",
+			"pays": "DE",
+			"lienInscription": "https://athxgames.com/events/01krwydvc664nvf2am0tdtkscp"
+		},
+		{
+			"course": "athx",
+			"date": "2027-09-04",
+			"ville": "Rome",
+			"pays": "IT",
+			"lienInscription": "https://athxgames.com/events/01m4r799gbhp53p6zjz8sayapk"
+		},
+		{
+			"course": "athx",
+			"date": "2027-09-10",
+			"dateFin": "2027-09-11",
+			"ville": "Marseille",
+			"pays": "FR",
+			"lienInscription": "https://athxgames.com/events/01krwye8tdjj9gscaw7xht2sme"
+		},
+		{
+			"course": "athx",
+			"date": "2027-09-25",
+			"ville": "Turin",
+			"pays": "IT",
+			"lienInscription": "https://athxgames.com/events/01krwyezkbkvf4rdk2em6nj7z4"
+		},
+		{
+			"course": "athx",
+			"date": "2027-10-09",
+			"dateFin": "2027-10-10",
+			"ville": "Liverpool",
+			"pays": "GB",
+			"lienInscription": "https://athxgames.com/events/01krwyfbxhpxxdyn42cas8bcd1"
+		},
+		{
+			"course": "athx",
+			"date": "2027-11-06",
+			"ville": "Bilbao",
+			"pays": "ES",
+			"lienInscription": "https://athxgames.com/events/01krwygz93demx24426v8p3xr5"
+		}
+	]
+}

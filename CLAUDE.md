@@ -60,6 +60,8 @@ Avant d'installer quoi que ce soit, vérifie la version actuelle et l'état de m
 | `npm run test:e2e` | Tests de parcours et d'accessibilité (Playwright + axe) |
 | `npm run validate:data` | Valide tous les fichiers de `data/` |
 | `npm run check:deprecated` | Échoue si une dépendance directe est dépréciée |
+| `npm run notes` | Tableau des notes calculées des 11 courses |
+| `node scripts/collect/run.ts` | Collecte réelle des dates (réseau) ; les tests, eux, lisent `fixtures/collect/` |
 
 Avant chaque commit : `npm run format`, puis vérifie le **code de sortie** de `npm run lint`, `npm test` et `npm run test:e2e` (ne masque jamais leur sortie au point de rater un échec).
 

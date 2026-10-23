@@ -29,6 +29,8 @@ npm run dev      # site en local sur http://localhost:4321/station-0/
 | `npm run format` | Corrige automatiquement le formatage |
 | `npm test` | Tests de logique (Vitest) |
 | `npm run test:e2e` | Tests de parcours et d'accessibilité (Playwright + axe) |
+| `node scripts/collect/run.ts` | Lance une collecte des dates (ATHX, Deadly Dozen) comme le robot de nuit |
+| `node scripts/collect/reminder.ts` | Affiche le texte du rappel mensuel des dates manuelles |
 | `npm run check:deprecated` | Échoue si une dépendance directe est dépréciée sur npm |
 
 La CI (`.github/workflows/ci.yml`) lance toutes ces vérifications, plus `npm audit`, à chaque Pull Request.
