@@ -1,0 +1,38 @@
+{
+	"source": "manuel",
+	"verifieLe": "2026-10-23T17:10:00+02:00",
+	"courses": ["hybrid-games"],
+	"evenements": [
+		{
+			"course": "hybrid-games",
+			"date": "2027-02-27",
+			"ville": "Liverpool",
+			"pays": "GB",
+			"lienInscription": "https://thehybridgames.com/events/liverpool/"
+		},
+		{
+			"course": "hybrid-games",
+			"date": "2027-05-29",
+			"dateFin": "2027-05-31",
+			"ville": "Newcastle",
+			"pays": "GB",
+			"lienInscription": "https://thehybridgames.com/events/newcastle-2027/"
+		},
+		{
+			"course": "hybrid-games",
+			"date": "2027-07-03",
+			"dateFin": "2027-07-04",
+			"ville": "Birmingham",
+			"pays": "GB",
+			"lienInscription": "https://thehybridgames.com/events/birmingham-2027/"
+		},
+		{
+			"course": "hybrid-games",
+			"date": "2027-10-29",
+			"dateFin": "2027-10-31",
+			"ville": "Glasgow",
+			"pays": "GB",
+			"lienInscription": "https://thehybridgames.com/events/glasgow/"
+		}
+	]
+}
