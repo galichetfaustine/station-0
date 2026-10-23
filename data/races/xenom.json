@@ -1,0 +1,86 @@
+{
+	"slug": "xenom",
+	"nom": "XENOM",
+	"organisateur": "XENOM",
+	"typeCourse": "hybride",
+	"siteOfficiel": "https://xenomfitness.com",
+	"categorieNotee": "Compete",
+	"formats": ["solo", "duo"],
+	"dureeMoyenneMin": 2880,
+	"dureeTexte": "2 jours (10 épreuves)",
+	"deroule": [
+		{
+			"type": "exercice",
+			"nom": "Épreuve 1 : snatch, 1 répétition maximale"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 2 : wall walks et montées de corde (AMRAP en échelle)"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 3 : air bike, calories maximales en 60 s"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 4 : barbell cycling"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 5 : SkiErg",
+			"volume": 2000,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 3000
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 6 : à annoncer"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 7 : toes-to-bar, hang snatch haltère, muscle-ups"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 8 : AMRAP burpees, SkiErg, air bike"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 9 : échelle de cleans lourds"
+		},
+		{
+			"type": "exercice",
+			"nom": "Épreuve 10 : handstand push-ups, tractions poitrine à la barre, fentes haltères"
+		}
+	],
+	"bareme": {
+		"partageEffort": 1,
+		"course": {
+			"distanceM": 3000
+		},
+		"force": {
+			"barre": "testMax"
+		},
+		"cardio": {
+			"ergoM": 2000,
+			"dureeEffortMin": null
+		},
+		"gym": null
+	},
+	"pourQui": "Pour les profils CrossFit qui veulent un décathlon complet sur deux jours : force maximale, gymnastique et endurance. La catégorie Compete allège les charges et les mouvements.",
+	"saison": "2026",
+	"sourceDates": "manuel",
+	"sources": [
+		"https://www.wodify.com/blog/xenom-decathlon-fitness-crossfit-competition",
+		"https://www.boxrox.com/?p=240818"
+	],
+	"remarques": [
+		"Aucun règlement officiel publié en ligne : épreuves relevées dans la presse spécialisée (catégorie Elite).",
+		"Catégorie Compete : « mouvements allégés et charges plus légères », sans détail publié ; la note gym est donc à confirmer.",
+		"Course : 3 km de l'épreuve 5 (les autres épreuves n'en comptent pas d'après la liste publiée).",
+		"Force : l'épreuve 1 est un test de charge maximale, quelle que soit la catégorie."
+	]
+}

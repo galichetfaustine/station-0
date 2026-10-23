@@ -21,15 +21,6 @@ export const UNITES = [
 	"secondes",
 ] as const;
 
-/** Équipement le plus lourd de la catégorie notée, pour la note de force (§5). */
-export const EQUIPEMENTS_FORCE = [
-	"aucun",
-	"sledLeger",
-	"sledLourd",
-	"barreSousMax",
-	"testMax",
-] as const;
-
 /** Mouvements du barème gym / agilité (§5), du plus simple au plus technique. */
 export const MOUVEMENTS_GYM = [
 	"marcher",
@@ -48,6 +39,12 @@ export const MOUVEMENTS_GYM = [
 	"obstaclesTechniques",
 ] as const;
 
+/** Une valeur par catégorie de genre : la catégorie notée a des charges différentes. */
+const parGenre = z.strictObject({
+	homme: z.number().min(0),
+	femme: z.number().min(0),
+});
+
 const segmentCourse = z.strictObject({
 	type: z.literal("course"),
 	distanceM: z.int().positive(),
@@ -57,23 +54,52 @@ const segmentExercice = z.strictObject({
 	type: z.literal("exercice"),
 	nom: z.string().min(1),
 	/** Absent pour un mouvement au poids du corps. */
-	chargeKg: z.number().positive().optional(),
-	volume: z.number().positive(),
-	unite: z.enum(UNITES),
+	chargeKg: parGenre.optional(),
+	/** Absents quand le volume n'est pas fixé (ex. « distance maximale en 24 min »). */
+	volume: z.number().positive().optional(),
+	unite: z.enum(UNITES).optional(),
 });
 
-/** Données brutes du barème (§5) : les notes en sont calculées, jamais saisies. */
+/**
+ * Données brutes du barème (§5), relevées dans le règlement : les notes en sont calculées,
+ * jamais saisies. Une catégorie vaut null quand l'information est introuvable
+ * (la raison est alors expliquée dans « remarques »).
+ */
 const bareme = z.strictObject({
-	/** Nombre d'athlètes qui se partagent la distance et le volume (1 en solo, 2 en duo…). */
+	/** Nombre d'athlètes qui se partagent les stations (1 en solo, 2 en duo…). Divise les mètres d'ergo. */
 	partageEffort: z.int().min(1),
-	course: z.strictObject({ distanceM: z.int().min(0) }),
-	force: z.strictObject({
-		chargeMaxKg: z.number().min(0),
-		equipement: z.enum(EQUIPEMENTS_FORCE),
-	}),
-	cardio: z.strictObject({ ergoM: z.int().min(0) }),
-	gym: z.strictObject({ mouvementLePlusTechnique: z.enum(MOUVEMENTS_GYM) }),
+	/** Distance courue par chaque athlète, d'après le règlement (en duo, chacun court souvent tout). */
+	course: z.strictObject({ distanceM: z.int().min(0) }).nullable(),
+	force: z
+		.strictObject({
+			/** Charge libre la plus lourde (kettlebell, haltère, sandbag, disque, pierre…), par main si portée à deux mains. */
+			chargeLibreMaxKg: parGenre.optional(),
+			/** Poids total du sled (sled compris), absent s'il n'y a pas de sled. */
+			sledKg: parGenre.optional(),
+			barre: z.enum(["aucune", "sousMax", "testMax"]),
+		})
+		.nullable(),
+	cardio: z
+		.strictObject({
+			/** Mètres cumulés de rameur, SkiErg et air bike, avant partage ; null si non fixé. */
+			ergoM: z.int().min(0).nullable(),
+			/** Durée d'effort réelle, hors pauses et récupération ; null si inconnue. */
+			dureeEffortMin: z.int().positive().nullable(),
+		})
+		.refine(
+			(cardio) => cardio.ergoM !== null || cardio.dureeEffortMin !== null,
+			{
+				error:
+					"au moins une donnée de cardio est nécessaire (sinon, mets cardio à null)",
+			},
+		)
+		.nullable(),
+	gym: z
+		.strictObject({ mouvementLePlusTechnique: z.enum(MOUVEMENTS_GYM) })
+		.nullable(),
 });
+
+export type Bareme = z.infer<typeof bareme>;
 
 export const raceSchema = z.strictObject({
 	slug,
@@ -85,9 +111,13 @@ export const raceSchema = z.strictObject({
 	categorieNotee: z.string().min(1),
 	formats: z.array(z.enum(FORMATS)).min(1),
 	dureeMoyenneMin: z.int().positive(),
-	deroule: z
-		.array(z.discriminatedUnion("type", [segmentCourse, segmentExercice]))
-		.min(1),
+	/** Durée affichée quand les minutes ne suffisent pas (« 2 jours », « 2 h 30 avec récupération »). */
+	dureeTexte: z.string().min(1).optional(),
+	/** true quand dureeMoyenneMin est une estimation (affichée « environ »). */
+	dureeEstimee: z.boolean().optional(),
+	deroule: z.array(
+		z.discriminatedUnion("type", [segmentCourse, segmentExercice]),
+	),
 	bareme,
 	notes: z
 		.never({
@@ -97,9 +127,11 @@ export const raceSchema = z.strictObject({
 	pourQui: z.string().min(1),
 	saison: z
 		.string()
-		.regex(/^\d{4}\/\d{2}$/, "saison attendue au format 2026/27"),
+		.regex(/^\d{4}(\/\d{2})?$/, "saison attendue au format 2026/27 ou 2027"),
 	sourceDates: z.union([z.literal("manuel"), slug]),
 	sources: z.array(z.url()).min(1),
+	/** Informations introuvables, estimations et réserves, en clair. */
+	remarques: z.array(z.string().min(1)).optional(),
 });
 
 export type Race = z.infer<typeof raceSchema>;
@@ -176,3 +208,40 @@ export const exerciseSchema = z.strictObject({
 export const exerciseBankSchema = z.array(exerciseSchema);
 
 export type Exercise = z.infer<typeof exerciseSchema>;
+
+// --- Configuration du barème (data/config/bareme.json) ---
+
+/** Palier : la note est atteinte si la valeur est ≥ min (ou > plusDe). */
+const palier = z.union([
+	z.strictObject({ note: z.int().min(1).max(5), min: z.number() }),
+	z.strictObject({ note: z.int().min(1).max(5), plusDe: z.number() }),
+]);
+
+export const baremeConfigSchema = z.strictObject({
+	/** Charges utilisées pour la note de force : celles des hommes ou des femmes. */
+	chargeReference: z.enum(["homme", "femme"]),
+	course: z.strictObject({ distanceM: z.array(palier) }),
+	force: z.strictObject({
+		chargeLibreKg: z.array(palier),
+		sledLourdKgMin: z.number().positive(),
+		noteSledLeger: z.int().min(1).max(5),
+		noteSledLourd: z.int().min(1).max(5),
+		noteBarreSousMax: z.int().min(1).max(5),
+		noteTestMax: z.int().min(1).max(5),
+	}),
+	cardio: z.strictObject({
+		ergoM: z.array(palier),
+		dureeEffortMin: z.array(palier),
+	}),
+	gym: z.strictObject({
+		mouvements: z.record(z.enum(MOUVEMENTS_GYM), z.int().min(1).max(5)),
+	}),
+	globale: z.strictObject({
+		dureeCourteMoinsDe: z.number(),
+		ajustementCourt: z.number(),
+		dureeLonguePlusDe: z.number(),
+		ajustementLong: z.number(),
+	}),
+});
+
+export type BaremeConfig = z.infer<typeof baremeConfigSchema>;

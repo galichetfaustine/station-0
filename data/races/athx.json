@@ -1,0 +1,123 @@
+{
+	"slug": "athx",
+	"nom": "ATHX Games",
+	"organisateur": "ATHX",
+	"typeCourse": "hybride",
+	"siteOfficiel": "https://athxgames.com",
+	"categorieNotee": "ATHX individuel (la catégorie Lite n'existe qu'en paires)",
+	"formats": ["solo", "duo"],
+	"dureeMoyenneMin": 150,
+	"dureeTexte": "2 h 30 avec récupération",
+	"deroule": [
+		{
+			"type": "exercice",
+			"nom": "Shoulder to overhead : 1 répétition maximale (1RM)"
+		},
+		{
+			"type": "exercice",
+			"nom": "Back squat : 2 répétitions maximales (2RM)"
+		},
+		{
+			"type": "exercice",
+			"nom": "Deadlift : 3 répétitions maximales (3RM), 2 tentatives"
+		},
+		{
+			"type": "course",
+			"distanceM": 3000
+		},
+		{
+			"type": "exercice",
+			"nom": "SkiErg en distance maximale jusqu'à la fin des 24 min"
+		},
+		{
+			"type": "exercice",
+			"nom": "Rameur (45 cal hommes / 35 cal femmes)",
+			"volume": 45,
+			"unite": "calories"
+		},
+		{
+			"type": "exercice",
+			"nom": "Dumbbell ground to overhead",
+			"chargeKg": {
+				"homme": 20,
+				"femme": 12.5
+			},
+			"volume": 30,
+			"unite": "repetitions"
+		},
+		{
+			"type": "exercice",
+			"nom": "Développé couché haltères",
+			"chargeKg": {
+				"homme": 20,
+				"femme": 12.5
+			},
+			"volume": 30,
+			"unite": "repetitions"
+		},
+		{
+			"type": "exercice",
+			"nom": "Squats sandbag",
+			"chargeKg": {
+				"homme": 50,
+				"femme": 30
+			},
+			"volume": 30,
+			"unite": "repetitions"
+		},
+		{
+			"type": "exercice",
+			"nom": "Sandbag carry",
+			"chargeKg": {
+				"homme": 50,
+				"femme": 30
+			},
+			"volume": 30,
+			"unite": "metres"
+		},
+		{
+			"type": "exercice",
+			"nom": "Burpees par-dessus un banc",
+			"volume": 30,
+			"unite": "repetitions"
+		},
+		{
+			"type": "exercice",
+			"nom": "Rameur (45 cal hommes / 35 cal femmes)",
+			"volume": 45,
+			"unite": "calories"
+		}
+	],
+	"bareme": {
+		"partageEffort": 1,
+		"course": {
+			"distanceM": 3000
+		},
+		"force": {
+			"chargeLibreMaxKg": {
+				"homme": 50,
+				"femme": 30
+			},
+			"barre": "testMax"
+		},
+		"cardio": {
+			"ergoM": null,
+			"dureeEffortMin": 69
+		},
+		"gym": {
+			"mouvementLePlusTechnique": "burpees"
+		}
+	},
+	"pourQui": "Pour qui aime la force autant que le cardio : la course commence par des tests de charge maximale. Un format long, découpé en zones avec des pauses.",
+	"saison": "2027",
+	"sourceDates": "athx",
+	"sources": [
+		"https://athxgames.com/workouts/2027",
+		"https://athxgames.com/new-to-athx-games"
+	],
+	"remarques": [
+		"Durée d'effort : somme des temps limites des 3 épreuves (20 + 24 + 25 min) ; l'événement dure 2 h 30 avec l'échauffement et les récupérations.",
+		"Volume d'ergo non fixé : SkiErg en distance maximale et rameur en calories.",
+		"Les épreuves changent à chaque saison (épreuves 2027 retenues)."
+	]
+}

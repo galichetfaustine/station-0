@@ -6,9 +6,5 @@ export const SITE = {
 	lang: "fr",
 } as const;
 
-/** Entrées de la navigation principale (US0.4). */
-export const NAV = [
-	{ label: "Courses", path: "/courses/" },
-	{ label: "Quiz", path: "/quiz/" },
-	{ label: "WOD", path: "/wod/" },
-] as const;
+/** Entrées de la navigation principale : uniquement les pages qui existent déjà (Quiz au Lot 2, WOD au Lot 3). */
+export const NAV = [{ label: "Courses", path: "/courses/" }] as const;

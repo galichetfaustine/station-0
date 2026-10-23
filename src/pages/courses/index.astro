@@ -1,9 +1,31 @@
 ---
+import BaremeConfigJson from "../../../data/config/bareme.json";
 import BaseLayout from "../../components/BaseLayout.astro";
+import Catalogue from "../../components/Catalogue.svelte";
+import { toCatalogueRace } from "../../lib/catalogue";
+import { baremeConfigSchema, raceSchema } from "../../lib/schemas";
+
+const config = baremeConfigSchema.parse(BaremeConfigJson);
+const files = import.meta.glob("../../../data/races/*.json", {
+	eager: true,
+	import: "default",
+});
+const races = Object.values(files).map((data) =>
+	toCatalogueRace(raceSchema.parse(data), config),
+);
 ---
 
-<!-- Page provisoire : le gabarit de navigation existe avant la fonctionnalité. -->
-<BaseLayout title="Courses">
+<BaseLayout title="Courses" description="Compare 11 courses hybrides : difficulté notée par catégorie, formats et durée.">
 	<h1>Courses</h1>
-	<p>Le catalogue des courses arrive au Lot 1.</p>
+	<p class="intro">
+		11 courses notées de 1 à 5 sur la course à pied, la force, le cardio et la gym, à partir de leur règlement.
+	</p>
+	<Catalogue client:load races={races} />
 </BaseLayout>
+
+<style>
+	.intro {
+		max-width: 40rem;
+		color: var(--color-text-muted);
+	}
+</style>

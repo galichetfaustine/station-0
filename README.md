@@ -22,8 +22,9 @@ npm run dev      # site en local sur http://localhost:4321/station-0/
 | --- | --- |
 | `npm run dev` | Site en local, rechargé à chaque modification |
 | `npm run build` | Valide les données, vérifie les types puis construit le site dans `dist/` |
+| `npm run notes` | Affiche les notes calculées des 11 courses et leurs justifications |
 | `npm run validate:data` | Vérifie tous les fichiers de `data/` (un message par champ fautif) |
-| `npm run check:types` | Vérifie les types seuls |
+| `npm run check:types` | Vérifie les types (Astro et Svelte) |
 | `npm run lint` | Vérifie le style et la qualité du code (Biome) |
 | `npm run format` | Corrige automatiquement le formatage |
 | `npm test` | Tests de logique (Vitest) |

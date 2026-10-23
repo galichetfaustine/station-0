@@ -17,8 +17,12 @@ const race = {
 	bareme: {
 		partageEffort: 1,
 		course: { distanceM: 8000 },
-		force: { chargeMaxKg: 152, equipement: "sledLourd" },
-		cardio: { ergoM: 2000 },
+		force: {
+			chargeLibreMaxKg: { homme: 24, femme: 16 },
+			sledKg: { homme: 152, femme: 102 },
+			barre: "aucune",
+		},
+		cardio: { ergoM: 2000, dureeEffortMin: 90 },
 		gym: { mouvementLePlusTechnique: "wallBalls" },
 	},
 	pourQui: "Pour qui court déjà 5 km.",
@@ -153,10 +157,12 @@ describe("validateDataFiles", () => {
 		it("vérifie le format de la saison", () => {
 			const errors = errorsWith("data/races/hyrox-open.json", {
 				...race,
-				saison: "2026",
+				saison: "26/27",
 			});
 			expect(errors).toContainEqual(
-				expect.stringContaining("→ saison : saison attendue au format 2026/27"),
+				expect.stringContaining(
+					"→ saison : saison attendue au format 2026/27 ou 2027",
+				),
 			);
 		});
 	});
