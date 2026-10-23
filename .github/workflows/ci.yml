@@ -1,0 +1,59 @@
+# Intégration continue (US0.2) : à chaque Pull Request et à chaque fusion sur main.
+# Une étape en échec rend la Pull Request rouge, et la protection de main bloque alors la fusion.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Un nouveau commit sur la même branche annule la vérification précédente, devenue inutile.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ASTRO_TELEMETRY_DISABLED: "1"
+
+jobs:
+  verifier:
+    name: Vérifications
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Lint et formatage (Biome)
+        run: npm run lint
+
+      - name: Types (astro check)
+        run: npm run check:types
+
+      - name: Tests de logique (Vitest)
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Installer le navigateur des tests de parcours
+        run: npx playwright install --with-deps chromium
+
+      - name: Tests de parcours et d'accessibilité (Playwright + axe)
+        run: npm run test:e2e
+
+      - name: Audit de sécurité (failles hautes ou critiques)
+        run: npm audit --audit-level=high
+
+      - name: Dépendances dépréciées
+        run: npm run check:deprecated
