@@ -5,13 +5,13 @@ import {
 	CATEGORIES,
 	CATEGORY_LABELS,
 	computeNotes,
+	formatNote,
 } from "../src/lib/bareme.ts";
 import { baremeConfigSchema, raceSchema } from "../src/lib/schemas.ts";
 
 const config = baremeConfigSchema.parse(
 	JSON.parse(readFileSync("data/config/bareme.json", "utf8")),
 );
-const show = (note: number | null) => (note === null ? "?" : String(note));
 
 for (const file of readdirSync("data/races").filter((name) =>
 	name.endsWith(".json"),
@@ -25,12 +25,12 @@ for (const file of readdirSync("data/races").filter((name) =>
 		config,
 	);
 	console.log(
-		`\n${race.nom} — globale ${show(globale.note)}/5 (${globale.justification})`,
+		`\n${race.nom} — globale ${formatNote(globale.note)}/5 (${globale.justification})`,
 	);
 	for (const category of CATEGORIES) {
 		const { note, justification } = categories[category];
 		console.log(
-			`  ${CATEGORY_LABELS[category].padEnd(14)} ${show(note)}  ${justification}`,
+			`  ${CATEGORY_LABELS[category].padEnd(14)} ${formatNote(note)}  ${justification}`,
 		);
 	}
 }

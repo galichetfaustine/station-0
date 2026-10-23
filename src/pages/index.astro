@@ -1,23 +1,114 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
+import { formatNote } from "../lib/bareme";
+import { mostAccessible, toCatalogueRace } from "../lib/catalogue";
+import { todayInParis } from "../lib/dates";
+import { withBase } from "../lib/paths";
+import { baremeConfig, events, races } from "../lib/races-data";
 import { SITE } from "../lib/site";
+
+const base = import.meta.env.BASE_URL;
+const buildDate = todayInParis();
+const catalogue = races.map((race) =>
+	toCatalogueRace(race, baremeConfig, events, buildDate),
+);
+const starters = mostAccessible(catalogue, 3, buildDate);
 ---
 
 <BaseLayout>
 	<section class="hero">
 		<h1>{SITE.name}</h1>
 		<p class="tagline">{SITE.tagline}</p>
+		<p class="pitch">
+			HYROX, DEKA, ATHX, Deadly Dozen… {races.length} courses hybrides comparées sur 4 critères lisibles : course à pied,
+			force, cardio et gym, notés de 1 à 5 d'après leur règlement.
+		</p>
+		<a class="button" href={withBase(base, "/courses/")}>Voir les courses</a>
+	</section>
+
+	<section aria-labelledby="debuter">
+		<h2 id="debuter">Par où commencer ?</h2>
+		<p class="muted">Les courses les plus accessibles du catalogue.</p>
+		<ul class="starters">
+			{
+				starters.map((race) => (
+					<li>
+						<a href={withBase(base, `/courses/${race.slug}/`)}>
+							<span class="name">{race.nom}</span>
+							<span class="note">
+								{formatNote(race.noteGlobale)}
+								<span class="max">/5</span>
+							</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<p><a href={withBase(base, "/methode/")}>Comment on note</a></p>
 	</section>
 </BaseLayout>
 
 <style>
 	.hero {
-		padding-block: var(--space-5);
+		padding-block: var(--space-4) var(--space-5);
 	}
 
 	.tagline {
+		max-width: 34rem;
+		font-size: 1.5rem;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.pitch {
+		max-width: 36rem;
+		color: var(--color-text-muted);
+	}
+
+	h2 {
+		font-size: 2rem;
+	}
+
+	.muted {
+		color: var(--color-text-muted);
+	}
+
+	.starters {
+		display: grid;
+		gap: var(--space-2);
 		max-width: 32rem;
-		font-size: 1.25rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	.starters a {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		min-height: var(--tap-min);
+		padding: var(--space-3);
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius);
+		background: var(--color-surface);
+		text-decoration: none;
+	}
+
+	.starters a:hover .name {
+		text-decoration: underline;
+	}
+
+	.name {
+		font-weight: 600;
+	}
+
+	.note {
+		font-family: var(--font-title);
+		font-weight: 800;
+		font-size: 1.75rem;
+	}
+
+	.max {
+		font-size: 1rem;
 		color: var(--color-text-muted);
 	}
 </style>

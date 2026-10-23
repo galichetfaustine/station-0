@@ -1,0 +1,410 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import Gauge from "../../components/Gauge.svelte";
+import {
+	CATEGORIES,
+	CATEGORY_LABELS,
+	computeNotes,
+	formatNote,
+} from "../../lib/bareme";
+import { formatDuration } from "../../lib/catalogue";
+import {
+	COUNTRY_LABELS,
+	formatCheckedOn,
+	formatEventDates,
+	lastChecked,
+	todayInParis,
+	upcomingEvents,
+} from "../../lib/dates";
+import { withBase } from "../../lib/paths";
+import {
+	FORMAT_LABELS,
+	formatSegment,
+	registrationLabel,
+	siteName,
+} from "../../lib/race-page";
+import { baremeConfig, eventFiles, events, races } from "../../lib/races-data";
+import type { Race } from "../../lib/schemas";
+
+export function getStaticPaths() {
+	return races.map((race) => ({
+		params: { slug: race.slug },
+		props: { race },
+	}));
+}
+
+interface Props {
+	race: Race;
+}
+
+const { race } = Astro.props;
+const { categories, globale } = computeNotes(
+	race.bareme,
+	race.dureeMoyenneMin,
+	baremeConfig,
+);
+const base = import.meta.env.BASE_URL;
+const pendingNote = "Note à venir — règlement non public";
+// Jusqu'à 6 dates sont envoyées : le navigateur retire les dates passées depuis le build et garde les 3 premières.
+const upcoming = upcomingEvents(events, race.slug, todayInParis()).slice(0, 6);
+const checkedOn = lastChecked(eventFiles, race.slug);
+---
+
+<BaseLayout title={race.nom} description={race.pourQui}>
+	<!-- 1. En-tête -->
+	<header class="band hero">
+		<p class="organizer">{race.organisateur}</p>
+		<h1>{race.nom}</h1>
+		<div class="hero-facts">
+			{
+				globale.note === null ? (
+					<p class="global pending">{pendingNote}</p>
+				) : (
+					<p class="global">
+						<span class="global-value">{formatNote(globale.note)}</span>
+						<span class="global-max">/5</span>
+						<span class="global-label">difficulté globale</span>
+					</p>
+				)
+			}
+			<ul class="badges" aria-label="Formats de participation">
+				{race.formats.map((format) => <li class={format === "solo" ? "badge" : "badge-duo"}>{FORMAT_LABELS[format]}</li>)}
+				{race.typeCourse === "obstacles" && <li class="badge">Course à obstacles</li>}
+			</ul>
+			<p class="duration">Durée : {formatDuration(race)}</p>
+		</div>
+	</header>
+
+	<!-- 2. Pour qui ? et déroulé -->
+	<section aria-labelledby="pour-qui">
+		<h2 id="pour-qui">Pour qui ?</h2>
+		<p class="lead">{race.pourQui}</p>
+
+		<h3>Le déroulé</h3>
+		{
+			race.deroule.length === 0 ? (
+				<p>Épreuves annoncées pour chaque événement : pas de déroulé fixe publié.</p>
+			) : (
+				<ol class="steps">
+					{race.deroule.map((segment) => (
+						<li class={segment.type}>{formatSegment(segment)}</li>
+					))}
+				</ol>
+			)
+		}
+		<p class="muted">Catégorie notée : {race.categorieNotee}. Saison {race.saison}.</p>
+	</section>
+
+	<!-- 3. Les 4 catégories notées -->
+	<section aria-labelledby="difficulte">
+		<h2 id="difficulte">Difficulté</h2>
+		<ul class="notes">
+			{
+				CATEGORIES.map((category) => {
+					const { note, justification } = categories[category];
+					return (
+						<li>
+							<Gauge label={CATEGORY_LABELS[category]} note={note} />
+							<details>
+								<summary>Pourquoi {formatNote(note)}/5 ?</summary>
+								<p>{justification}</p>
+							</details>
+						</li>
+					);
+				})
+			}
+			<li>
+				<Gauge label="Globale" note={globale.note} />
+				<details>
+					<summary>{globale.note === null ? "Pourquoi pas de note ?" : `Pourquoi ${formatNote(globale.note)}/5 ?`}</summary>
+					<p>{globale.note === null ? `${pendingNote}. ${globale.justification}.` : globale.justification}</p>
+				</details>
+			</li>
+		</ul>
+		<p><a href={withBase(base, "/methode/")}>Comment on note</a></p>
+	</section>
+
+	<!-- 4. Prochaines dates -->
+	<section aria-labelledby="dates" class="dates">
+		<h2 id="dates">Prochaines dates</h2>
+		<ul class="events" data-max="3">
+			{
+				upcoming.map((event, index) => (
+					<li data-end={event.dateFin ?? event.date} hidden={index >= 3}>
+						<span class="when">{formatEventDates(event)}</span>
+						<span class="where">
+							{event.ville} ({COUNTRY_LABELS[event.pays]})
+						</span>
+						<a href={event.lienInscription} target="_blank" rel="noopener">
+							{race.siteOfficiel === "https://hyrox.com" ? "Inscriptions sur hyrox.com" : "S'inscrire"}
+							<span class="visually-hidden">
+								{" "}
+								à {race.nom}, {event.ville}
+							</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<p class="no-date" hidden={upcoming.length > 0}>Pas de date annoncée.</p>
+		<p class="muted">
+			{checkedOn ? `Dates vérifiées le ${formatCheckedOn(checkedOn)}.` : "Dates pas encore vérifiées."}
+		</p>
+		<p>
+			<a class="button" href={race.siteOfficiel} target="_blank" rel="noopener">{registrationLabel(race)}</a>
+		</p>
+	</section>
+
+	<!-- 5. Site officiel et sources -->
+	<section aria-labelledby="sources">
+		<h2 id="sources">Site officiel et sources</h2>
+		<ul class="links">
+			<li><a href={race.siteOfficiel} target="_blank" rel="noopener">Site officiel : {siteName(race.siteOfficiel)}</a></li>
+			{
+				race.sources.map((source) => (
+					<li>
+						<a href={source} target="_blank" rel="noopener">
+							Règlement ou source consultée : {siteName(source)}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		{
+			race.remarques && race.remarques.length > 0 && (
+				<>
+					<h3>À savoir</h3>
+					<ul class="remarks">
+						{race.remarques.map((remarque) => (
+							<li>{remarque}</li>
+						))}
+					</ul>
+				</>
+			)
+		}
+	</section>
+
+	<!-- 6 et 7. Liens vers le générateur (Lot 3) et le quiz (Lot 2) -->
+	<section aria-labelledby="ensuite" class="next">
+		<h2 id="ensuite">Et ensuite ?</h2>
+		<p>Essayer un WOD inspiré de cette course : bientôt disponible, avec le générateur de séances.</p>
+		<p>Pas sûr que ce soit pour toi ? Le quiz d'orientation arrive bientôt.</p>
+	</section>
+</BaseLayout>
+
+<script>
+	// Filet de sécurité (§6) : masque une date passée si la dernière reconstruction du site a échoué.
+	import { todayInParis } from "../../lib/dates";
+
+	const today = todayInParis();
+	for (const list of document.querySelectorAll<HTMLUListElement>(".events")) {
+		const max = Number(list.dataset.max ?? 3);
+		const items = [...list.querySelectorAll<HTMLLIElement>("li")].filter((item) => {
+			const past = (item.dataset.end ?? "") < today;
+			if (past) item.remove();
+			return !past;
+		});
+		items.forEach((item, index) => {
+			item.hidden = index >= max;
+		});
+		const empty = list.parentElement?.querySelector<HTMLElement>(".no-date");
+		if (empty) empty.hidden = items.length > 0;
+	}
+</script>
+
+<style>
+	.hero {
+		margin-inline: calc(-1 * var(--space-3));
+		margin-top: calc(-1 * var(--space-4));
+		padding: var(--space-5) var(--space-3) var(--space-4);
+		border-radius: 0 0 var(--radius) var(--radius);
+	}
+
+	.organizer {
+		margin: 0 0 var(--space-2);
+		font-weight: 600;
+	}
+
+	.hero-facts {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-3);
+	}
+
+	.global {
+		margin: 0;
+		font-family: var(--font-title);
+		font-weight: 800;
+		line-height: 1;
+	}
+
+	.global-value {
+		font-size: 4rem;
+	}
+
+	.global-max {
+		font-size: 1.5rem;
+	}
+
+	.global-label {
+		display: block;
+		font-family: var(--font-text);
+		font-size: 0.875rem;
+		font-weight: 600;
+	}
+
+	.global.pending {
+		font-family: var(--font-text);
+		font-size: 1rem;
+		font-weight: 600;
+	}
+
+	.badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	.badge {
+		padding: var(--space-1) var(--space-2);
+		border: 1px solid currentColor;
+		border-radius: 999px;
+		font-size: 0.875rem;
+		font-weight: 600;
+	}
+
+	.duration {
+		margin: 0;
+		font-weight: 600;
+	}
+
+	section {
+		padding-block: var(--space-4);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	h2 {
+		font-size: 2rem;
+	}
+
+	h3 {
+		font-size: 1.25rem;
+		margin-top: var(--space-4);
+	}
+
+	.lead {
+		max-width: 40rem;
+		font-size: 1.125rem;
+	}
+
+	.steps {
+		display: grid;
+		gap: var(--space-1);
+		padding-left: 1.75rem;
+	}
+
+	.steps .course {
+		color: var(--color-text-muted);
+	}
+
+	.muted {
+		color: var(--color-text-muted);
+		font-size: 0.875rem;
+	}
+
+	.notes {
+		display: grid;
+		gap: var(--space-3);
+		padding: 0;
+		list-style: none;
+	}
+
+	summary {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		cursor: pointer;
+		font-weight: 600;
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	details p {
+		margin: 0 0 var(--space-2);
+		color: var(--color-text-muted);
+	}
+
+	.links,
+	.remarks {
+		display: grid;
+		gap: var(--space-2);
+		padding-left: 1.25rem;
+	}
+
+	.links a {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+	}
+
+	.remarks {
+		color: var(--color-text-muted);
+		font-size: 0.875rem;
+	}
+
+	.next {
+		border-bottom: 0;
+	}
+
+	.events {
+		display: grid;
+		gap: var(--space-2);
+		padding: 0;
+		list-style: none;
+	}
+
+	.events li {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-1) var(--space-3);
+		align-items: center;
+		padding: var(--space-3);
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius);
+		background: var(--color-surface);
+	}
+
+	.events li[hidden] {
+		display: none;
+	}
+
+	.when {
+		font-weight: 700;
+	}
+
+	.where {
+		grid-column: 1;
+		color: var(--color-text-muted);
+	}
+
+	.events a {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+</style>

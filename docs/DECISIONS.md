@@ -44,10 +44,24 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **`svelte-check`** ajouté à `check:types` (outil officiel Svelte, dev uniquement). | `astro check` ne vérifie pas les fichiers `.svelte`. |
 | 2026-10-23 | Schéma de course : charges par genre, sled à part, barre (`sousMax`, `testMax`), durée d'effort, catégories `null` si introuvables, `dureeTexte`, `dureeEstimee`, `remarques` ; déroulé vide autorisé ; saison « 2027 » acceptée. | Coller aux règlements relevés sans deviner (US1.1). |
 | 2026-10-23 | Filtres « pays » et « date dans les 3 mois » et tri par prochaine date : livrés avec l'affichage des dates (US1.4). | Ils dépendent des dates (US1.6). |
+| 2026-10-23 | **Note globale arrondie au demi-point** (et non à l'entier) ; la jauge affiche les demi-pastilles. | Revue des notes par Faustine. SPECS §5. |
+| 2026-10-23 | **En duo, la note cardio ne compte que le volume d'ergo par athlète**, sans la durée : HYROX Doubles passe à cardio 3. | Revue des notes. SPECS §5. |
+| 2026-10-23 | **Turf Games et XENOM** : « Note à venir — règlement non public » dans le catalogue, exclus du classement du quiz tant qu'une note manque. | Revue des notes. SPECS §4, §5, §7. |
+| 2026-10-23 | **Les 10 précisions de calcul du barème sont validées** (bornes, distance complète par athlète en duo, charges hommes, sled lourd ≥ 100 kg, charge libre ≥ 30 kg → 3, cardio = max sauf en duo, DEKA gym 2, Spartan obstacles simples, durées estimées, notes « ? »). | Revue des notes. SPECS §5 corrigé. |
+| 2026-10-23 | **Résultats de référence** testés : HYROX 4, ATHX 4, Hybrid Games 4, Spartan Sprint 4, HYROX Doubles 3,5, Deadly Dozen 3,5, DEKA FIT 3, DEKA MILE 2,5, DEKA STRONG 2. | Garde-fou contre toute régression du barème. |
+| 2026-10-23 | **Fiche course** : blocs 6 (WOD) et 7 (quiz) affichés « bientôt disponible », sans lien, tant que le générateur (Lot 3) et le quiz (Lot 2) n'existent pas ; bloc 4 « Pas de date annoncée » jusqu'à US1.4. | Pas de lien vers une page qui n'existe pas (même règle que l'en-tête). |
+| 2026-10-23 | **Page « Comment on note »** (`/methode/`) générée depuis `data/config/bareme.json`, liée depuis le catalogue et chaque fiche (pas depuis l'en-tête, réservé à Courses, Quiz, WOD). | Critère d'US1.2, oublié dans la PR #10. |
+| 2026-10-23 | La fiche affiche les **remarques** de la course (« À savoir ») et tous les liens de règlement consultés. | Transparence sur les estimations et les infos manquantes. |
+| 2026-10-23 | **Priorité de la saisie manuelle** : elle remplace les dates collectées de la même course **dans la même ville** ; une ville nouvelle s'ajoute. | La spec ne disait pas comment reconnaître « la même » date ; règle proposée, à valider. SPECS §6. |
+| 2026-10-23 | **Champ `courses`** dans chaque fichier de dates : les courses couvertes par la source. | Afficher « Dates vérifiées le… » même pour une course sans date (XENOM). SPECS §4. |
+| 2026-10-23 | **Dates manuelles initiales** = relevés de l'étude US0.6 (59 dates) ; les dates HYROX valent pour Open solo et Doubles (mêmes événements) ; lien HYROX vers l'accueil. | Consigne de Faustine (US1.6). |
+| 2026-10-23 | **Affichage des dates** : fenêtre de 18 mois aussi à l'affichage ; un événement sur plusieurs jours reste visible jusqu'à son dernier jour ; la fiche reçoit jusqu'à 6 dates et le navigateur garde les 3 premières encore à venir. | « Une date passée n'apparaît jamais, même si la dernière reconstruction a échoué » (US1.4). |
+| 2026-10-23 | **Date du jour à l'heure de Paris** (`Europe/Paris`), au build comme dans le navigateur. | Cible France ; évite un décalage d'un jour autour de minuit. |
+| 2026-10-23 | **Lien d'inscription par date** : « Inscriptions sur hyrox.com » (accueil) pour HYROX, « S'inscrire » vers la page de l'événement pour les autres. | Décision n° 2 de la revue du Lot 0. |
 
 ## Points ouverts
 
 | Depuis | Sujet | À traiter |
 | --- | --- | --- |
-| 2026-10-23 | **Précisions de calcul du barème** (SPECS §5) : bornes, distance par athlète en duo, charges hommes, sled lourd ≥ 100 kg, cardio = max(ergo, durée d'effort), catégories inconnues. | Revue de la PR US1.1 + US1.2 |
 | 2026-10-23 | **Turf Games et XENOM** : notes en partie « à confirmer » (aucun règlement détaillé public ; guides Turf bloqués lors de la vérification). | Lot 1 |
+| 2026-10-23 | **Budget JavaScript de la page Courses : ~49 Ko** avant compression (~18 Ko compressé), dont 39 Ko de runtime Svelte : au ras des 50 Ko. Préciser si le budget s'entend compressé ou non ; sinon, prévoir d'alléger avant d'ajouter des fonctions à l'îlot. | Lot 4 (performance) |
