@@ -32,11 +32,22 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Pas de source tierce** (RoxRadar…) pour contourner une interdiction d'organisateur. | Ce serait contourner l'interdiction de HYROX, avec un intermédiaire fragile en plus. |
 | 2026-10-23 | **Un passage par source et par nuit** (specs §6), et non « une requête » comme l'écrivait CLAUDE.md : quelques requêtes espacées et un cache sont permis. CLAUDE.md aligné en US0.7. | Les specs l'emportent sur CLAUDE.md ; Deadly Dozen demande une requête par pays. |
 | 2026-10-23 | **ADR** de D2 (Svelte) et D3 (GitHub Pages + Actions) dans `docs/adr/`. | US0.7. |
+| 2026-10-23 | **Objectif d'automatisation validé : 2 sur 11** (ATHX, Deadly Dozen), 9 courses en saisie manuelle. | Validé par Faustine (revue du Lot 0). |
+| 2026-10-23 | **Liens HYROX uniquement vers la page d'accueil** de hyrox.com, avec la mention « Inscriptions sur hyrox.com ». | CGU HYROX art. 7.4. |
+| 2026-10-23 | **D4** : le robot de collecte contourne la protection de `main` ; à défaut, PR fusionnée automatiquement si la CI est verte. | Le robot valide ses données avant d'écrire. Mise en place en US1.5. |
+| 2026-10-23 | **`dureeMoyenneMin` reste obligatoire** ; estimation sourcée pour Deadly Dozen et The Hybrid Games, affichée « environ » sur la fiche. | Validé par Faustine. |
+| 2026-10-23 | **Deadly Dozen = format « Track Race » (12 × 400 m) uniquement.** | Le site propose aussi Sprint, Gross, Hybrid, Ultra. |
+| 2026-10-23 | **XENOM gardée**, saisie manuelle, « Pas de date annoncée » tant que rien n'est confirmé ; site officiel xenomfitness.com. | Validé par Faustine. |
+| 2026-10-23 | **The Hybrid Games** : site thehybridgames.com, formats solo et duo, pas de relais. | Page « race format » officielle. |
+| 2026-10-23 | **Rappel mensuel automatique** (ticket GitHub) pour revoir les dates manuelles. | Mise en place en US1.5. |
+| 2026-10-23 | **En-tête : uniquement les pages existantes** (Courses) ; pages provisoires Quiz et WOD supprimées. | Consigne de Faustine (Lot 1). |
+| 2026-10-23 | **`svelte-check`** ajouté à `check:types` (outil officiel Svelte, dev uniquement). | `astro check` ne vérifie pas les fichiers `.svelte`. |
+| 2026-10-23 | Schéma de course : charges par genre, sled à part, barre (`sousMax`, `testMax`), durée d'effort, catégories `null` si introuvables, `dureeTexte`, `dureeEstimee`, `remarques` ; déroulé vide autorisé ; saison « 2027 » acceptée. | Coller aux règlements relevés sans deviner (US1.1). |
+| 2026-10-23 | Filtres « pays » et « date dans les 3 mois » et tri par prochaine date : livrés avec l'affichage des dates (US1.4). | Ils dépendent des dates (US1.6). |
 
 ## Points ouverts
 
 | Depuis | Sujet | À traiter |
 | --- | --- | --- |
-| 2026-10-23 | **D4 contre la protection de `main`.** La collecte de nuit doit commiter sur `main`, que la protection interdit aux envois directs. Options : autoriser le robot à contourner la règle, ou passer par une PR fusionnée automatiquement quand la CI est verte. | Lot 1 (US1.5) |
-| 2026-10-23 | **Demander l'autorisation à Spartan** (4 courses d'un coup) **et/ou à HYROX** ? | Avant US1.5 |
-| 2026-10-23 | **Liens vers hyrox.com** : les CGU HYROX (art. 7.4) n'autorisent que des liens vers la page d'accueil, alors que la fiche course prévoit un lien d'inscription. | Avant US1.3 |
+| 2026-10-23 | **Précisions de calcul du barème** (SPECS §5) : bornes, distance par athlète en duo, charges hommes, sled lourd ≥ 100 kg, cardio = max(ergo, durée d'effort), catégories inconnues. | Revue de la PR US1.1 + US1.2 |
+| 2026-10-23 | **Turf Games et XENOM** : notes en partie « à confirmer » (aucun règlement détaillé public ; guides Turf bloqués lors de la vérification). | Lot 1 |

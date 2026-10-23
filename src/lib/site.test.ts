@@ -12,7 +12,7 @@ describe("SITE", () => {
 });
 
 describe("NAV", () => {
-	it("propose Courses, Quiz et WOD dans cet ordre", () => {
-		expect(NAV.map((item) => item.label)).toEqual(["Courses", "Quiz", "WOD"]);
+	it("ne montre que les pages qui existent : Courses", () => {
+		expect(NAV.map((item) => item.label)).toEqual(["Courses"]);
 	});
 });

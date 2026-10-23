@@ -1,6 +1,7 @@
 // Validation de tous les fichiers de data/ (US0.5) : chaque erreur nomme le fichier et le champ fautif.
 import type * as z from "zod";
 import {
+	baremeConfigSchema,
 	type Exercise,
 	eventFileSchema,
 	exerciseBankSchema,
@@ -105,6 +106,9 @@ export function validateDataFiles(files: DataFile[]): string[] {
 					slug: event.course,
 				});
 			});
+		} else if (path === "data/config/bareme.json") {
+			const result = baremeConfigSchema.safeParse(data);
+			if (!result.success) errors.push(...formatIssues(path, result.error));
 		} else if (path === "data/exercises.json") {
 			const result = exerciseBankSchema.safeParse(data);
 			if (!result.success) {

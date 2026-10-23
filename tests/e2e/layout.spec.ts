@@ -4,8 +4,6 @@ import { expect, test } from "@playwright/test";
 const pages = [
 	{ path: "./", title: "Station 0" },
 	{ path: "courses/", title: "Courses" },
-	{ path: "quiz/", title: "Quiz" },
-	{ path: "wod/", title: "WOD" },
 ];
 
 for (const colorScheme of ["dark", "light"] as const) {
@@ -42,17 +40,17 @@ test("le thème suit le réglage du téléphone : sombre par défaut, clair si d
 	expect(await background("light")).toBe("rgb(247, 246, 243)");
 });
 
-test("l'en-tête mène à Courses, Quiz et WOD, et signale la page en cours", async ({
+test("l'en-tête ne montre que les pages existantes et signale la page en cours", async ({
 	page,
 }) => {
 	await page.goto("./");
 	const nav = page.getByRole("navigation", { name: "Navigation principale" });
-	await expect(nav.getByRole("link")).toHaveText(["Courses", "Quiz", "WOD"]);
+	await expect(nav.getByRole("link")).toHaveText(["Courses"]);
 
-	await nav.getByRole("link", { name: "Quiz" }).click();
-	await expect(page).toHaveURL(/\/station-0\/quiz\/$/);
-	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quiz");
-	await expect(nav.getByRole("link", { name: "Quiz" })).toHaveAttribute(
+	await nav.getByRole("link", { name: "Courses" }).click();
+	await expect(page).toHaveURL(/\/station-0\/courses\/$/);
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Courses");
+	await expect(nav.getByRole("link", { name: "Courses" })).toHaveAttribute(
 		"aria-current",
 		"page",
 	);

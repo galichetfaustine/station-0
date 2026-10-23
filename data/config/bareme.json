@@ -1,0 +1,57 @@
+{
+	"chargeReference": "homme",
+	"course": {
+		"distanceM": [
+			{ "note": 2, "plusDe": 0 },
+			{ "note": 3, "min": 2000 },
+			{ "note": 4, "min": 5000 },
+			{ "note": 5, "min": 8000 }
+		]
+	},
+	"force": {
+		"chargeLibreKg": [{ "note": 2, "min": 10 }, { "note": 3, "min": 16 }],
+		"sledLourdKgMin": 100,
+		"noteSledLeger": 3,
+		"noteSledLourd": 4,
+		"noteBarreSousMax": 4,
+		"noteTestMax": 5
+	},
+	"cardio": {
+		"ergoM": [
+			{ "note": 2, "plusDe": 0 },
+			{ "note": 3, "min": 1000 },
+			{ "note": 4, "min": 2000 },
+			{ "note": 5, "min": 3000 }
+		],
+		"dureeEffortMin": [
+			{ "note": 2, "min": 20 },
+			{ "note": 3, "min": 40 },
+			{ "note": 4, "min": 60 },
+			{ "note": 5, "plusDe": 90 }
+		]
+	},
+	"gym": {
+		"mouvements": {
+			"marcher": 1,
+			"porter": 1,
+			"burpees": 2,
+			"fentes": 2,
+			"wallBalls": 2,
+			"boxJumps": 3,
+			"bearCrawl": 3,
+			"snatchHaltere": 3,
+			"tractions": 4,
+			"toesToBar": 4,
+			"obstaclesSimples": 4,
+			"muscleUp": 5,
+			"handstandPushUp": 5,
+			"obstaclesTechniques": 5
+		}
+	},
+	"globale": {
+		"dureeCourteMoinsDe": 30,
+		"ajustementCourt": -0.5,
+		"dureeLonguePlusDe": 90,
+		"ajustementLong": 0.5
+	}
+}

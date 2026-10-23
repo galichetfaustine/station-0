@@ -1,0 +1,33 @@
+{
+	"slug": "turf-games",
+	"nom": "Turf Games",
+	"organisateur": "Turf Games",
+	"typeCourse": "hybride",
+	"siteOfficiel": "https://turfgames.com",
+	"categorieNotee": "Everyday",
+	"formats": ["equipe"],
+	"dureeMoyenneMin": 480,
+	"dureeTexte": "Une journée (4 épreuves en équipe)",
+	"dureeEstimee": true,
+	"deroule": [],
+	"bareme": {
+		"partageEffort": 6,
+		"course": null,
+		"force": null,
+		"cardio": null,
+		"gym": null
+	},
+	"pourQui": "Pour vivre une journée de compétition en équipe de 6 (3 femmes, 3 hommes), dans une ambiance festival. Le niveau Everyday est pensé pour les débutants.",
+	"saison": "2026/27",
+	"sourceDates": "manuel",
+	"sources": [
+		"https://turfgames.com/blogs/other/dubai-2026-division-guidance",
+		"https://turfgames.com/blogs/news/singapore-2026-division-guidance"
+	],
+	"remarques": [
+		"Épreuves annoncées par festival, peu avant l'événement : aucun déroulé fixe publié.",
+		"Guide officiel 2026 : niveau Everyday en 4 épreuves, équipes mixtes de 6, pas de muscle-up, de handstand push-up ni de handstand walk ; exemple de charge : haltère de 15 kg (hommes) / 10 kg (femmes).",
+		"Distances de course, volume d'ergo, charges et mouvements complets introuvables : les 4 notes sont à confirmer.",
+		"Guides officiels bloqués lors de la vérification (erreur 429) : à relire au prochain passage."
+	]
+}

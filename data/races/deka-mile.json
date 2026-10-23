@@ -1,0 +1,168 @@
+{
+	"slug": "deka-mile",
+	"nom": "DEKA MILE",
+	"organisateur": "Spartan DEKA",
+	"typeCourse": "hybride",
+	"siteOfficiel": "https://www.spartan.com/en/deka",
+	"categorieNotee": "Hommes 14+ / Femmes 14+",
+	"formats": ["solo", "duo"],
+	"dureeMoyenneMin": 30,
+	"deroule": [
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Fentes arrière alternées lestées (RAM)",
+			"chargeKg": {
+				"homme": 25,
+				"femme": 15
+			},
+			"volume": 30,
+			"unite": "repetitions"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Rameur",
+			"volume": 500,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Box step ou jump over (60 cm)",
+			"volume": 20,
+			"unite": "repetitions"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Sit-up au medball",
+			"chargeKg": {
+				"homme": 9,
+				"femme": 6
+			},
+			"volume": 25,
+			"unite": "repetitions"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "SkiErg",
+			"volume": 500,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Farmers carry (par main)",
+			"chargeKg": {
+				"homme": 27.5,
+				"femme": 17.5
+			},
+			"volume": 100,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Air bike",
+			"volume": 25,
+			"unite": "calories"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Dead ball par-dessus l'épaule",
+			"chargeKg": {
+				"homme": 27.5,
+				"femme": 17.5
+			},
+			"volume": 20,
+			"unite": "repetitions"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Sled magnétique push/pull",
+			"volume": 100,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 160
+		},
+		{
+			"type": "exercice",
+			"nom": "Burpees lestés (RAM)",
+			"chargeKg": {
+				"homme": 20,
+				"femme": 10
+			},
+			"volume": 20,
+			"unite": "repetitions"
+		}
+	],
+	"bareme": {
+		"partageEffort": 1,
+		"course": {
+			"distanceM": 1600
+		},
+		"force": {
+			"chargeLibreMaxKg": {
+				"homme": 27.5,
+				"femme": 17.5
+			},
+			"sledKg": {
+				"homme": 73,
+				"femme": 73
+			},
+			"barre": "aucune"
+		},
+		"cardio": {
+			"ergoM": 1000,
+			"dureeEffortMin": 30
+		},
+		"gym": {
+			"mouvementLePlusTechnique": "burpees"
+		}
+	},
+	"pourQui": "Pour qui court peu mais veut goûter au format hybride : seulement 1,6 km de course. Un bon premier pas, en solo ou à deux.",
+	"saison": "2026/27",
+	"sourceDates": "manuel",
+	"sources": [
+		"https://assets.ctfassets.net/1bk7n9wtl2gh/3kCAsJlEH4JsJuZ1M1erjK/a839a2f1784db6becb3d4c1f72317b61/DEKA_Rules_of_Competition_v20260210.pdf",
+		"https://www.spartan.com/en/deka"
+	],
+	"remarques": [
+		"Sled magnétique : le règlement impose 73 kg ajoutés sur le Xebex (résistance 8 hommes / 7 femmes) ; 73 kg est retenu comme poids du sled.",
+		"Box : le pas par-dessus (step over) est autorisé, les box jumps ne sont donc pas obligatoires ; le mouvement le plus technique exigé est le burpee lesté.",
+		"Air bike (25 calories) non compté dans les mètres d'ergo : le barème compte des mètres."
+	]
+}

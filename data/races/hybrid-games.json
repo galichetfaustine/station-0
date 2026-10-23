@@ -1,0 +1,177 @@
+{
+	"slug": "hybrid-games",
+	"nom": "The Hybrid Games",
+	"organisateur": "The Hybrid Games",
+	"typeCourse": "hybride",
+	"siteOfficiel": "https://thehybridgames.com",
+	"categorieNotee": "Solo (Femmes / Hommes)",
+	"formats": ["solo", "duo"],
+	"dureeMoyenneMin": 80,
+	"dureeEstimee": true,
+	"deroule": [
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Air bike",
+			"volume": 50,
+			"unite": "calories"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Wall balls",
+			"chargeKg": {
+				"homme": 6,
+				"femme": 4
+			},
+			"volume": 100,
+			"unite": "repetitions"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Rameur",
+			"volume": 1000,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Burpee broad jumps",
+			"volume": 80,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Snatch haltère",
+			"chargeKg": {
+				"homme": 17.5,
+				"femme": 12.5
+			},
+			"volume": 50,
+			"unite": "repetitions"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Fentes",
+			"chargeKg": {
+				"homme": 20,
+				"femme": 10
+			},
+			"volume": 100,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Farmers carry (par main)",
+			"chargeKg": {
+				"homme": 24,
+				"femme": 16
+			},
+			"volume": 200,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Sled pull",
+			"chargeKg": {
+				"homme": 105,
+				"femme": 80
+			},
+			"volume": 60,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "SkiErg",
+			"volume": 1000,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 600
+		},
+		{
+			"type": "exercice",
+			"nom": "Sled push",
+			"chargeKg": {
+				"homme": 135,
+				"femme": 100
+			},
+			"volume": 60,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 200
+		}
+	],
+	"bareme": {
+		"partageEffort": 1,
+		"course": {
+			"distanceM": 6200
+		},
+		"force": {
+			"chargeLibreMaxKg": {
+				"homme": 24,
+				"femme": 16
+			},
+			"sledKg": {
+				"homme": 135,
+				"femme": 100
+			},
+			"barre": "aucune"
+		},
+		"cardio": {
+			"ergoM": 2000,
+			"dureeEffortMin": 80
+		},
+		"gym": {
+			"mouvementLePlusTechnique": "snatchHaltere"
+		}
+	},
+	"pourQui": "Pour qui a aimé HYROX ou veut une variante avec des courses plus courtes (600 m) et plus de stations techniques. Uniquement au Royaume-Uni pour l'instant.",
+	"saison": "2026/27",
+	"sourceDates": "manuel",
+	"sources": [
+		"https://thehybridgames.com/race-format/",
+		"https://hybridfitnessmedia.com/2025/11/23/the-hybrid-games-london-results/"
+	],
+	"remarques": [
+		"Durée estimée à environ 80 min : les vainqueurs de Londres 2025 finissent en 53 min (hommes) et 64 min (femmes), et le format est proche de HYROX (moyenne d'environ 1 h 30) avec 1,8 km de course en moins.",
+		"Air bike (50 calories) non compté dans les mètres d'ergo.",
+		"En doubles, la page officielle indique 100 snatchs au lieu de 50 (erreur possible, non vérifiable)."
+	]
+}

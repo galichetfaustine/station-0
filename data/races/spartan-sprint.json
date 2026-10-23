@@ -1,0 +1,58 @@
+{
+	"slug": "spartan-sprint",
+	"nom": "Spartan Sprint",
+	"organisateur": "Spartan Race",
+	"typeCourse": "obstacles",
+	"siteOfficiel": "https://www.spartan.com",
+	"categorieNotee": "Open",
+	"formats": ["solo", "equipe"],
+	"dureeMoyenneMin": 90,
+	"deroule": [
+		{
+			"type": "course",
+			"distanceM": 5000
+		},
+		{
+			"type": "exercice",
+			"nom": "20 obstacles le long du parcours : murs, monkey bars, barbelés, lancer de javelot, portés (pierre, seau, sandbag)"
+		},
+		{
+			"type": "exercice",
+			"nom": "Pénalité : burpees par obstacle raté",
+			"volume": 30,
+			"unite": "repetitions"
+		}
+	],
+	"bareme": {
+		"partageEffort": 1,
+		"course": {
+			"distanceM": 5000
+		},
+		"force": {
+			"chargeLibreMaxKg": {
+				"homme": 45,
+				"femme": 35
+			},
+			"barre": "aucune"
+		},
+		"cardio": {
+			"ergoM": 0,
+			"dureeEffortMin": 90
+		},
+		"gym": {
+			"mouvementLePlusTechnique": "obstaclesSimples"
+		}
+	},
+	"pourQui": "Pour qui préfère la nature à la salle : 5 km de trail et 20 obstacles à franchir. Une course cousine, à part des formats hybrides en salle.",
+	"saison": "2026/27",
+	"sourceDates": "manuel",
+	"sources": [
+		"https://be.spartan.com/nl/blog/different-spartan-race-types",
+		"https://www.spartan.com/en/races/carcassonne"
+	],
+	"remarques": [
+		"Obstacles et charges variables selon le site ; pierre (Atlas) de 45 kg hommes / 35 kg femmes d'après les pages de course Spartan.",
+		"Monkey bars et murs classés « obstacles simples » ; une montée de corde, si présente, pourrait justifier « obstacles techniques ».",
+		"Durée : « ~1 h 30 » d'après les specs."
+	]
+}

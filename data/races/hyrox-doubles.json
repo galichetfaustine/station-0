@@ -1,0 +1,147 @@
+{
+	"slug": "hyrox-doubles",
+	"nom": "HYROX Doubles",
+	"organisateur": "HYROX",
+	"typeCourse": "hybride",
+	"siteOfficiel": "https://hyrox.com",
+	"categorieNotee": "Doubles Femmes / Hommes / Mixtes",
+	"formats": ["duo"],
+	"dureeMoyenneMin": 80,
+	"dureeEstimee": true,
+	"deroule": [
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "SkiErg",
+			"volume": 1000,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "Sled push",
+			"chargeKg": {
+				"homme": 152,
+				"femme": 102
+			},
+			"volume": 50,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "Sled pull",
+			"chargeKg": {
+				"homme": 103,
+				"femme": 78
+			},
+			"volume": 50,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "Burpee broad jumps",
+			"volume": 80,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "Rameur",
+			"volume": 1000,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "Farmers carry (par main)",
+			"chargeKg": {
+				"homme": 24,
+				"femme": 16
+			},
+			"volume": 200,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "Fentes avec sandbag",
+			"chargeKg": {
+				"homme": 20,
+				"femme": 10
+			},
+			"volume": 100,
+			"unite": "metres"
+		},
+		{
+			"type": "course",
+			"distanceM": 1000
+		},
+		{
+			"type": "exercice",
+			"nom": "Wall balls",
+			"chargeKg": {
+				"homme": 6,
+				"femme": 4
+			},
+			"volume": 100,
+			"unite": "repetitions"
+		}
+	],
+	"bareme": {
+		"partageEffort": 2,
+		"course": {
+			"distanceM": 8000
+		},
+		"force": {
+			"chargeLibreMaxKg": {
+				"homme": 24,
+				"femme": 16
+			},
+			"sledKg": {
+				"homme": 152,
+				"femme": 102
+			},
+			"barre": "aucune"
+		},
+		"cardio": {
+			"ergoM": 2000,
+			"dureeEffortMin": 80
+		},
+		"gym": {
+			"mouvementLePlusTechnique": "wallBalls"
+		}
+	},
+	"pourQui": "Pour découvrir HYROX à deux : chacun court les 8 km, mais les stations se partagent. Le bon format pour une première course avec un binôme de niveau proche.",
+	"saison": "2026/27",
+	"sourceDates": "manuel",
+	"sources": [
+		"https://hyroxfrance.com/wp-content/uploads/2026/07/26_27_HYROX_RulebookDoubles_FR_210726.pdf"
+	],
+	"remarques": [
+		"Le règlement Doubles impose que chaque athlète coure les 8 km ; seules les stations sont partagées.",
+		"Durée estimée à 80 min (« un peu moins que le solo » d'après les specs) : aucune moyenne officielle trouvée."
+	]
+}

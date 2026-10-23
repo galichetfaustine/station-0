@@ -32,7 +32,7 @@ Chaque fiche course propose « Essayer un WOD inspiré de cette course », et ch
 **Critères de succès V1** (vérifiables sans analytics) :
 
 - 11 courses publiées avec barème justifié et au moins une date à venir ou la mention « pas de date annoncée ».
-- Au moins 2 courses sur 11 mises à jour automatiquement (ATHX, Deadly Dozen). Objectif révisé après l'étude des sources du Lot 0 (`docs/sources-dates.md`) : HYROX et Spartan interdisent la collecte dans leurs conditions d'utilisation. 6 sur 11 si Spartan l'autorise, 8 sur 11 avec HYROX en plus.
+- Au moins 2 courses sur 11 mises à jour automatiquement (ATHX, Deadly Dozen), objectif validé ; les 9 autres en saisie manuelle. Objectif révisé après l'étude des sources du Lot 0 (`docs/sources-dates.md`) : HYROX et Spartan interdisent la collecte dans leurs conditions d'utilisation. 6 sur 11 si Spartan l'autorise, 8 sur 11 avec HYROX en plus.
 - Quiz terminé en moins de 90 secondes, WOD généré en 1 clic.
 - Lighthouse ≥ 95 en performance et accessibilité sur mobile.
 
@@ -62,14 +62,14 @@ Le catalogue compare 11 formats de course, pas 11 marques : HYROX solo et HYROX 
 | --- | --- | --- | --- | --- | --- |
 | 1 | [HYROX](https://hyrox.com) — Open solo | 8 × 1 km de course, chacun suivi d'une station (SkiErg, sled push, sled pull, burpee broad jumps, rameur, farmers carry, fentes sandbag, wall balls) | 1 h – 1 h 30 | Solo | Nice, Paris, Toulouse, Lyon sur la saison 2026/27 |
 | 2 | HYROX — Doubles | Même parcours, course à deux, stations partagées | Un peu moins que le solo | Duo | Idem |
-| 3 | [DEKA](https://www.deka.fit) FIT | 10 zones, 500 m de course avant chacune (5 km) | \~50 min | Solo, équipe | Espagne surtout, Royaume-Uni ; France rare |
-| 4 | DEKA MILE | 10 zones, 160 m avant chacune (1 mile) | \~30 min | Solo, équipe | Idem |
-| 5 | DEKA STRONG | 10 zones enchaînées, sans course | \~20 min | Solo | Idem |
+| 3 | [DEKA](https://www.spartan.com/en/deka) FIT | 10 zones, 500 m de course avant chacune (5 km) | \~50 min | Solo, duo, équipe de 4 | Espagne surtout, Royaume-Uni ; France rare |
+| 4 | DEKA MILE | 10 zones, 160 m avant chacune (1 mile) | \~30 min | Solo, duo | Idem |
+| 5 | DEKA STRONG | 10 zones enchaînées, sans course | \~20 min | Solo, duo | Idem |
 | 6 | ATHX Games | 6 zones sur \~2 h 30 : force (squat, deadlift, press), endurance, metcon | \~2 h 30 (avec récupération) | Solo, duo | Paris (avril 2026), Marseille (sept. 2026) ; 21 étapes annoncées en 2027 |
-| 7 | [Deadly Dozen](https://www.deadlydozen.com) | 12 × 400 m sur piste, chacun suivi d'un exercice kettlebell, haltère, disque ou poids du corps | À mesurer | Solo, duo, relais 4 | Allemagne, Suisse, Autriche, Italie, Royaume-Uni, Irlande |
-| 8 | The Hybrid Games | 10 × 600 m + 10 stations + sprint final de 200 m | À mesurer | À vérifier | Royaume-Uni |
+| 7 | [Deadly Dozen](https://www.deadlydozen.com) | Format « Track Race » uniquement : 12 × 400 m sur piste, chacun suivi d'un exercice kettlebell, haltère, disque ou poids du corps | Environ 1 h 10 (estimation) | Solo, duo, relais 4 | Allemagne, Suisse, Autriche, Italie, Royaume-Uni, Irlande |
+| 8 | [The Hybrid Games](https://thehybridgames.com) | 10 × 600 m + 10 stations + sprint final de 200 m | Environ 1 h 20 (estimation) | Solo, duo (pas de relais) | Royaume-Uni |
 | 9 | [Turf Games](https://turfgames.com) | Festival par équipe de 6, 4 à 5 workouts par niveau (Everyday, Intermediate, Elite) | Une journée | Équipe de 6 | Royaume-Uni |
-| 10 | XENOM | « Décathlon du fitness » : 10 épreuves fixes sur 2 jours, catégorie Compete accessible | 2 jours | Solo | Paris annoncé, date à venir |
+| 10 | [XENOM](https://xenomfitness.com) | « Décathlon du fitness » : 10 épreuves fixes sur 2 jours, catégorie Compete accessible | 2 jours | Solo, duo | Paris annoncé, « Pas de date annoncée » tant que rien n'est confirmé |
 | 11 | Spartan Sprint (cousine, course à obstacles) | 5 km de trail et 20 obstacles (porter, grimper, se suspendre), 30 burpees de pénalité par obstacle raté | \~1 h 30 | Solo, équipe | Jablines (sept.), Carcassonne (mai), Morzine (juillet), Estérel (oct.) |
 
 ### Page catalogue
@@ -87,7 +87,7 @@ Spartan Sprint porte un badge « Course à obstacles » ; un filtre « Type : hy
 2. « Pour qui ? » en 2 phrases, puis le déroulé de la course (liste des stations dans l'ordre).
 3. Les 4 catégories notées de 1 à 5, chacune avec un « Pourquoi 3/5 ? » qui affiche les données du barème.
 4. Les 3 prochaines dates en France et pays proches, avec ville, pays et lien d'inscription ; mention « Dates vérifiées le … ».
-5. Lien vers le site officiel.
+5. Lien vers le site officiel. Pour HYROX, les liens (site et inscriptions) pointent uniquement vers la page d'accueil de hyrox.com, avec la mention « Inscriptions sur hyrox.com » (art. 7.4 de leurs conditions d'utilisation).
 6. Bouton « Essayer un WOD inspiré de cette course » (générateur pré-réglé).
 7. Lien « Pas sûr que ce soit pour toi ? Fais le quiz ».
 
@@ -131,6 +131,16 @@ Chaque note de 1 à 5 est calculée par le code à partir de données mesurables
 **Transparence.** La fiche course affiche, pour chaque note, la donnée qui l'a produite (ex. « Course 4/5 : 8 km au total »). Une page « Comment on note » reprend ce tableau.
 
 **Exemple attendu** (à valider par toi, tu connais la course) : HYROX Open solo → course 5 (8 km), force 4 (sled), cardio 4 (2 000 m d'ergo, 60–90 min), gym 2 (burpees, fentes, wall balls) → globale 4.
+
+**Précisions de calcul (US1.2, proposées, à valider à la revue).** Seuils dans `data/config/bareme.json`, calcul dans `src/lib/bareme.ts` :
+
+- **Bornes** : chaque palier commence à sa valeur basse (2 km, 5 km et 8 km donnent 3, 4 et 5), pour retrouver l'exemple HYROX (8 km → 5). « Plus de 90 min » est strict : 90 min donnent 4.
+- **Duo et équipe** : la distance de course retenue est celle que **chaque athlète** court d'après le règlement (en HYROX Doubles et en paires Deadly Dozen, chacun court tout) ; seuls les mètres d'ergo sont divisés par `partageEffort`.
+- **Force** : charges de la catégorie **hommes** par défaut (`chargeReference`) ; sled lourd à partir de **100 kg** (sled compris) ; une charge libre de 30 kg ou plus, absente du tableau, reste à 3.
+- **Cardio** : la plus haute des deux notes (mètres d'ergo, durée d'effort). La durée d'effort (`bareme.cardio.dureeEffortMin`) est distincte de la durée affichée (ATHX : 69 min d'effort pour 2 h 30 sur place). L'air bike en calories n'est pas converti en mètres.
+- **Information introuvable** : la catégorie vaut `null`, s'affiche « ? » et la note globale est « à confirmer » ; une remarque l'explique dans le fichier de la course.
+- **Arrondi** de la note globale : à l'entier le plus proche, x,5 vers le haut.
+
 
 ## 6. Récupération automatique des dates
 
@@ -181,6 +191,8 @@ Détail, citations des conditions d'utilisation et exemples de données dans `do
 - Une saisie manuelle est toujours prioritaire sur une donnée collectée (pour corriger une erreur sans toucher au code).
 - Chaque passage enregistre sa date de vérification, affichée sur la fiche. Cette écriture quotidienne garde aussi le dépôt actif : GitHub désactive les tâches planifiées d'un dépôt public après 60 jours sans activité.
 - Côté navigateur, un petit script masque une date déjà passée, au cas où la dernière reconstruction aurait échoué.
+- **Commit du robot (D4)** : le robot de collecte est autorisé à contourner la protection de `main`, puisqu'il valide ses données avant d'écrire. Si ce n'est pas possible sur un dépôt personnel, il ouvre une PR fusionnée automatiquement quand la CI est verte.
+- **Rappel mensuel** : un ticket GitHub est ouvert automatiquement chaque mois pour revoir les dates saisies à la main (9 courses sur 11).
 
 ## 7. F2 — Quiz d'orientation
 
