@@ -49,6 +49,9 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Turf Games et XENOM** : « Note à venir — règlement non public » dans le catalogue, exclus du classement du quiz tant qu'une note manque. | Revue des notes. SPECS §4, §5, §7. |
 | 2026-10-23 | **Les 10 précisions de calcul du barème sont validées** (bornes, distance complète par athlète en duo, charges hommes, sled lourd ≥ 100 kg, charge libre ≥ 30 kg → 3, cardio = max sauf en duo, DEKA gym 2, Spartan obstacles simples, durées estimées, notes « ? »). | Revue des notes. SPECS §5 corrigé. |
 | 2026-10-23 | **Résultats de référence** testés : HYROX 4, ATHX 4, Hybrid Games 4, Spartan Sprint 4, HYROX Doubles 3,5, Deadly Dozen 3,5, DEKA FIT 3, DEKA MILE 2,5, DEKA STRONG 2. | Garde-fou contre toute régression du barème. |
+| 2026-10-23 | **Fiche course** : blocs 6 (WOD) et 7 (quiz) affichés « bientôt disponible », sans lien, tant que le générateur (Lot 3) et le quiz (Lot 2) n'existent pas ; bloc 4 « Pas de date annoncée » jusqu'à US1.4. | Pas de lien vers une page qui n'existe pas (même règle que l'en-tête). |
+| 2026-10-23 | **Page « Comment on note »** (`/methode/`) générée depuis `data/config/bareme.json`, liée depuis le catalogue et chaque fiche (pas depuis l'en-tête, réservé à Courses, Quiz, WOD). | Critère d'US1.2, oublié dans la PR #10. |
+| 2026-10-23 | La fiche affiche les **remarques** de la course (« À savoir ») et tous les liens de règlement consultés. | Transparence sur les estimations et les infos manquantes. |
 
 ## Points ouverts
 

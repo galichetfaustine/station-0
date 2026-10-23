@@ -10,12 +10,15 @@ import {
 	parseFilters,
 	serializeFilters,
 } from "../lib/catalogue";
+import { withBase } from "../lib/paths";
 import Gauge from "./Gauge.svelte";
 
 interface Props {
 	races: CatalogueRace[];
+	/** Sous-dossier du site, pour les liens vers les fiches. */
+	base: string;
 }
-const { races }: Props = $props();
+const { races, base }: Props = $props();
 
 let filters = $state<CatalogueFilters>({ ...DEFAULT_FILTERS });
 let ready = $state(false);
@@ -112,7 +115,7 @@ $effect(() => {
 		<li class="card">
 			<div class="head">
 				<div>
-					<h2>{race.nom}</h2>
+					<h2><a href={withBase(base, `/courses/${race.slug}/`)}>{race.nom}</a></h2>
 					<p class="meta">{race.organisateur} · {race.duree}</p>
 				</div>
 				{#if race.noteGlobale === null}
@@ -226,6 +229,26 @@ $effect(() => {
 	h2 {
 		font-size: 1.75rem;
 		margin-bottom: var(--space-1);
+	}
+
+	h2 a {
+		text-decoration: none;
+	}
+
+	/* Toute la carte est cliquable via le lien du titre. */
+	.card {
+		position: relative;
+	}
+
+	h2 a::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius);
+	}
+
+	h2 a:hover {
+		text-decoration: underline;
 	}
 
 	.meta {
