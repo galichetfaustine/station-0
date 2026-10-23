@@ -1,12 +1,7 @@
 // Dates des courses (§6) : fusion des dates collectées et des saisies manuelles (US1.6).
-import type { RaceEvent } from "./schemas.ts";
+import type { EventFile, RaceEvent } from "./schemas.ts";
 
-export interface EventFile {
-	source: string;
-	verifieLe: string;
-	courses: string[];
-	evenements: RaceEvent[];
-}
+export type { EventFile };
 
 /** Un événement prêt à afficher, avec son origine et sa date de vérification. */
 export interface DatedEvent extends RaceEvent {
@@ -154,5 +149,12 @@ export function formatCheckedOn(isoDateTime: string): string {
 export function todayInParis(now: Date = new Date()): string {
 	return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Paris" }).format(
 		now,
+	);
+}
+
+/** true si une source de la course a été gardée « à vérifier » par le garde-fou de la collecte. */
+export function needsCheck(files: EventFile[], course: string): boolean {
+	return files.some(
+		(file) => file.aVerifier === true && file.courses.includes(course),
 	);
 }

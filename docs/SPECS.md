@@ -197,6 +197,7 @@ Détail, citations des conditions d'utilisation et exemples de données dans `do
 - Côté navigateur, un petit script masque une date déjà passée, au cas où la dernière reconstruction aurait échoué.
 - **Commit du robot (D4)** : le robot de collecte est autorisé à contourner la protection de `main`, puisqu'il valide ses données avant d'écrire. Si ce n'est pas possible sur un dépôt personnel, il ouvre une PR fusionnée automatiquement quand la CI est verte.
 - **Rappel mensuel** : un ticket GitHub est ouvert automatiquement chaque mois pour revoir les dates saisies à la main (9 courses sur 11).
+- **Mise en œuvre (US1.5)** : `collect-dates.yml` tourne chaque nuit à 2 h 17 UTC ; collecteurs `scripts/collect/athx.ts` (1 requête : la liste JSON de `/events`) et `scripts/collect/deadly-dozen.ts` (1 requête par pays de la zone, espacées de 3 s ; seuls les événements nommés « Deadly Dozen <ville> », c'est-à-dire les Track Races, sont retenus). Les villes sont écrites en français (« Londres », « Cologne »). Une source en anomalie garde ses dates avec le marqueur `aVerifier` (fiche : « Dates à vérifier ») et un ticket `collecte` est ouvert ou complété. Le rappel mensuel (`rappel-dates.yml`) ouvre un ticket `rappel` le 1er du mois.
 
 ## 7. F2 — Quiz d'orientation
 

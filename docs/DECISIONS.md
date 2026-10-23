@@ -58,6 +58,10 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Affichage des dates** : fenêtre de 18 mois aussi à l'affichage ; un événement sur plusieurs jours reste visible jusqu'à son dernier jour ; la fiche reçoit jusqu'à 6 dates et le navigateur garde les 3 premières encore à venir. | « Une date passée n'apparaît jamais, même si la dernière reconstruction a échoué » (US1.4). |
 | 2026-10-23 | **Date du jour à l'heure de Paris** (`Europe/Paris`), au build comme dans le navigateur. | Cible France ; évite un décalage d'un jour autour de minuit. |
 | 2026-10-23 | **Lien d'inscription par date** : « Inscriptions sur hyrox.com » (accueil) pour HYROX, « S'inscrire » vers la page de l'événement pour les autres. | Décision n° 2 de la revue du Lot 0. |
+| 2026-10-23 | **D4 mis en œuvre** : GitHub Actions ajouté aux exceptions de la protection de `main` (`.github/ruleset-main.json`) ; la collecte valide (données, tests, build) avant de commiter, puis relance le déploiement. | Une PR créée par le robot ne déclencherait pas la CI (jeton du workflow) : le contournement est la voie fiable. |
+| 2026-10-23 | **Villes en français** dans les dates collectées ; pour ATHX, la ville vient du nom de l'événement (`venue.city` donne parfois la commune du parc des expositions : Laeken, Rho…). | Site en français ; priorité manuelle par ville. |
+| 2026-10-23 | **Marqueur `aVerifier`** dans un fichier de dates gardé par le garde-fou ; la fiche affiche « Dates à vérifier ». | « La course est marquée à vérifier » (§6). |
+| 2026-10-23 | **Pages enregistrées** pour les tests dans `fixtures/collect/` (relevé du 23/10/2026), exclues de Biome. | Aucun appel réseau dans les tests. |
 
 ## Points ouverts
 

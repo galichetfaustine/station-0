@@ -1,11 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 const card = (page: import("@playwright/test").Page, name: string) =>
-	page
-		.locator(".cards > li.card")
-		.filter({
-			has: page.getByRole("heading", { level: 2, name, exact: true }),
-		});
+	page.locator(".cards > li.card").filter({
+		has: page.getByRole("heading", { level: 2, name, exact: true }),
+	});
 
 test("les cartes montrent la prochaine date, ou « Pas de date annoncée » en fin de liste", async ({
 	page,
@@ -23,9 +21,15 @@ test("le filtre pays ne garde que les courses avec une date dans ce pays", async
 }) => {
 	await page.goto("courses/?pays=CH");
 	await expect(page.getByLabel("Pays")).toHaveValue("CH");
-	const cards = page.locator(".cards > li.card");
-	await expect(cards).toHaveCount(2);
-	await expect(cards.first()).toContainText("HYROX");
+	const names = page.locator(".cards > li.card h2");
+	await expect(names).toHaveCount(4);
+	const texts = await names.allTextContents();
+	expect(texts.sort()).toEqual([
+		"ATHX Games",
+		"Deadly Dozen",
+		"HYROX Doubles",
+		"HYROX Open solo",
+	]);
 });
 
 test("le filtre « date dans les 3 mois » se reflète dans l'URL", async ({
@@ -84,4 +88,16 @@ test.describe("une date passée n'apparaît jamais, même si le site n'a pas ét
 			"Prochaine date :",
 		);
 	});
+});
+
+test("ATHX : les dates collectées s'affichent, en français, avec la date de vérification", async ({
+	page,
+}) => {
+	await page.goto("courses/athx/");
+	await expect(page.locator(".events li:not([hidden])")).toHaveCount(3);
+	await expect(page.locator(".events")).toContainText("Londres (Royaume-Uni)");
+	await expect(page.locator(".dates")).toContainText(
+		"Dates vérifiées le 23 octobre 2026",
+	);
+	await expect(page.locator(".dates .warning")).toHaveCount(0);
 });

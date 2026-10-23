@@ -166,10 +166,13 @@ export const eventFileSchema = z.strictObject({
 	verifieLe: z.iso.datetime({ offset: true }),
 	/** Courses couvertes par cette source, même sans date à venir (pour « Dates vérifiées le… »). */
 	courses: z.array(slug).min(1),
+	/** true quand le garde-fou de la collecte a gardé les données précédentes (§6) : dates « à vérifier ». */
+	aVerifier: z.boolean().optional(),
 	evenements: z.array(eventSchema),
 });
 
 export type RaceEvent = z.infer<typeof eventSchema>;
+export type EventFile = z.infer<typeof eventFileSchema>;
 
 // --- Exercice (§8) ---
 
