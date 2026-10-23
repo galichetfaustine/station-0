@@ -151,3 +151,14 @@ export function toCatalogueRace(
 		noteGlobale: globale.note,
 	};
 }
+
+/** Les courses les plus accessibles (note globale croissante), pour l'accueil ; les notes à venir sont écartées. */
+export function mostAccessible(
+	races: CatalogueRace[],
+	count: number,
+): CatalogueRace[] {
+	return sortRaces(
+		races.filter((race) => race.noteGlobale !== null),
+		"difficulte",
+	).slice(0, count);
+}

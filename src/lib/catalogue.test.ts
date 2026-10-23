@@ -5,6 +5,7 @@ import {
 	type CatalogueRace,
 	DEFAULT_FILTERS,
 	formatDuration,
+	mostAccessible,
 	parseFilters,
 	serializeFilters,
 	sortRaces,
@@ -145,5 +146,16 @@ describe("formatDuration", () => {
 		expect(
 			formatDuration({ dureeMoyenneMin: 2880, dureeTexte: "2 jours" }),
 		).toBe("2 jours");
+	});
+});
+
+describe("mostAccessible", () => {
+	it("renvoie les courses les plus faciles, sans les notes à venir", () => {
+		expect(slugs(mostAccessible(races, 3))).toEqual([
+			"strong",
+			"relais",
+			"doubles",
+		]);
+		expect(slugs(mostAccessible(races, 10))).not.toContain("turf");
 	});
 });
