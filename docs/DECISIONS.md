@@ -18,6 +18,10 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Façon de travailler** : Claude Code avance en autonomie, sans plan à valider ; il ne s'arrête que si une spec est ambiguë. Une branche et une PR par story, fusionnée par Faustine. Une seule commande prête à copier quand une action exige ses droits. | Simplifier le travail de Faustine. |
 | 2026-10-23 | **`docs/SPECS.md` du dépôt est la source de vérité** ; chaque décision y est reportée et notée ici. | Éviter que les specs et le code divergent. |
 | 2026-10-23 | **Déploiement** par GitHub Actions (`deploy.yml`) à chaque fusion sur `main`, sans relancer les tests. | Les vérifications ont déjà tourné sur la Pull Request et `main` n'accepte que des PR vertes. |
+| 2026-10-23 | **Texte sur cobalt toujours en blanc** (5,9:1) ; l'encre sur cobalt échoue (3,3:1). | Calcul de contraste, US0.4. Reporté au §9 des specs. |
+| 2026-10-23 | **En mode clair, orange et lavande uniquement en fond**, avec texte et bordure encre ; le contour de focus passe en cobalt. | Orange et lavande sur fond clair : 2,2:1, sous les seuils 4,5:1 et 3:1. Reporté au §9. |
+| 2026-10-23 | Polices via le fournisseur **Fontsource** de l'API Fonts d'Astro : téléchargées au build, servies par le site. | Aucun appel à Google côté visiteur (RGPD), comme prévu au §10. |
+| 2026-10-23 | **Pages provisoires** Courses, Quiz et WOD (« arrive au Lot N »). | La navigation de US0.4 ne doit pas mener à des pages introuvables. |
 
 ## Points ouverts
 

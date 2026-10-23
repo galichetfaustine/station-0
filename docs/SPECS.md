@@ -263,6 +263,8 @@ La DA reprend le moodboard Allygn : fond encre, orange réservé aux actions, la
 **Règles d'accessibilité (non négociables) :**
 
 - Texte sur orange ou lavande : toujours en encre, jamais en blanc (le blanc sur orange ne passe pas le contraste minimum).
+- Texte sur cobalt : toujours en blanc (l'encre sur cobalt ne fait que 3,3:1).
+- En mode clair, l'orange et la lavande ne servent que de fonds (texte et bordure encre) : sur fond clair, ils ne contrastent qu'à 2,2:1. Le contour de focus y passe en cobalt.
 - Contraste vérifié automatiquement : 4,5:1 pour le texte, 3:1 pour les éléments d'interface.
 - Une information n'est jamais portée par la couleur seule : le badge Duo dit « Duo ».
 - Zones tactiles d'au moins 44 × 44 px, utile en salle avec les mains moites.

@@ -1,0 +1,101 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font-text);
+	font-size: 1rem;
+	line-height: 1.5;
+	-webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-title);
+	font-weight: 800;
+	text-transform: uppercase;
+	line-height: 1;
+	letter-spacing: 0.01em;
+	margin: 0 0 var(--space-3);
+}
+
+h1 {
+	font-size: clamp(2.5rem, 10vw, 5rem);
+}
+
+a {
+	color: inherit;
+}
+
+:focus-visible {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 3px;
+}
+
+main {
+	padding-block: var(--space-4) var(--space-5);
+}
+
+.container {
+	width: 100%;
+	max-width: var(--content-max);
+	margin-inline: auto;
+	padding-inline: var(--space-3);
+}
+
+/* Lien d'évitement : visible seulement au clavier */
+.skip-link {
+	position: absolute;
+	left: var(--space-3);
+	top: -10rem;
+	padding: var(--space-2) var(--space-3);
+	background: var(--color-action-bg);
+	color: var(--color-action-text);
+	border-radius: var(--radius);
+	z-index: 10;
+
+	&:focus {
+		top: var(--space-2);
+	}
+}
+
+/* Action orange : une seule par écran, texte encre, bordure encre pour le mode clair */
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: var(--tap-min);
+	min-width: var(--tap-min);
+	padding: var(--space-2) var(--space-4);
+	border: 2px solid var(--color-ink);
+	border-radius: 999px;
+	background: var(--color-action-bg);
+	color: var(--color-action-text);
+	font-weight: 700;
+	text-decoration: none;
+}
+
+/* Badge binôme : lavande, texte encre, le mot est toujours écrit (jamais la couleur seule) */
+.badge-duo {
+	display: inline-block;
+	padding: var(--space-1) var(--space-2);
+	border: 1px solid var(--color-ink);
+	border-radius: 999px;
+	background: var(--color-duo-bg);
+	color: var(--color-duo-text);
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.band {
+	background: var(--color-band-bg);
+	color: var(--color-band-text);
+}

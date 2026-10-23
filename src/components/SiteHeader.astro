@@ -1,0 +1,85 @@
+---
+import { withBase } from "../lib/paths";
+import { NAV, SITE } from "../lib/site";
+
+const base = import.meta.env.BASE_URL;
+const current = Astro.url.pathname;
+---
+
+<header class="site-header">
+	<div class="container inner">
+		<a class="logo" href={withBase(base, "/")}>{SITE.name}</a>
+		<nav aria-label="Navigation principale">
+			<ul>
+				{
+					NAV.map((item) => {
+						const href = withBase(base, item.path);
+						return (
+							<li>
+								<a href={href} aria-current={current.startsWith(href) ? "page" : undefined}>
+									{item.label}
+								</a>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-2);
+		padding-block: var(--space-2);
+	}
+
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		font-family: var(--font-title);
+		font-weight: 800;
+		font-size: 1.75rem;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	ul {
+		display: flex;
+		gap: var(--space-1);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	nav a {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		min-width: var(--tap-min);
+		padding-inline: var(--space-3);
+		border-radius: 999px;
+		font-weight: 600;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+
+		/* Page en cours : soulignée et encadrée, pas seulement colorée */
+		&[aria-current="page"] {
+			text-decoration: underline;
+			text-underline-offset: 0.3em;
+			outline: 1px solid var(--color-line);
+		}
+	}
+</style>

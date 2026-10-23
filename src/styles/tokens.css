@@ -1,0 +1,61 @@
+/*
+ * Direction artistique de Station 0 (§9 des specs) : seule source de vérité du style.
+ * Les contrastes de chaque combinaison utilisée sont vérifiés par src/lib/contrast.test.ts.
+ */
+
+:root {
+	/* Palette du moodboard */
+	--color-ink: #0b0b0f;
+	--color-orange: #ff8a3d;
+	--color-lavender: #a99bff;
+	--color-cobalt: #3d48ff;
+	--color-white: #ffffff;
+
+	/* Rôles : thème sombre par défaut (D9) */
+	--color-bg: var(--color-ink);
+	--color-surface: #17171f;
+	--color-text: var(--color-white);
+	--color-text-muted: #b3b3bf;
+	--color-line: #6e6e7a;
+	--color-focus: var(--color-orange);
+
+	/* Action (orange) et binôme (lavande) : toujours du texte encre dessus */
+	--color-action-bg: var(--color-orange);
+	--color-action-text: var(--color-ink);
+	--color-duo-bg: var(--color-lavender);
+	--color-duo-text: var(--color-ink);
+	/* Grands aplats cobalt : toujours du texte blanc dessus */
+	--color-band-bg: var(--color-cobalt);
+	--color-band-text: var(--color-white);
+
+	/* Typographie (D8), polices chargées par l'API Fonts d'Astro */
+	--font-title: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+	--font-text: var(--font-inter), system-ui, sans-serif;
+
+	/* Mise en page */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 1rem;
+	--space-4: 1.5rem;
+	--space-5: 2.5rem;
+	--radius: 1rem;
+	--tap-min: 44px;
+	--content-max: 72rem;
+
+	color-scheme: dark;
+}
+
+/* Mode clair automatique si le téléphone est en mode clair (D9) */
+@media (prefers-color-scheme: light) {
+	:root {
+		--color-bg: #f7f6f3;
+		--color-surface: var(--color-white);
+		--color-text: var(--color-ink);
+		--color-text-muted: #4d4d59;
+		--color-line: #8a8a96;
+		/* L'orange sur fond clair ne contraste pas assez : le focus passe en cobalt. */
+		--color-focus: var(--color-cobalt);
+
+		color-scheme: light;
+	}
+}
