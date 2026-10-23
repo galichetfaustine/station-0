@@ -44,10 +44,14 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **`svelte-check`** ajouté à `check:types` (outil officiel Svelte, dev uniquement). | `astro check` ne vérifie pas les fichiers `.svelte`. |
 | 2026-10-23 | Schéma de course : charges par genre, sled à part, barre (`sousMax`, `testMax`), durée d'effort, catégories `null` si introuvables, `dureeTexte`, `dureeEstimee`, `remarques` ; déroulé vide autorisé ; saison « 2027 » acceptée. | Coller aux règlements relevés sans deviner (US1.1). |
 | 2026-10-23 | Filtres « pays » et « date dans les 3 mois » et tri par prochaine date : livrés avec l'affichage des dates (US1.4). | Ils dépendent des dates (US1.6). |
+| 2026-10-23 | **Note globale arrondie au demi-point** (et non à l'entier) ; la jauge affiche les demi-pastilles. | Revue des notes par Faustine. SPECS §5. |
+| 2026-10-23 | **En duo, la note cardio ne compte que le volume d'ergo par athlète**, sans la durée : HYROX Doubles passe à cardio 3. | Revue des notes. SPECS §5. |
+| 2026-10-23 | **Turf Games et XENOM** : « Note à venir — règlement non public » dans le catalogue, exclus du classement du quiz tant qu'une note manque. | Revue des notes. SPECS §4, §5, §7. |
+| 2026-10-23 | **Les 10 précisions de calcul du barème sont validées** (bornes, distance complète par athlète en duo, charges hommes, sled lourd ≥ 100 kg, charge libre ≥ 30 kg → 3, cardio = max sauf en duo, DEKA gym 2, Spartan obstacles simples, durées estimées, notes « ? »). | Revue des notes. SPECS §5 corrigé. |
+| 2026-10-23 | **Résultats de référence** testés : HYROX 4, ATHX 4, Hybrid Games 4, Spartan Sprint 4, HYROX Doubles 3,5, Deadly Dozen 3,5, DEKA FIT 3, DEKA MILE 2,5, DEKA STRONG 2. | Garde-fou contre toute régression du barème. |
 
 ## Points ouverts
 
 | Depuis | Sujet | À traiter |
 | --- | --- | --- |
-| 2026-10-23 | **Précisions de calcul du barème** (SPECS §5) : bornes, distance par athlète en duo, charges hommes, sled lourd ≥ 100 kg, cardio = max(ergo, durée d'effort), catégories inconnues. | Revue de la PR US1.1 + US1.2 |
 | 2026-10-23 | **Turf Games et XENOM** : notes en partie « à confirmer » (aucun règlement détaillé public ; guides Turf bloqués lors de la vérification). | Lot 1 |
