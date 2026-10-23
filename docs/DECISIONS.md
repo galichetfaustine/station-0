@@ -28,9 +28,14 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Alternatives d'un exercice = autres exercices de la banque**, avec moins de matériel ; obligatoires dès qu'il faut du matériel. | Chaque alternative a ainsi son propre temps estimé, ce qui permet au générateur de respecter le time cap. |
 | 2026-10-23 | Le schéma vérifie qu'une date est **valide**, pas qu'elle est **future** ; ce contrôle est fait par la collecte. | Sinon, un événement qui vient de passer ferait échouer le build. |
 | 2026-10-23 | **Validation des données par un script** (`npm run validate:data`) lancé avant chaque build, avec **Zod** (même version qu'Astro) en dépendance directe. | Messages en français qui nomment le fichier et le champ, contrôles entre fichiers, schémas sans dépendance à Astro dans `src/lib/`. |
+| 2026-10-23 | **Objectif d'automatisation révisé : 2 courses sur 11** (ATHX, Deadly Dozen) au lieu de 7. | HYROX et Spartan interdisent la collecte dans leurs CGU ; The Hybrid Games, Turf Games et XENOM n'ont que du texte libre ou rien. Détail : `docs/sources-dates.md`. |
+| 2026-10-23 | **Pas de source tierce** (RoxRadar…) pour contourner une interdiction d'organisateur. | Ce serait contourner l'interdiction de HYROX, avec un intermédiaire fragile en plus. |
 
 ## Points ouverts
 
 | Depuis | Sujet | À traiter |
 | --- | --- | --- |
 | 2026-10-23 | **D4 contre la protection de `main`.** La collecte de nuit doit commiter sur `main`, que la protection interdit aux envois directs. Options : autoriser le robot à contourner la règle, ou passer par une PR fusionnée automatiquement quand la CI est verte. | Lot 1 (US1.5) |
+| 2026-10-23 | **Demander l'autorisation à Spartan** (4 courses d'un coup) **et/ou à HYROX** ? | Avant US1.5 |
+| 2026-10-23 | **Liens vers hyrox.com** : les CGU HYROX (art. 7.4) n'autorisent que des liens vers la page d'accueil, alors que la fiche course prévoit un lien d'inscription. | Avant US1.3 |
+| 2026-10-23 | **« 1 requête par source et par nuit »** (CLAUDE.md) contre **« 1 passage par nuit »** (specs §6) : Deadly Dozen demande quelques requêtes par passage. Proposition : les specs l'emportent, avec des requêtes espacées et un cache. | US0.7 (CLAUDE.md) |

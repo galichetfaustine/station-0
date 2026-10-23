@@ -32,7 +32,7 @@ Chaque fiche course propose « Essayer un WOD inspiré de cette course », et ch
 **Critères de succès V1** (vérifiables sans analytics) :
 
 - 11 courses publiées avec barème justifié et au moins une date à venir ou la mention « pas de date annoncée ».
-- Au moins 7 courses sur 11 mises à jour automatiquement (objectif, à confirmer après l'étude des sources au Lot 0).
+- Au moins 2 courses sur 11 mises à jour automatiquement (ATHX, Deadly Dozen). Objectif révisé après l'étude des sources du Lot 0 (`docs/sources-dates.md`) : HYROX et Spartan interdisent la collecte dans leurs conditions d'utilisation. 6 sur 11 si Spartan l'autorise, 8 sur 11 avec HYROX en plus.
 - Quiz terminé en moins de 90 secondes, WOD généré en 1 clic.
 - Lighthouse ≥ 95 en performance et accessibilité sur mobile.
 
@@ -147,7 +147,21 @@ Une source qui renvoie des données douteuses ne bloque rien : le site se recons
 3. La lecture du HTML de la page : fragile, chaque refonte du site la casse.
 4. La saisie manuelle dans un fichier dédié : pour les sources sans rien d'exploitable.
 
-### Hypothèses par source (à confirmer pendant l'étude du Lot 0)
+### Résultat de l'étude des sources (Lot 0, 23/10/2026)
+
+Détail, citations des conditions d'utilisation et exemples de données dans `docs/sources-dates.md`.
+
+| Source | Courses couvertes | Résultat |
+| --- | --- | --- |
+| hyrox.com | HYROX solo et Doubles | **Manuel** : collecte interdite par les CGU (art. 6.1), robots bloqués |
+| spartan.com | DEKA FIT, MILE, STRONG, Spartan Sprint | **Manuel** : collecte interdite par les CGU, malgré des données schema.org parfaites |
+| athxgames.com | ATHX Games | **Automatique** : liste JSON embarquée dans la page `/events`, 1 requête |
+| deadlydozen.com | Deadly Dozen | **Automatique** : schema.org `ItemList` et `SportsEvent` |
+| thehybridgames.com | The Hybrid Games | **Manuel** : dates en texte libre, 5 événements par an |
+| turfgames.com | Turf Games | **Manuel** : dates en texte libre, 1 à 2 événements par an dans la zone |
+| XENOM | XENOM | **Manuel** : aucun calendrier officiel publié |
+
+### Hypothèses de départ (avant l'étude)
 
 | Source | Courses couvertes | Piste la plus probable |
 | --- | --- | --- |
