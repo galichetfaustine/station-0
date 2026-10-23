@@ -1,19 +1,23 @@
 ---
+import BaseLayout from "../components/BaseLayout.astro";
 import { SITE } from "../lib/site";
 ---
 
-<!doctype html>
-<html lang={SITE.lang}>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>{SITE.name}</title>
-		<meta name="description" content={SITE.tagline} />
-	</head>
-	<body>
-		<main>
-			<h1>{SITE.name}</h1>
-			<p>{SITE.tagline}</p>
-		</main>
-	</body>
-</html>
+<BaseLayout>
+	<section class="hero">
+		<h1>{SITE.name}</h1>
+		<p class="tagline">{SITE.tagline}</p>
+	</section>
+</BaseLayout>
+
+<style>
+	.hero {
+		padding-block: var(--space-5);
+	}
+
+	.tagline {
+		max-width: 32rem;
+		font-size: 1.25rem;
+		color: var(--color-text-muted);
+	}
+</style>

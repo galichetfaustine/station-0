@@ -1,0 +1,35 @@
+---
+import { Font } from "astro:assets";
+import { SITE } from "../lib/site";
+import SiteHeader from "./SiteHeader.astro";
+import "../styles/global.css";
+
+interface Props {
+	/** Titre de la page, sans le nom du site. Absent sur l'accueil. */
+	title?: string;
+	description?: string;
+}
+
+const { title, description = SITE.tagline } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.name}` : SITE.name;
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="dark light" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<Font cssVariable="--font-barlow-condensed" preload />
+		<Font cssVariable="--font-inter" preload />
+	</head>
+	<body>
+		<a class="skip-link" href="#contenu">Aller au contenu</a>
+		<SiteHeader />
+		<main id="contenu" class="container" tabindex="-1">
+			<slot />
+		</main>
+	</body>
+</html>
