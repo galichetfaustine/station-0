@@ -13,7 +13,9 @@ for (const colorScheme of ["dark", "light"] as const) {
 		test.use({ colorScheme });
 
 		for (const { path, title } of pages) {
-			test(`${title} : aucune erreur d'accessibilité (contrastes compris)`, async ({ page }) => {
+			test(`${title} : aucune erreur d'accessibilité (contrastes compris)`, async ({
+				page,
+			}) => {
 				await page.goto(path);
 				const results = await new AxeBuilder({ page }).analyze();
 				expect(results.violations).toEqual([]);
@@ -22,12 +24,17 @@ for (const colorScheme of ["dark", "light"] as const) {
 	});
 }
 
-test("le thème suit le réglage du téléphone : sombre par défaut, clair si demandé", async ({ browser, baseURL }) => {
+test("le thème suit le réglage du téléphone : sombre par défaut, clair si demandé", async ({
+	browser,
+	baseURL,
+}) => {
 	const background = async (colorScheme: "dark" | "light") => {
 		const context = await browser.newContext({ colorScheme, baseURL });
 		const page = await context.newPage();
 		await page.goto("./");
-		const color = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+		const color = await page.evaluate(
+			() => getComputedStyle(document.body).backgroundColor,
+		);
 		await context.close();
 		return color;
 	};
@@ -35,7 +42,9 @@ test("le thème suit le réglage du téléphone : sombre par défaut, clair si d
 	expect(await background("light")).toBe("rgb(247, 246, 243)");
 });
 
-test("l'en-tête mène à Courses, Quiz et WOD, et signale la page en cours", async ({ page }) => {
+test("l'en-tête mène à Courses, Quiz et WOD, et signale la page en cours", async ({
+	page,
+}) => {
 	await page.goto("./");
 	const nav = page.getByRole("navigation", { name: "Navigation principale" });
 	await expect(nav.getByRole("link")).toHaveText(["Courses", "Quiz", "WOD"]);
@@ -43,7 +52,10 @@ test("l'en-tête mène à Courses, Quiz et WOD, et signale la page en cours", as
 	await nav.getByRole("link", { name: "Quiz" }).click();
 	await expect(page).toHaveURL(/\/station-0\/quiz\/$/);
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quiz");
-	await expect(nav.getByRole("link", { name: "Quiz" })).toHaveAttribute("aria-current", "page");
+	await expect(nav.getByRole("link", { name: "Quiz" })).toHaveAttribute(
+		"aria-current",
+		"page",
+	);
 });
 
 test("les liens de l'en-tête font au moins 44 × 44 px", async ({ page }) => {
@@ -58,5 +70,7 @@ test("les liens de l'en-tête font au moins 44 × 44 px", async ({ page }) => {
 test("le lien « Aller au contenu » apparaît au clavier", async ({ page }) => {
 	await page.goto("./");
 	await page.keyboard.press("Tab");
-	await expect(page.getByRole("link", { name: "Aller au contenu" })).toBeFocused();
+	await expect(
+		page.getByRole("link", { name: "Aller au contenu" }),
+	).toBeFocused();
 });
