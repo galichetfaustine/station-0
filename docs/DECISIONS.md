@@ -52,6 +52,9 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Fiche course** : blocs 6 (WOD) et 7 (quiz) affichés « bientôt disponible », sans lien, tant que le générateur (Lot 3) et le quiz (Lot 2) n'existent pas ; bloc 4 « Pas de date annoncée » jusqu'à US1.4. | Pas de lien vers une page qui n'existe pas (même règle que l'en-tête). |
 | 2026-10-23 | **Page « Comment on note »** (`/methode/`) générée depuis `data/config/bareme.json`, liée depuis le catalogue et chaque fiche (pas depuis l'en-tête, réservé à Courses, Quiz, WOD). | Critère d'US1.2, oublié dans la PR #10. |
 | 2026-10-23 | La fiche affiche les **remarques** de la course (« À savoir ») et tous les liens de règlement consultés. | Transparence sur les estimations et les infos manquantes. |
+| 2026-10-23 | **Priorité de la saisie manuelle** : elle remplace les dates collectées de la même course **dans la même ville** ; une ville nouvelle s'ajoute. | La spec ne disait pas comment reconnaître « la même » date ; règle proposée, à valider. SPECS §6. |
+| 2026-10-23 | **Champ `courses`** dans chaque fichier de dates : les courses couvertes par la source. | Afficher « Dates vérifiées le… » même pour une course sans date (XENOM). SPECS §4. |
+| 2026-10-23 | **Dates manuelles initiales** = relevés de l'étude US0.6 (59 dates) ; les dates HYROX valent pour Open solo et Doubles (mêmes événements) ; lien HYROX vers l'accueil. | Consigne de Faustine (US1.6). |
 
 ## Points ouverts
 

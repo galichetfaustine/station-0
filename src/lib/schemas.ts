@@ -164,6 +164,8 @@ export const eventFileSchema = z.strictObject({
 	source: z.union([z.literal("manuel"), slug]),
 	/** Date et heure du dernier passage du collecteur (affichée « Dates vérifiées le… »). */
 	verifieLe: z.iso.datetime({ offset: true }),
+	/** Courses couvertes par cette source, même sans date à venir (pour « Dates vérifiées le… »). */
+	courses: z.array(slug).min(1),
 	evenements: z.array(eventSchema),
 });
 

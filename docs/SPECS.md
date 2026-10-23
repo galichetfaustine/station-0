@@ -111,7 +111,7 @@ Détail des champs (schéma `src/lib/schemas.ts`, ajouté en US0.5) :
 | `bareme.gym.mouvementLePlusTechnique` | Un mouvement du tableau du §5 : `marcher`, `porter`, `burpees`, `fentes`, `wallBalls`, `boxJumps`, `bearCrawl`, `snatchHaltere`, `tractions`, `toesToBar`, `obstaclesSimples`, `muscleUp`, `handstandPushUp`, `obstaclesTechniques` |
 | `notes` | **Absent du fichier** : calculé au build depuis `bareme` ; un fichier qui en contient est refusé |
 
-**Événements** (`data/events/<source>.json` collectés, `data/events-manual/<source>.json` saisis à la main, même format) : `source` (identifiant du collecteur ou `manuel`), `verifieLe` (date et heure du passage, ISO 8601), `evenements` (liste). Chaque événement : `course` (slug), `date` et `dateFin` facultative (AAAA-MM-JJ, pour les événements sur plusieurs jours), `ville`, `pays` (code ISO : `FR`, `BE`, `CH`, `LU`, `DE`, `IT`, `ES`, `GB`), `lienInscription`. Le schéma vérifie que la date est valide ; le contrôle « date future » et la fenêtre de 18 mois sont faits par la collecte (§6), pour qu'un événement passé ne casse pas le build.
+**Événements** (`data/events/<source>.json` collectés, `data/events-manual/<source>.json` saisis à la main, même format) : `source` (identifiant du collecteur ou `manuel`), `verifieLe` (date et heure du passage, ISO 8601), `courses` (slugs des courses couvertes par la source, même sans date à venir, pour afficher « Dates vérifiées le… »), `evenements` (liste ; chaque `course` doit figurer dans `courses`). Chaque événement : `course` (slug), `date` et `dateFin` facultative (AAAA-MM-JJ, pour les événements sur plusieurs jours), `ville`, `pays` (code ISO : `FR`, `BE`, `CH`, `LU`, `DE`, `IT`, `ES`, `GB`), `lienInscription`. Le schéma vérifie que la date est valide ; le contrôle « date future » et la fenêtre de 18 mois sont faits par la collecte (§6), pour qu'un événement passé ne casse pas le build.
 
 ## 5. Barème objectif de difficulté
 
@@ -192,7 +192,7 @@ Détail, citations des conditions d'utilisation et exemples de données dans `do
 - On ne garde que les événements en France et pays proches, à venir dans les 18 mois.
 - Chaque événement collecté passe un schéma de validation (date valide et future, ville, pays, lien).
 - Garde-fou : si une source renvoie 0 événement ou en perd plus de la moitié d'un coup, on garde les données précédentes, la course est marquée « à vérifier » et un ticket GitHub est ouvert automatiquement.
-- Une saisie manuelle est toujours prioritaire sur une donnée collectée (pour corriger une erreur sans toucher au code).
+- Une saisie manuelle est toujours prioritaire sur une donnée collectée (pour corriger une erreur sans toucher au code) : **elle remplace les dates collectées de la même course dans la même ville** (comparaison sans accents ni casse, en ignorant une précision entre parenthèses) ; une ville nouvelle s'ajoute.
 - Chaque passage enregistre sa date de vérification, affichée sur la fiche. Cette écriture quotidienne garde aussi le dépôt actif : GitHub désactive les tâches planifiées d'un dépôt public après 60 jours sans activité.
 - Côté navigateur, un petit script masque une date déjà passée, au cas où la dernière reconstruction aurait échoué.
 - **Commit du robot (D4)** : le robot de collecte est autorisé à contourner la protection de `main`, puisqu'il valide ses données avant d'écrire. Si ce n'est pas possible sur un dépôt personnel, il ouvre une PR fusionnée automatiquement quand la CI est verte.
