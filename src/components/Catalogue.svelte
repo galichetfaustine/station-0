@@ -1,7 +1,7 @@
 <script lang="ts">
 // Îlot du catalogue (US1.1) : la liste est rendue au build, les filtres s'activent avec JavaScript.
 import { onMount } from "svelte";
-import { CATEGORIES, CATEGORY_LABELS } from "../lib/bareme";
+import { CATEGORIES, CATEGORY_LABELS, formatNote } from "../lib/bareme";
 import {
 	applyFilters,
 	type CatalogueFilters,
@@ -115,12 +115,17 @@ $effect(() => {
 					<h2>{race.nom}</h2>
 					<p class="meta">{race.organisateur} · {race.duree}</p>
 				</div>
-				<p class="global">
-					<span class="global-value">{race.noteGlobale ?? "?"}</span><span class="global-max">/5</span>
-					<span class="visually-hidden">de difficulté globale{race.noteGlobale === null ? ", à confirmer" : ""}</span>
-				</p>
+				{#if race.noteGlobale === null}
+					<p class="global pending">Note à venir — règlement non public</p>
+				{:else}
+					<p class="global">
+						<span class="global-value">{formatNote(race.noteGlobale)}</span><span class="global-max">/5</span>
+						<span class="visually-hidden">de difficulté globale</span>
+					</p>
+				{/if}
 			</div>
 			<div class="gauges">
+				<Gauge label="Globale" note={race.noteGlobale} />
 				{#each CATEGORIES as category (category)}
 					<Gauge label={CATEGORY_LABELS[category]} note={race.notes[category].note} />
 				{/each}
@@ -235,6 +240,17 @@ $effect(() => {
 		font-weight: 800;
 		line-height: 1;
 		white-space: nowrap;
+	}
+
+	.global.pending {
+		max-width: 9rem;
+		font-family: var(--font-text);
+		font-weight: 600;
+		font-size: 0.875rem;
+		line-height: 1.3;
+		white-space: normal;
+		text-align: right;
+		color: var(--color-text-muted);
 	}
 
 	.global-value {
