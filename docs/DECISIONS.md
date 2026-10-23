@@ -22,6 +22,12 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **En mode clair, orange et lavande uniquement en fond**, avec texte et bordure encre ; le contour de focus passe en cobalt. | Orange et lavande sur fond clair : 2,2:1, sous les seuils 4,5:1 et 3:1. Reporté au §9. |
 | 2026-10-23 | Polices via le fournisseur **Fontsource** de l'API Fonts d'Astro : téléchargées au build, servies par le site. | Aucun appel à Google côté visiteur (RGPD), comme prévu au §10. |
 | 2026-10-23 | **Pages provisoires** Courses, Quiz et WOD (« arrive au Lot N »). | La navigation de US0.4 ne doit pas mener à des pages introuvables. |
+| 2026-10-23 | **Champs des événements et des exercices** définis et ajoutés aux specs (§4, §8). | Les specs ne les nommaient pas ; demandé par Faustine (camelCase en français). |
+| 2026-10-23 | Champs de course ajoutés : **`typeCourse`** (hybride / obstacles) et **`categorieNotee`** ; **`bareme`** détaillé (`partageEffort`, `distanceM`, `chargeMaxKg` + `equipement`, `ergoM`, `mouvementLePlusTechnique`). | Nécessaires au filtre « Type » (§4) et au calcul des notes (§5) sans saisir de note à la main. |
+| 2026-10-23 | **`notes` n'est pas dans les fichiers** de course : un fichier qui en contient est refusé. | « Notes calculées, jamais saisies à la main » (§4, §5). |
+| 2026-10-23 | **Alternatives d'un exercice = autres exercices de la banque**, avec moins de matériel ; obligatoires dès qu'il faut du matériel. | Chaque alternative a ainsi son propre temps estimé, ce qui permet au générateur de respecter le time cap. |
+| 2026-10-23 | Le schéma vérifie qu'une date est **valide**, pas qu'elle est **future** ; ce contrôle est fait par la collecte. | Sinon, un événement qui vient de passer ferait échouer le build. |
+| 2026-10-23 | **Validation des données par un script** (`npm run validate:data`) lancé avant chaque build, avec **Zod** (même version qu'Astro) en dépendance directe. | Messages en français qui nomment le fichier et le champ, contrôles entre fichiers, schémas sans dépendance à Astro dans `src/lib/`. |
 
 ## Points ouverts
 

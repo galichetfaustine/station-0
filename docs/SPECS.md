@@ -95,6 +95,23 @@ Spartan Sprint porte un badge « Course à obstacles » ; un filtre « Type : hy
 
 `slug`, `nom`, `organisateur`, `siteOfficiel`, `formats` (solo, duo, relais, equipe), `dureeMoyenneMin`, `deroule` (liste ordonnée de segments : course en mètres ou exercice avec charge et volume), `bareme` (données brutes du §5), `notes` (calculées, jamais saisies à la main), `pourQui`, `saison` (ex. 2026/27, car les formats changent chaque année), `sourceDates` (identifiant du collecteur ou `manuel`), `sources` (liens des règlements consultés).
 
+Détail des champs (schéma `src/lib/schemas.ts`, ajouté en US0.5) :
+
+| Champ | Contenu |
+| --- | --- |
+| `slug` | Identifiant en minuscules et tirets, identique au nom du fichier (`data/races/<slug>.json`) |
+| `typeCourse` | `hybride` ou `obstacles` (Spartan Sprint), pour le badge et le filtre « Type » |
+| `categorieNotee` | Catégorie la plus accessible, celle qui est notée (Open, Everyday, Compete…) |
+| `deroule` | Segments `{ "type": "course", "distanceM" }` ou `{ "type": "exercice", "nom", "chargeKg" (absent au poids du corps), "volume", "unite" }` ; `unite` : `repetitions`, `metres`, `calories`, `secondes` |
+| `bareme.partageEffort` | Nombre d'athlètes qui se partagent distance et volume (1 en solo, 2 en duo…) |
+| `bareme.course.distanceM` | Distance totale de course |
+| `bareme.force` | `chargeMaxKg` et `equipement` : `aucun`, `sledLeger`, `sledLourd`, `barreSousMax`, `testMax` |
+| `bareme.cardio.ergoM` | Mètres d'ergo cumulés (rameur, SkiErg, air bike) ; la durée d'effort est `dureeMoyenneMin` |
+| `bareme.gym.mouvementLePlusTechnique` | Un mouvement du tableau du §5 : `marcher`, `porter`, `burpees`, `fentes`, `wallBalls`, `boxJumps`, `bearCrawl`, `snatchHaltere`, `tractions`, `toesToBar`, `obstaclesSimples`, `muscleUp`, `handstandPushUp`, `obstaclesTechniques` |
+| `notes` | **Absent du fichier** : calculé au build depuis `bareme` ; un fichier qui en contient est refusé |
+
+**Événements** (`data/events/<source>.json` collectés, `data/events-manual/<source>.json` saisis à la main, même format) : `source` (identifiant du collecteur ou `manuel`), `verifieLe` (date et heure du passage, ISO 8601), `evenements` (liste). Chaque événement : `course` (slug), `date` et `dateFin` facultative (AAAA-MM-JJ, pour les événements sur plusieurs jours), `ville`, `pays` (code ISO : `FR`, `BE`, `CH`, `LU`, `DE`, `IT`, `ES`, `GB`), `lienInscription`. Le schéma vérifie que la date est valide ; le contrôle « date future » et la fenêtre de 18 mois sont faits par la collecte (§6), pour qu'un événement passé ne casse pas le build.
+
 ## 5. Barème objectif de difficulté
 
 Chaque note de 1 à 5 est calculée par le code à partir de données mesurables du règlement, jamais saisie à la main. On note toujours la catégorie la plus accessible de la course (Open, Everyday, Compete…), puisque la cible est débutante. Les seuils vivent dans un fichier de config : tu peux les ajuster, toutes les notes se recalculent.
@@ -208,7 +225,7 @@ Un verrou fige une valeur ; « Relancer » ne retire que le reste. Depuis une fi
 
 ### Banque d'exercices (un fichier JSON)
 
-Chaque exercice décrit : nom, courses d'origine, catégorie (course, force, cardio/ergo, gym), schéma de mouvement (pousser, tirer, squat, fente, charnière, porter, corps entier), matériel, unité (répétitions, mètres, calories, secondes), volume par niveau, temps estimé par unité, consigne courte et **alternatives sans le matériel**. Point de départ (à compléter et valider par toi) :
+Chaque exercice décrit : nom, courses d'origine, catégorie (course, force, cardio/ergo, gym), schéma de mouvement (pousser, tirer, squat, fente, charnière, porter, corps entier), matériel, unité (répétitions, mètres, calories, secondes), volume par niveau, temps estimé par unité, consigne courte et **alternatives sans le matériel**. Noms des champs (US0.5) : `id`, `nom`, `coursesOrigine` (slugs), `categorie` (`course`, `force`, `cardio`, `gym`), `schemaMouvement` (`pousser`, `tirer`, `squat`, `fente`, `charniere`, `porter`, `corpsEntier`), `materiel` (`aucun`, `halteresKettlebell`, `salleComplete`), `unite`, `volumeParNiveau` (`debutant`, `intermediaire`, `confirme`), `secondesParUnite`, `consigne`, `alternatives` (identifiants d'autres exercices de la banque, qui demandent moins de matériel ; au moins une dès que `materiel` n'est pas `aucun`). Point de départ (à compléter et valider par toi) :
 
 | Exercice | Vient de | Alternative si matériel absent |
 | --- | --- | --- |
