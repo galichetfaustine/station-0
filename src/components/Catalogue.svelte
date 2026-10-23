@@ -1,7 +1,7 @@
 <script lang="ts">
 // Îlot du catalogue (US1.1) : la liste est rendue au build, les filtres s'activent avec JavaScript.
 import { onMount } from "svelte";
-import { CATEGORIES, CATEGORY_LABELS } from "../lib/bareme";
+import { CATEGORIES, CATEGORY_LABELS, formatNote } from "../lib/bareme";
 import {
 	applyFilters,
 	type CatalogueFilters,
@@ -10,12 +10,15 @@ import {
 	parseFilters,
 	serializeFilters,
 } from "../lib/catalogue";
+import { withBase } from "../lib/paths";
 import Gauge from "./Gauge.svelte";
 
 interface Props {
 	races: CatalogueRace[];
+	/** Sous-dossier du site, pour les liens vers les fiches. */
+	base: string;
 }
-const { races }: Props = $props();
+const { races, base }: Props = $props();
 
 let filters = $state<CatalogueFilters>({ ...DEFAULT_FILTERS });
 let ready = $state(false);
@@ -112,15 +115,20 @@ $effect(() => {
 		<li class="card">
 			<div class="head">
 				<div>
-					<h2>{race.nom}</h2>
+					<h2><a href={withBase(base, `/courses/${race.slug}/`)}>{race.nom}</a></h2>
 					<p class="meta">{race.organisateur} · {race.duree}</p>
 				</div>
-				<p class="global">
-					<span class="global-value">{race.noteGlobale ?? "?"}</span><span class="global-max">/5</span>
-					<span class="visually-hidden">de difficulté globale{race.noteGlobale === null ? ", à confirmer" : ""}</span>
-				</p>
+				{#if race.noteGlobale === null}
+					<p class="global pending">Note à venir — règlement non public</p>
+				{:else}
+					<p class="global">
+						<span class="global-value">{formatNote(race.noteGlobale)}</span><span class="global-max">/5</span>
+						<span class="visually-hidden">de difficulté globale</span>
+					</p>
+				{/if}
 			</div>
 			<div class="gauges">
+				<Gauge label="Globale" note={race.noteGlobale} />
 				{#each CATEGORIES as category (category)}
 					<Gauge label={CATEGORY_LABELS[category]} note={race.notes[category].note} />
 				{/each}
@@ -223,6 +231,26 @@ $effect(() => {
 		margin-bottom: var(--space-1);
 	}
 
+	h2 a {
+		text-decoration: none;
+	}
+
+	/* Toute la carte est cliquable via le lien du titre. */
+	.card {
+		position: relative;
+	}
+
+	h2 a::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius);
+	}
+
+	h2 a:hover {
+		text-decoration: underline;
+	}
+
 	.meta {
 		margin: 0;
 		color: var(--color-text-muted);
@@ -235,6 +263,17 @@ $effect(() => {
 		font-weight: 800;
 		line-height: 1;
 		white-space: nowrap;
+	}
+
+	.global.pending {
+		max-width: 9rem;
+		font-family: var(--font-text);
+		font-weight: 600;
+		font-size: 0.875rem;
+		line-height: 1.3;
+		white-space: normal;
+		text-align: right;
+		color: var(--color-text-muted);
 	}
 
 	.global-value {

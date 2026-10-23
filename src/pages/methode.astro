@@ -1,0 +1,162 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import { CATEGORY_LABELS, MOVEMENT_LABELS } from "../lib/bareme";
+import { withBase } from "../lib/paths";
+import { formatDistance } from "../lib/race-page";
+import { baremeConfig } from "../lib/races-data";
+
+// Tout est lu dans data/config/bareme.json : modifier un seuil met cette page à jour.
+const { course, force, cardio, gym, globale, chargeReference } = baremeConfig;
+type Palier = (typeof course.distanceM)[number];
+const threshold = (paliers: Palier[], note: number) =>
+	paliers.find((palier) => palier.note === note);
+const from = (palier: Palier | undefined, format: (value: number) => string) =>
+	palier === undefined
+		? "—"
+		: "min" in palier
+			? `à partir de ${format(palier.min)}`
+			: `plus de ${format(palier.plusDe)}`;
+const below = (
+	palier: Palier | undefined,
+	format: (value: number) => string,
+) =>
+	palier === undefined
+		? "—"
+		: `moins de ${format("min" in palier ? palier.min : palier.plusDe)}`;
+const km = (meters: number) => formatDistance(meters);
+const kg = (value: number) => `${value} kg`;
+const meters = (value: number) => `${value} m`;
+const minutes = (value: number) => `${value} min`;
+const movementsFor = (note: number) =>
+	Object.entries(gym.mouvements)
+		.filter(([, value]) => value === note)
+		.map(
+			([movement]) => MOVEMENT_LABELS[movement as keyof typeof MOVEMENT_LABELS],
+		)
+		.join(", ");
+
+const rows = [1, 2, 3, 4, 5].map((note) => ({
+	note,
+	course:
+		note === 1 ? "Aucune course" : from(threshold(course.distanceM, note), km),
+	force:
+		note === 1
+			? `Poids du corps ou ${below(threshold(force.chargeLibreKg, 2), kg)}`
+			: note === force.noteTestMax
+				? "Tests de charge maximale (1RM, 3RM, 5RM…)"
+				: note === force.noteSledLourd
+					? `Sled lourd (${kg(force.sledLourdKgMin)} et plus) ou barre sous-maximale`
+					: note === force.noteSledLeger
+						? `${from(threshold(force.chargeLibreKg, note), kg)} de charge libre, ou sled léger`
+						: `${from(threshold(force.chargeLibreKg, note), kg)} de charge libre`,
+	cardio:
+		note === 1
+			? `Aucun ergo et ${below(threshold(cardio.dureeEffortMin, 2), minutes)} d'effort`
+			: `${from(threshold(cardio.ergoM, note), meters)} d'ergo, ou ${from(threshold(cardio.dureeEffortMin, note), minutes)} d'effort`,
+	gym: movementsFor(note),
+}));
+---
+
+<BaseLayout title="Comment on note" description="Le barème de difficulté de Station 0 : 4 catégories notées de 1 à 5 à partir du règlement de chaque course.">
+	<h1>Comment on note</h1>
+	<p class="lead">
+		Chaque course reçoit une note de 1 à 5 dans 4 catégories. Les notes sont <strong>calculées</strong> à partir du
+		règlement officiel, jamais attribuées à la main, et chaque fiche affiche la donnée qui a produit la note.
+	</p>
+
+	<h2>Le barème</h2>
+	<div class="table-wrap" tabindex="0" role="region" aria-label="Barème de difficulté">
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Note</th>
+					<th scope="col">{CATEGORY_LABELS.course} (distance totale)</th>
+					<th scope="col">{CATEGORY_LABELS.force} (charge la plus lourde)</th>
+					<th scope="col">{CATEGORY_LABELS.cardio} (rameur, SkiErg, air bike)</th>
+					<th scope="col">{CATEGORY_LABELS.gym} (mouvement le plus technique)</th>
+				</tr>
+			</thead>
+			<tbody>
+				{
+					rows.map((row) => (
+						<tr>
+							<th scope="row">{row.note}</th>
+							<td>{row.course}</td>
+							<td>{row.force}</td>
+							<td>{row.cardio}</td>
+							<td>{row.gym}</td>
+						</tr>
+					))
+				}
+			</tbody>
+		</table>
+	</div>
+
+	<h2>Les règles</h2>
+	<ul class="rules">
+		<li>On note toujours la <strong>catégorie la plus accessible</strong> de la course (Open, Everyday, Compete…).</li>
+		<li>
+			Charges : celles de la catégorie <strong>{chargeReference === "homme" ? "hommes" : "femmes"}</strong> ; la fiche de
+			chaque course donne les deux.
+		</li>
+		<li>Cardio : la plus haute des deux notes, volume d'ergo ou durée d'effort.</li>
+		<li>
+			En duo, chaque athlète court la distance complète prévue par le règlement ; seul le volume d'ergo se partage, et la
+			note cardio ne compte que ce volume par athlète.
+		</li>
+		<li>
+			Note globale : moyenne des 4 catégories, {globale.ajustementCourt.toString().replace(".", ",")} si l'épreuve dure
+			moins de {globale.dureeCourteMoinsDe} min, +{globale.ajustementLong.toString().replace(".", ",")} au-delà de
+			{globale.dureeLonguePlusDe} min, arrondie au demi-point et bornée entre 1 et 5.
+		</li>
+		<li>
+			Quand le règlement n'est pas public, la note manque : la course affiche « Note à venir — règlement non public ».
+		</li>
+	</ul>
+
+	<p><a href={withBase(import.meta.env.BASE_URL, "/courses/")}>Voir les courses</a></p>
+</BaseLayout>
+
+<style>
+	.lead {
+		max-width: 40rem;
+		font-size: 1.125rem;
+	}
+
+	h2 {
+		font-size: 2rem;
+		margin-top: var(--space-5);
+	}
+
+	.table-wrap {
+		overflow-x: auto;
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius);
+	}
+
+	table {
+		width: 100%;
+		min-width: 44rem;
+		border-collapse: collapse;
+		font-size: 0.875rem;
+	}
+
+	th,
+	td {
+		padding: var(--space-2) var(--space-3);
+		border-bottom: 1px solid var(--color-line);
+		text-align: left;
+		vertical-align: top;
+	}
+
+	tbody th {
+		font-family: var(--font-title);
+		font-size: 1.5rem;
+	}
+
+	.rules {
+		display: grid;
+		gap: var(--space-2);
+		max-width: 44rem;
+	}
+</style>

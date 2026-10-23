@@ -78,6 +78,7 @@ Le catalogue compare 11 formats de course, pas 11 marques : HYROX solo et HYROX 
 - Filtres : format (solo, duo, équipe), note globale maximale, « sans course à pied », pays, « date dans les 3 mois ». Les filtres se reflètent dans l'URL pour être partageables.
 - Tri : prochaine date (par défaut) ou difficulté croissante.
 - Une course sans date à venir reste visible avec « Pas de date annoncée », en fin de liste.
+- Une course dont la note globale manque (règlement non public) affiche « Note à venir — règlement non public ».
 
 Spartan Sprint porte un badge « Course à obstacles » ; un filtre « Type : hybride / obstacles » permet de l'afficher ou de la masquer.
 
@@ -124,22 +125,25 @@ Chaque note de 1 à 5 est calculée par le code à partir de données mesurables
 | 4 | 5 à 8 km | Sled lourd ou barre sous-maximale | 2 000 à 3 000 m ou effort de 60 à 90 min | Tractions, toes-to-bar, obstacles simples |
 | 5 | Plus de 8 km | Tests de charge maximale (1RM, 3RM, 5RM) | Plus de 3 000 m ou effort de plus de 90 min | Muscle-up, handstand push-up, obstacles techniques |
 
-**Note globale** = moyenne des 4 catégories, ajustée par la durée (−0,5 si moins de 30 min, +0,5 si plus de 90 min), arrondie à l'entier et bornée entre 1 et 5.
+**Note globale** = moyenne des 4 catégories, ajustée par la durée (−0,5 si moins de 30 min, +0,5 si plus de 90 min), arrondie au demi-point le plus proche (3,25 → 3,5 ; 3,75 → 4) et bornée entre 1 et 5. La jauge affiche alors une demi-pastille.
 
-**Duo et équipe.** La distance et le volume sont divisés par le nombre d'athlètes qui se partagent l'effort, mais pas la charge : en HYROX Doubles, le sled pèse autant, on en fait juste moins.
+**Duo et équipe.** La distance de course retenue est celle que **chaque athlète** court d'après le règlement (en HYROX Doubles et en paires Deadly Dozen, chacun court la totalité). Seul le volume d'ergo est divisé par le nombre d'athlètes qui se partagent les stations, jamais la charge : en HYROX Doubles, le sled pèse autant, on en fait juste moins. **En duo, la note cardio ne compte que le volume d'ergo par athlète, sans le critère de durée** (HYROX Doubles : 1 000 m par athlète → cardio 3).
 
 **Transparence.** La fiche course affiche, pour chaque note, la donnée qui l'a produite (ex. « Course 4/5 : 8 km au total »). Une page « Comment on note » reprend ce tableau.
 
 **Exemple attendu** (à valider par toi, tu connais la course) : HYROX Open solo → course 5 (8 km), force 4 (sled), cardio 4 (2 000 m d'ergo, 60–90 min), gym 2 (burpees, fentes, wall balls) → globale 4.
 
-**Précisions de calcul (US1.2, proposées, à valider à la revue).** Seuils dans `data/config/bareme.json`, calcul dans `src/lib/bareme.ts` :
+**Précisions de calcul (US1.2, validées à la revue du 23/10/2026).** Seuils dans `data/config/bareme.json`, calcul dans `src/lib/bareme.ts` :
 
 - **Bornes** : chaque palier commence à sa valeur basse (2 km, 5 km et 8 km donnent 3, 4 et 5), pour retrouver l'exemple HYROX (8 km → 5). « Plus de 90 min » est strict : 90 min donnent 4.
 - **Duo et équipe** : la distance de course retenue est celle que **chaque athlète** court d'après le règlement (en HYROX Doubles et en paires Deadly Dozen, chacun court tout) ; seuls les mètres d'ergo sont divisés par `partageEffort`.
 - **Force** : charges de la catégorie **hommes** par défaut (`chargeReference`) ; sled lourd à partir de **100 kg** (sled compris) ; une charge libre de 30 kg ou plus, absente du tableau, reste à 3.
-- **Cardio** : la plus haute des deux notes (mètres d'ergo, durée d'effort). La durée d'effort (`bareme.cardio.dureeEffortMin`) est distincte de la durée affichée (ATHX : 69 min d'effort pour 2 h 30 sur place). L'air bike en calories n'est pas converti en mètres.
-- **Information introuvable** : la catégorie vaut `null`, s'affiche « ? » et la note globale est « à confirmer » ; une remarque l'explique dans le fichier de la course.
-- **Arrondi** de la note globale : à l'entier le plus proche, x,5 vers le haut.
+- **Cardio** : la plus haute des deux notes (mètres d'ergo, durée d'effort), sauf en duo (ergo seul, voir ci-dessus). La durée d'effort (`bareme.cardio.dureeEffortMin`) est distincte de la durée affichée (ATHX : 69 min d'effort pour 2 h 30 sur place). L'air bike en calories n'est pas converti en mètres.
+- **Information introuvable** : la catégorie vaut `null` et s'affiche « ? » ; la note globale manque et le catalogue affiche « Note à venir — règlement non public » (Turf Games, XENOM). Une remarque l'explique dans le fichier de la course.
+- **Arrondi** de la note globale : au demi-point le plus proche (x,25 et x,75 vers le haut).
+- **Autres choix validés** : charge libre de 30 kg ou plus → 3 ; DEKA en « step over » → gym 2 ; Spartan Sprint → obstacles simples (4) ; durées estimées HYROX Doubles 80 min, Deadly Dozen 70 min, The Hybrid Games 80 min.
+
+**Résultats de référence** (testés automatiquement) : HYROX Open solo 4 · ATHX 4 · The Hybrid Games 4 · Spartan Sprint 4 · HYROX Doubles 3,5 · Deadly Dozen 3,5 · DEKA FIT 3 · DEKA MILE 2,5 · DEKA STRONG 2 · Turf Games et XENOM : note à venir.
 
 
 ## 6. Récupération automatique des dates
@@ -211,6 +215,8 @@ Le quiz pose 7 questions, construit un profil sur les mêmes 4 catégories que l
 | Q7 | Jusqu'où es-tu prêt·e à aller ? | France uniquement · France et pays frontaliers · Peu importe |
 
 ### Règle de scoring
+
+**Courses sans note globale** (Turf Games, XENOM tant que leur règlement n'est pas public) : exclues du classement du quiz tant qu'une note manque.
 
 Pour chaque course et chacune des 4 catégories, écart = note de la course − niveau du profil.
 
