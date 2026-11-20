@@ -315,6 +315,38 @@ describe("validateDataFiles", () => {
 		});
 	});
 
+	describe("quiz", () => {
+		const quizConfig = {
+			ecartPositif: { multiplicateur: 2, exposant: 2 },
+			poidsEcartNegatif: { kiffer: 0.25, chrono: 0.5, mesurer: 1 },
+			penaliteSansDate: 3,
+			fenetreDateMois: 12,
+			score: { base: 100, multiplicateurPenalite: 8, min: 0, max: 100 },
+		};
+
+		it("accepte les coefficients du quiz", () => {
+			expect(
+				validateDataFiles([
+					...validFiles(),
+					{ path: "data/config/quiz.json", content: json(quizConfig) },
+				]),
+			).toEqual([]);
+		});
+
+		it("nomme un coefficient de quiz invalide", () => {
+			const errors = validateDataFiles([
+				...validFiles(),
+				{
+					path: "data/config/quiz.json",
+					content: json({ ...quizConfig, fenetreDateMois: 0 }),
+				},
+			]);
+			expect(errors).toContainEqual(
+				expect.stringMatching(/data\/config\/quiz\.json → fenetreDateMois : /),
+			);
+		});
+	});
+
 	it("signale un JSON mal formé avec le nom du fichier", () => {
 		const errors = validateDataFiles([
 			{ path: "data/races/cassé.json", content: "{ nom: " },

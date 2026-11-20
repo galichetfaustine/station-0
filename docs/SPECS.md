@@ -44,7 +44,7 @@ Neuf choix restent ouverts. Pour chacun, je recommande une option et tu passes l
 | --- | --- | --- | --- | --- |
 | D1 | Nom du site | **Station 0 : la station d'avant la première, le point de départ de toute course hybride**. | Un autre nom ; seul le logo et les métadonnées changent. | Modifié |
 | D2 | Framework des parties interactives (quiz, WOD, minuteur) | **Svelte 5** : environ 10 fois moins de JavaScript envoyé que React sur un petit site, syntaxe proche du HTML, plus facile à relire pour toi. | **React 19** : plus de ressources en ligne et compétence très demandée en alternance, mais un runtime d'environ 45 Ko à charger. | Validé |
-| D3 | Hébergement | **GitHub Pages + GitHub Actions** : gratuit sur dépôt public, un seul compte, la collecte des dates tourne au même endroit que le site. | **Cloudflare** (qui possède Astro depuis janvier 2026) : réseau plus rapide, mais un compte et un outil de plus. | Validé |
+| D3 | Hébergement | **Vercel** (plan gratuit) pour le site statique, servi à la racine. **GitHub Actions** garde la CI et la collecte des dates. | **Cloudflare** (qui possède Astro depuis janvier 2026) : réseau plus rapide, mais un compte et un outil de plus. | Modifié (2026-11-20) : GitHub Pages remplacé par Vercel |
 | D4 | Mise à jour des dates | **Commit automatique** quand les données passent la validation ; Pull Request à relire seulement en cas d'anomalie. | Pull Request systématique : plus sûr, mais demande ton intervention à chaque changement. | Validé |
 | D5 | Spartan Sprint (course à obstacles 5 km) | **Ne pas l'inclure en V1** : ce n'est pas une course fitness hybride et ça brouille les recommandations du quiz. | L'ajouter comme 11e course « cousine », marquée à part. | Modifié : incluse comme 11e course « cousine » |
 | D6 | Mode du générateur de WOD | **Tout aléatoire en 1 clic**, avec des verrous optionnels (course, niveau, matériel, format). Le time cap (15 ou 20 min) est la seule contrainte toujours respectée. | Formulaire obligatoire avant de générer. | Validé |
@@ -228,6 +228,13 @@ Pour chaque course et chacune des 4 catégories, écart = note de la course − 
 
 Score de compatibilité = 100 − 8 × pénalité totale, borné entre 0 et 100 %. À égalité, la course dont la prochaine date est la plus proche passe devant. Tous les coefficients sont dans un fichier de config.
 
+**Précisions (US2.1).**
+
+- Un écart de 0 ne coûte rien.
+- « En équipe » (Q5) correspond aux formats `equipe` et `relais`, comme le filtre « Équipe » du catalogue. « Peu importe » n'exclut aucun format.
+- Zone de Q7 : « France uniquement » = FR ; « France et pays frontaliers » = FR, BE, CH, LU, DE, IT, ES (liste du §2 ; le Royaume-Uni n'en fait pas partie) ; « Peu importe » = n'importe quel pays.
+- « Passé » a le même sens que dans le catalogue : le dernier jour d'un événement compte encore. La fenêtre de 12 mois part du jour (heure de Paris). Pour départager deux scores égaux, la prochaine date est celle du catalogue (18 mois, tous pays) ; sans date, la course passe après ; à date égale, le nom en français départage.
+
 ### Résultat
 
 - **La course recommandée** : nom, score, « Pourquoi elle te va » (les 2 catégories où l'écart est le plus faible), « Point d'attention » (la catégorie au plus gros écart positif), prochaine date, bouton vers la fiche.
@@ -238,7 +245,10 @@ Score de compatibilité = 100 − 8 × pénalité totale, borné entre 0 et 100 
 
 ### Tests de référence
 
-Des profils types sont vérifiés automatiquement à chaque modification des règles. Exemple : profil « course 3, force 3, cardio 4, gym 3, à deux, chrono » → HYROX Doubles ou DEKA MILE en tête. Exemple : profil « ne court pas, force 3, seul·e, kiffer » → DEKA STRONG.
+Des profils types sont vérifiés automatiquement à chaque modification des règles. Recalculés avec les notes du §5 (US2.1) : les têtes citées avant ce calcul ne sortent pas de la formule.
+
+- Profil « course 3, force 3, cardio 4, gym 3, à deux, chrono ». La zone n'était pas nommée : le test prend « France et pays frontaliers ». Deadly Dozen en tête (100 %), puis DEKA MILE (64 %) et DEKA STRONG (60 %). Deadly Dozen reste en tête pour les trois zones. HYROX Doubles est à 12 % : sa course est notée 5, très au-dessus du profil.
+- Profil « ne court pas, force 3, seul·e, kiffer ». « Ne court pas » = Q1 « Pas encore possible » (course 2). Cardio, gym et zone n'étaient pas nommés. Pour chaque réponse possible à ces trois questions, DEKA MILE devance DEKA STRONG : la question course commence à 2, DEKA MILE est notée 2 et DEKA STRONG est notée 1. Avec cardio « jamais », gym « aucun » et la zone « France et pays frontaliers », les huit courses solo notées sont à 0 % ; l'ordre est alors celui des prochaines dates (DEKA FIT, DEKA MILE, DEKA STRONG).
 
 ## 8. F3 — Générateur de WOD et minuteur
 
@@ -335,7 +345,7 @@ Le site est statique : des pages HTML générées à l'avance, avec du JavaScrip
 | Runtime | **Node.js 26** (LTS le 28/10/2026, fin de vie avril 2029), fixé dans `.nvmrc` et `engines` | Astro 7 exige Node 22.23 minimum ; on vise la LTS avec la fin de vie la plus lointaine. |
 | Tests | **Vitest** (logique), **Playwright** (parcours), **axe-core** (accessibilité) | Les règles du quiz et du générateur sont du code pur, faciles à tester. |
 | Qualité | **Biome** (lint et formatage en un outil, hors fichiers Markdown) | Un seul outil au lieu de deux ; activement maintenu (vérifié au Lot 0). |
-| Hébergement et automatisation | **GitHub Pages + GitHub Actions** (D3) | Tests, collecte des dates et déploiement au même endroit. |
+| Hébergement et automatisation | **Vercel** pour l'hébergement, **GitHub Actions** pour la CI et la collecte (D3) | Site statique à la racine. Un push sur `main` reconstruit le site. La collecte de nuit reste sur GitHub Actions. |
 | Mises à jour | **Dependabot** | Propose chaque semaine les mises à jour de dépendances, testées par la CI. |
 
 ### Architecture du dépôt
@@ -353,7 +363,7 @@ src/
   pages/            accueil, courses/, courses/[slug], quiz, wod, methode
   styles/           tokens.css (DA), global.css
 scripts/collect/    un collecteur par source + validation
-.github/workflows/  ci.yml, collect-dates.yml (nuit), deploy.yml
+.github/workflows/  ci.yml, collect-dates.yml (nuit)
 docs/               SPECS.md, DECISIONS.md (journal), adr/ (décisions techniques), sources-dates.md
 CLAUDE.md           règles du projet pour Claude Code
 ```
@@ -382,7 +392,7 @@ Cinq lots livrés dans l'ordre 0 → 1 → 2 → 3 → 4. Le Lot 1 est un site u
   - La version de Node est fixée dans le dépôt.
 - **US0.2 Intégration continue.** À chaque Pull Request : lint, types, tests, build, audit des dépendances.
   - Une Pull Request rouge ne peut pas être fusionnée.
-- **US0.3 Déploiement.** Chaque fusion sur `main` met le site en ligne.
+- **US0.3 Déploiement.** Chaque fusion sur `main` met le site en ligne (Vercel reconstruit à partir du push).
   - Le site est accessible publiquement moins de 5 min après la fusion.
 - **US0.4 DA et gabarit.** Variables de couleur et de typo, thème sombre et clair, en-tête avec Courses, Quiz, WOD.
   - Le test de contraste passe sur toutes les combinaisons utilisées.
@@ -407,7 +417,7 @@ Cinq lots livrés dans l'ordre 0 → 1 → 2 → 3 → 4. Le Lot 1 est un site u
   - Une date passée n'apparaît jamais, même si la dernière reconstruction a échoué.
 - **US1.5** En tant que mainteneuse, je veux que les dates se mettent à jour seules afin de ne pas tout ressaisir.
   - Un collecteur par source automatisable, testé sur des pages enregistrées (aucun appel réseau dans les tests).
-  - Le workflow de nuit collecte, valide, applique le garde-fou, commite et redéploie.
+  - Le workflow de nuit collecte, valide, applique le garde-fou et commite sur `main` ; Vercel reconstruit le site.
   - Une source en panne ouvre un ticket GitHub et laisse les anciennes dates en place.
 - **US1.6** En tant que mainteneuse, je veux corriger une date à la main afin de ne pas dépendre du collecteur.
   - Une entrée de `events-manual/` remplace la donnée collectée au prochain build.

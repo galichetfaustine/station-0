@@ -2,10 +2,13 @@
 import svelte from "@astrojs/svelte";
 import { defineConfig, fontProviders } from "astro/config";
 
-// Site publié sur GitHub Pages : https://galichetfaustine.github.io/station-0/
+// Vercel sert le site à la racine. Au build, si VERCEL_PROJECT_PRODUCTION_URL
+// existe, site vaut https://<cette valeur> ; sinon http://localhost:4321.
+const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+
 export default defineConfig({
-	site: "https://galichetfaustine.github.io",
-	base: "/station-0",
+	site: productionHost ? `https://${productionHost}` : "http://localhost:4321",
+	base: "/",
 	output: "static",
 	integrations: [svelte()],
 	// Polices (D8) téléchargées au build et servies par le site : aucun appel externe côté visiteur.
