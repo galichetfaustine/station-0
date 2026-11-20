@@ -250,3 +250,31 @@ export const baremeConfigSchema = z.strictObject({
 });
 
 export type BaremeConfig = z.infer<typeof baremeConfigSchema>;
+
+// --- Coefficients du quiz (data/config/quiz.json, §7) ---
+
+export const quizConfigSchema = z.strictObject({
+	/** Course plus dure que le profil : multiplicateur × écart ^ exposant. */
+	ecartPositif: z.strictObject({
+		multiplicateur: z.number().positive(),
+		exposant: z.number().positive(),
+	}),
+	/** Course plus facile : |écart| × ce poids, selon l'objectif (Q6). */
+	poidsEcartNegatif: z.strictObject({
+		kiffer: z.number().nonnegative(),
+		chrono: z.number().nonnegative(),
+		mesurer: z.number().nonnegative(),
+	}),
+	/** Aucune date à venir dans la zone sur la fenêtre : pénalité ajoutée, la course reste classée. */
+	penaliteSansDate: z.number().nonnegative(),
+	/** Fenêtre de la pénalité de distance, en mois. */
+	fenetreDateMois: z.int().positive(),
+	score: z.strictObject({
+		base: z.number(),
+		multiplicateurPenalite: z.number(),
+		min: z.number(),
+		max: z.number(),
+	}),
+});
+
+export type QuizConfig = z.infer<typeof quizConfigSchema>;

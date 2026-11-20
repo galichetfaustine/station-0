@@ -1,10 +1,13 @@
 // Chargement des données au build : courses, configuration du barème et dates, validées par leur schéma.
 import baremeConfigJson from "../../data/config/bareme.json";
+import quizConfigJson from "../../data/config/quiz.json";
 import { type DatedEvent, type EventFile, mergeEvents } from "./dates.ts";
 import {
 	type BaremeConfig,
 	baremeConfigSchema,
 	eventFileSchema,
+	type QuizConfig,
+	quizConfigSchema,
 	type Race,
 	raceSchema,
 } from "./schemas.ts";
@@ -16,6 +19,8 @@ const files = import.meta.glob<unknown>("../../data/races/*.json", {
 
 export const baremeConfig: BaremeConfig =
 	baremeConfigSchema.parse(baremeConfigJson);
+
+export const quizConfig: QuizConfig = quizConfigSchema.parse(quizConfigJson);
 
 export const races: Race[] = Object.values(files)
 	.map((data) => raceSchema.parse(data))
