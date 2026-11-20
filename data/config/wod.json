@@ -1,0 +1,15 @@
+{
+	"timeCapMin": [15, 20],
+	"niveauParDefaut": "debutant",
+	"exercicesMin": 3,
+	"exercicesMax": 5,
+	"partCourseInspiration": 0.7,
+	"forTimePartMax": 0.85,
+	"amrapTourMinSec": 180,
+	"amrapTourMaxSec": 300,
+	"emomTravailMinSec": 35,
+	"emomTravailMaxSec": 45,
+	"intervallesTravailSec": 40,
+	"intervallesReposSec": 20,
+	"echauffementMin": 5
+}
