@@ -4,14 +4,8 @@
 // graine : il ne passe pas par le générateur aléatoire du langage.
 // Un exercice sans secondesParUnite est écarté : sa durée ne se devine pas.
 
-import {
-	type Exercise,
-	MATERIELS,
-	WOD_FORMATS,
-	type WodConfig,
-	type WodFormat,
-	type WodLevel,
-} from "./schemas.ts";
+import { MATERIELS, WOD_FORMATS } from "./enums.ts";
+import type { Exercise, WodConfig, WodFormat, WodLevel } from "./schemas.ts";
 
 const SECONDS_PER_MINUTE = 60;
 

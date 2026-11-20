@@ -6,8 +6,9 @@ export const SITE = {
 	lang: "fr",
 } as const;
 
-/** Entrées de la navigation. La page WOD existe, sans lien : le générateur arrive au Lot 3. */
+/** Entrées de la navigation. Le WOD y est depuis que la page du générateur existe (US3.3). */
 export const NAV = [
 	{ label: "Courses", path: "/courses/" },
 	{ label: "Quiz", path: "/quiz/" },
+	{ label: "WOD", path: "/wod/" },
 ] as const;

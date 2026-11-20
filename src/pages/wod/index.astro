@@ -1,7 +1,34 @@
 ---
+import wodConfigJson from "../../../data/config/wod.json";
+import exercisesJson from "../../../data/exercises.json";
 import BaseLayout from "../../components/BaseLayout.astro";
+import WodGenerator from "../../components/WodGenerator.svelte";
+import { races } from "../../lib/races-data";
+import { exerciseBankSchema, wodConfigSchema } from "../../lib/schemas";
+
+const exercises = exerciseBankSchema.parse(exercisesJson);
+const config = wodConfigSchema.parse(wodConfigJson);
+const raceOptions = races.map((race) => ({ slug: race.slug, nom: race.nom }));
 ---
 
-<BaseLayout title="WOD" description="Bientôt disponible">
-	<h1>Bientôt disponible</h1>
+<BaseLayout
+	title="WOD"
+	description="Une séance de 15 ou 20 minutes, en un clic. Le lien de la page redonne la même séance."
+>
+	<h1>WOD</h1>
+	<p class="intro">
+		Un clic tire une séance de 15 ou 20 minutes, avec des exercices des courses du catalogue.
+		Verrouille ce que tu veux garder : Relancer ne change que le reste. Rien n'est enregistré.
+	</p>
+	<noscript>
+		<p>Pour tirer une séance, active JavaScript. Rien n'est enregistré.</p>
+	</noscript>
+	<WodGenerator client:load {exercises} races={raceOptions} {config} />
 </BaseLayout>
+
+<style>
+	.intro {
+		max-width: 36rem;
+		color: var(--color-text-muted);
+	}
+</style>
