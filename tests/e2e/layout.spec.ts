@@ -27,22 +27,24 @@ for (const colorScheme of ["dark", "light"] as const) {
 	});
 }
 
-test("le thème suit le réglage du téléphone : sombre par défaut, clair si demandé", async ({
+test("le site reste sombre, même si le téléphone est en mode clair", async ({
 	browser,
 	baseURL,
 }) => {
-	const background = async (colorScheme: "dark" | "light") => {
-		const context = await browser.newContext({ colorScheme, baseURL });
-		const page = await context.newPage();
-		await page.goto("./");
-		const color = await page.evaluate(
-			() => getComputedStyle(document.body).backgroundColor,
+	const context = await browser.newContext({
+		colorScheme: "light",
+		baseURL,
+	});
+	const page = await context.newPage();
+	for (const path of ["./", "courses/", "courses/hyrox-open/", "methode/"]) {
+		await page.goto(path);
+		await expect(page.locator("body")).toHaveCSS(
+			"background-color",
+			"rgb(11, 11, 15)",
 		);
-		await context.close();
-		return color;
-	};
-	expect(await background("dark")).toBe("rgb(11, 11, 15)");
-	expect(await background("light")).toBe("rgb(247, 246, 243)");
+		await expect(page.locator("body")).toHaveCSS("color", "rgb(255, 255, 255)");
+	}
+	await context.close();
 });
 
 test("l'en-tête ne montre que les pages existantes et signale la page en cours", async ({
@@ -55,9 +57,13 @@ test("l'en-tête ne montre que les pages existantes et signale la page en cours"
 	await nav.getByRole("link", { name: "Courses" }).click();
 	await expect(page).toHaveURL(/\/courses\/$/);
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Courses");
-	await expect(nav.getByRole("link", { name: "Courses" })).toHaveAttribute(
-		"aria-current",
-		"page",
+	const coursesLink = nav.getByRole("link", { name: "Courses" });
+	await expect(coursesLink).toHaveAttribute("aria-current", "page");
+	await expect(coursesLink).toHaveCSS("text-decoration-line", "underline");
+	await expect(coursesLink).toHaveCSS("outline-style", "none");
+	await expect(page.locator(".site-header .logo")).toHaveCSS(
+		"text-transform",
+		"none",
 	);
 
 	await nav.getByRole("link", { name: "WOD" }).click();
@@ -70,11 +76,13 @@ test("l'en-tête ne montre que les pages existantes et signale la page en cours"
 });
 
 test("les liens de l'en-tête font au moins 44 × 44 px", async ({ page }) => {
-	await page.goto("./");
-	for (const link of await page.locator(".site-header a").all()) {
-		const box = await link.boundingBox();
-		expect(box?.height).toBeGreaterThanOrEqual(44);
-		expect(box?.width).toBeGreaterThanOrEqual(44);
+	for (const path of ["./", "courses/"]) {
+		await page.goto(path);
+		for (const link of await page.locator(".site-header a").all()) {
+			const box = await link.boundingBox();
+			expect(box?.height).toBeGreaterThanOrEqual(44);
+			expect(box?.width).toBeGreaterThanOrEqual(44);
+		}
 	}
 });
 

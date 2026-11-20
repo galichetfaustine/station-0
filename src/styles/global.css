@@ -29,6 +29,7 @@ h3 {
 
 h1 {
 	font-size: clamp(2.5rem, 10vw, 5rem);
+	letter-spacing: -0.03em;
 }
 
 a {
@@ -71,7 +72,7 @@ main.hero-page {
 	}
 }
 
-/* Action orange : une seule par écran, texte encre, bordure encre pour le mode clair */
+/* Action orange : une seule par écran, texte encre (le blanc sur orange ne contraste pas) */
 .button {
 	display: inline-flex;
 	align-items: center;

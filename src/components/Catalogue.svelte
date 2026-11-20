@@ -38,6 +38,17 @@ const FORMAT_LABELS = {
 	equipe: "Équipe",
 } as const;
 
+type Dot = "full" | "half" | "empty";
+
+/** 5 pastilles à partir de la note (elle reste aussi écrite à côté). */
+function dots(note: number | null): Dot[] {
+	return [0, 1, 2, 3, 4].map((index) => {
+		if (note === null || note < index + 0.5) return "empty";
+		if (note < index + 1) return "half";
+		return "full";
+	});
+}
+
 onMount(() => {
 	filters = parseFilters(new URLSearchParams(window.location.search));
 	today = todayInParis();
@@ -149,6 +160,11 @@ $effect(() => {
 					<p class="global pending">Note à venir — règlement non public</p>
 				{:else}
 					<p class="global">
+						<span class="dots" aria-hidden="true">
+							{#each dots(race.noteGlobale) as dot, index (index)}
+								<i class={dot}></i>
+							{/each}
+						</span>
 						<span class="global-value">{formatNote(race.noteGlobale)}</span><span class="global-max">/5</span>
 						<span class="visually-hidden">de difficulté globale</span>
 					</p>
@@ -220,7 +236,7 @@ $effect(() => {
 	input {
 		width: 1.25rem;
 		height: 1.25rem;
-		accent-color: var(--color-action-bg);
+		accent-color: var(--color-text);
 	}
 
 	select {
@@ -238,30 +254,32 @@ $effect(() => {
 	}
 
 	.cards {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
-		gap: var(--space-3);
+		max-width: 42rem;
+		margin: 0;
 		padding: 0;
 		list-style: none;
+		border-bottom: 1px solid var(--color-line);
 	}
 
 	.card {
+		position: relative;
 		display: grid;
 		gap: var(--space-3);
-		padding: var(--space-4);
-		border-radius: var(--radius);
-		background: var(--color-surface);
-		border: 1px solid var(--color-line);
+		padding-block: var(--space-4);
+		border-top: 1px solid var(--color-line);
+		background: transparent;
 	}
 
 	.head {
 		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
 		justify-content: space-between;
-		gap: var(--space-3);
+		gap: var(--space-2) var(--space-3);
 	}
 
 	h2 {
-		font-size: 1.75rem;
+		font-size: clamp(1.75rem, 4vw, 2.25rem);
 		margin-bottom: var(--space-1);
 	}
 
@@ -269,16 +287,11 @@ $effect(() => {
 		text-decoration: none;
 	}
 
-	/* Toute la carte est cliquable via le lien du titre. */
-	.card {
-		position: relative;
-	}
-
+	/* Toute la ligne est cliquable via le lien du titre. */
 	h2 a::after {
 		content: "";
 		position: absolute;
 		inset: 0;
-		border-radius: var(--radius);
 	}
 
 	h2 a:hover {
@@ -292,6 +305,9 @@ $effect(() => {
 	}
 
 	.global {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
 		margin: 0;
 		font-family: var(--font-title);
 		font-weight: 800;
@@ -299,19 +315,40 @@ $effect(() => {
 		white-space: nowrap;
 	}
 
+	.dots {
+		display: inline-flex;
+		gap: 5px;
+	}
+
+	.dots i {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--color-text);
+	}
+
+	.dots i.empty {
+		background: transparent;
+		box-shadow: inset 0 0 0 1.5px var(--color-line);
+	}
+
+	.dots i.half {
+		background: linear-gradient(90deg, var(--color-text) 50%, transparent 50%);
+		box-shadow: inset 0 0 0 1.5px var(--color-text);
+	}
+
 	.global.pending {
-		max-width: 9rem;
+		max-width: 16rem;
 		font-family: var(--font-text);
 		font-weight: 600;
 		font-size: 0.875rem;
 		line-height: 1.3;
 		white-space: normal;
-		text-align: right;
 		color: var(--color-text-muted);
 	}
 
 	.global-value {
-		font-size: 3rem;
+		font-size: 1.5rem;
 	}
 
 	.global-max {

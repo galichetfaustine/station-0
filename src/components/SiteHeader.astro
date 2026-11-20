@@ -3,7 +3,7 @@ import { withBase } from "../lib/paths";
 import { NAV, SITE } from "../lib/site";
 
 interface Props {
-	/** Menu fin, posé sur la photo de l'accueil. */
+	/** Même menu fin, posé sur la photo de l'accueil. */
 	quiet?: boolean;
 }
 
@@ -35,8 +35,10 @@ const current = Astro.url.pathname;
 </header>
 
 <style>
+	/* Ligne fine, comme sur l'accueil : petit nom, pas de pastille. */
 	.site-header {
 		border-bottom: 1px solid var(--color-line);
+		color: var(--color-on-ink);
 	}
 
 	.inner {
@@ -52,10 +54,11 @@ const current = Astro.url.pathname;
 		display: inline-flex;
 		align-items: center;
 		min-height: var(--tap-min);
-		font-family: var(--font-title);
-		font-weight: 800;
-		font-size: 1.75rem;
-		text-transform: uppercase;
+		min-width: var(--tap-min);
+		font-family: var(--font-text);
+		font-size: 1rem;
+		font-weight: 500;
+		text-transform: none;
 		text-decoration: none;
 	}
 
@@ -73,37 +76,30 @@ const current = Astro.url.pathname;
 		min-height: var(--tap-min);
 		min-width: var(--tap-min);
 		padding-inline: var(--space-3);
-		border-radius: 999px;
-		font-weight: 600;
+		border-radius: 0;
+		font-size: 0.95rem;
+		font-weight: 400;
 		text-decoration: none;
 
 		&:hover {
 			text-decoration: underline;
 		}
 
-		/* Page en cours : soulignée et encadrée, pas seulement colorée */
+		/* Page en cours : soulignée et plus grasse, pas seulement colorée, sans pastille. */
 		&[aria-current="page"] {
+			font-weight: 700;
 			text-decoration: underline;
 			text-underline-offset: 0.3em;
-			outline: 1px solid var(--color-line);
 		}
 	}
 
-	/* Accueil : une ligne discrète sur la photo, zones tactiles inchangées. */
+	/* Accueil : la même ligne, posée sur la photo. */
 	.quiet {
 		position: absolute;
 		z-index: 2;
 		inset: 0 0 auto;
 		border-bottom: 0;
 		background: transparent;
-		color: var(--color-on-ink);
-	}
-
-	.quiet .logo {
-		font-family: var(--font-text);
-		font-size: 1rem;
-		font-weight: 500;
-		text-transform: none;
 	}
 
 	.quiet .logo,
@@ -111,14 +107,5 @@ const current = Astro.url.pathname;
 		text-shadow:
 			0 1px 10px var(--color-ink),
 			0 0 2px var(--color-ink);
-	}
-
-	.quiet nav a {
-		font-weight: 400;
-		font-size: 0.95rem;
-
-		&[aria-current="page"] {
-			outline-color: var(--color-on-ink);
-		}
 	}
 </style>

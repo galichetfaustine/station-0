@@ -214,7 +214,7 @@ test("en mode clair, le quiz reste un écran encre", async ({ page }) => {
 	await page.goto("courses/");
 	await expect(page.locator("body")).toHaveCSS(
 		"background-color",
-		"rgb(247, 246, 243)",
+		"rgb(11, 11, 15)",
 	);
 });
 
