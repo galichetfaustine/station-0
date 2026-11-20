@@ -274,6 +274,10 @@ export const quizConfigSchema = z.strictObject({
 	penaliteSansDate: z.number().nonnegative(),
 	/** Fenêtre de la pénalité de distance, en mois. */
 	fenetreDateMois: z.int().positive(),
+	/** Sous ce pourcentage, aucune course n'est recommandée : on montre la plus accessible (§7, « dépasse »). */
+	seuilRecommandation: z.number().min(0).max(100),
+	/** L'alternative n'apparaît que si son score dépasse ce pourcentage (D7). */
+	seuilAlternative: z.number().min(0).max(100),
 	score: z.strictObject({
 		base: z.number(),
 		multiplicateurPenalite: z.number(),

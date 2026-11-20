@@ -36,6 +36,9 @@ function dots(note: number | null): Dot[] {
 				HYROX, DEKA, ATHX, Deadly Dozen. {races.length} courses hybrides, notées de 1 à 5 d'après leur règlement.
 			</p>
 			<a class="button" href={withBase(base, "/courses/")}>Voir les courses</a>
+			<p class="quiz-entry">
+				<a href={withBase(base, "/quiz/")}>Pas sûr que ce soit pour toi ? Fais le quiz</a>
+			</p>
 		</div>
 	</section>
 
@@ -124,6 +127,13 @@ function dots(note: number | null): Dot[] {
 
 	.start {
 		padding-top: var(--space-5);
+	}
+
+	.quiz-entry a {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		min-width: var(--tap-min);
 	}
 
 	h2 {

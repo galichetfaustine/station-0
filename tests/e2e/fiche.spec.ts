@@ -33,6 +33,11 @@ test("la fiche HYROX Open solo présente les 7 blocs du §4", async ({
 		page.getByText("Essayer un WOD inspiré de cette course"),
 	).toBeVisible();
 	await expect(page.getByText("Pas sûr que ce soit pour toi ?")).toBeVisible();
+	await expect(
+		page.getByRole("link", {
+			name: "Pas sûr que ce soit pour toi ? Fais le quiz",
+		}),
+	).toHaveAttribute("href", /\/quiz\/$/);
 });
 
 test("« Pourquoi 5/5 ? » affiche la donnée qui justifie la note", async ({

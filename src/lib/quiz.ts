@@ -163,3 +163,368 @@ export function rankRaces(
 			return dateA.localeCompare(dateB) || a.nom.localeCompare(b.nom, "fr");
 		});
 }
+
+// --- Questions (§7, US2.2) ---
+// Les textes affichés sont ceux du §7, mot pour mot. Les valeurs relient chaque réponse au profil.
+
+const courseOptions = [
+	{ value: "pasEncore", label: "Pas encore possible" },
+	{ value: "faisable", label: "Faisable mais dur" },
+	{ value: "facile", label: "Facile" },
+	{ value: "plusLoin", label: "Je cours plus loin régulièrement" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.course;
+	label: string;
+}[];
+
+const forceOptions = [
+	{ value: "jamais", label: "Jamais touché" },
+	{ value: "unPeu", label: "Un peu en salle" },
+	{ value: "regulierement", label: "Régulièrement" },
+	{ value: "barreLourde", label: "Je fais de la barre lourde" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.force;
+	label: string;
+}[];
+
+const cardioOptions = [
+	{ value: "jamais", label: "Jamais" },
+	{ value: "parfois", label: "De temps en temps" },
+	{ value: "souvent", label: "Souvent, 20 min et plus" },
+	{ value: "endurance", label: "Gros moteur d'endurance" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.cardio;
+	label: string;
+}[];
+
+const gymOptions = [
+	{ value: "aucun", label: "Aucun de ceux-là" },
+	{ value: "burpees", label: "Burpees" },
+	{ value: "boxJumps", label: "Box jumps" },
+	{ value: "tractions", label: "Tractions ou toes-to-bar" },
+	{ value: "muscleUp", label: "Muscle-up" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.gym;
+	label: string;
+}[];
+
+const formatOptions = [
+	{ value: "solo", label: "Seul·e" },
+	{ value: "duo", label: "À deux" },
+	{ value: "equipe", label: "En équipe" },
+	{ value: "peuImporte", label: "Peu importe" },
+] as const satisfies readonly { value: QuizFormat; label: string }[];
+
+const objectifOptions = [
+	{ value: "kiffer", label: "Finir et kiffer" },
+	{ value: "chrono", label: "Me tester sur un chrono" },
+	{ value: "mesurer", label: "Me mesurer aux autres" },
+] as const satisfies readonly { value: QuizObjectif; label: string }[];
+
+const zoneOptions = [
+	{ value: "france", label: "France uniquement" },
+	{ value: "frontaliers", label: "France et pays frontaliers" },
+	{ value: "peuImporte", label: "Peu importe" },
+] as const satisfies readonly { value: QuizZone; label: string }[];
+
+/** Les 7 questions, dans l'ordre du §7. */
+export const QUIZ_QUESTIONS = [
+	{
+		id: "course",
+		prompt: "Courir 5 km sans t'arrêter, c'est…",
+		options: courseOptions,
+	},
+	{
+		id: "force",
+		prompt: "Les charges (kettlebell, haltères, sled)…",
+		options: forceOptions,
+	},
+	{ id: "cardio", prompt: "Rameur, SkiErg, vélo…", options: cardioOptions },
+	{
+		id: "gym",
+		prompt: "Le mouvement le plus technique que tu maîtrises",
+		options: gymOptions,
+	},
+	{ id: "format", prompt: "Tu te vois courir…", options: formatOptions },
+	{ id: "objectif", prompt: "Ton objectif", options: objectifOptions },
+	{
+		id: "zone",
+		prompt: "Jusqu'où es-tu prêt·e à aller ?",
+		options: zoneOptions,
+	},
+] as const;
+
+export type QuizQuestionId = (typeof QUIZ_QUESTIONS)[number]["id"];
+
+/** Réponses présentes dans l'adresse. Une case vide n'a pas encore été choisie. */
+export type QuizAnswerMap = Record<QuizQuestionId, string | null>;
+
+export function emptyQuizAnswers(): QuizAnswerMap {
+	return {
+		course: null,
+		force: null,
+		cardio: null,
+		gym: null,
+		format: null,
+		objectif: null,
+		zone: null,
+	};
+}
+
+function isKnownAnswer(
+	id: QuizQuestionId,
+	value: string | null,
+): value is string {
+	if (value === null) return false;
+	const question = QUIZ_QUESTIONS.find((item) => item.id === id);
+	return question?.options.some((option) => option.value === value) ?? false;
+}
+
+/**
+ * Lit les réponses dans l'adresse. Une valeur inconnue est ignorée.
+ * `etape` vaut null s'il est absent ou invalide.
+ */
+export function parseQuizSearch(params: URLSearchParams): {
+	answers: QuizAnswerMap;
+	etape: number | null;
+} {
+	const answers = emptyQuizAnswers();
+	for (const question of QUIZ_QUESTIONS) {
+		const value = params.get(question.id);
+		answers[question.id] = isKnownAnswer(question.id, value) ? value : null;
+	}
+	const raw = params.get("etape");
+	const number = raw === null ? Number.NaN : Number(raw);
+	const etape =
+		Number.isInteger(number) && number >= 1 && number <= QUIZ_QUESTIONS.length
+			? number
+			: null;
+	return { answers, etape };
+}
+
+/** Écrit les réponses dans l'adresse. `null` : le résultat, sans étape. L'étape 1 est omise tant que les 7 réponses ne sont pas là. */
+export function serializeQuizSearch(
+	answers: QuizAnswerMap,
+	etape: number | null,
+): URLSearchParams {
+	const params = new URLSearchParams();
+	for (const question of QUIZ_QUESTIONS) {
+		const value = answers[question.id];
+		if (isKnownAnswer(question.id, value)) params.set(question.id, value);
+	}
+	if (etape !== null && (etape !== 1 || profileFromAnswers(answers))) {
+		params.set("etape", String(etape));
+	}
+	return params;
+}
+
+function isLevel<T extends object>(
+	record: T,
+	value: string | null,
+): value is Extract<keyof T, string> {
+	return value !== null && value in record;
+}
+
+function isQuizFormat(value: string | null): value is QuizFormat {
+	return formatOptions.some((option) => option.value === value);
+}
+
+function isQuizObjectif(value: string | null): value is QuizObjectif {
+	return objectifOptions.some((option) => option.value === value);
+}
+
+function isQuizZone(value: string | null): value is QuizZone {
+	return zoneOptions.some((option) => option.value === value);
+}
+
+/**
+ * Construit le profil passé à rankRaces.
+ * Renvoie null tant qu'une réponse manque : le classement ne devine pas.
+ */
+export function profileFromAnswers(answers: QuizAnswerMap): QuizProfile | null {
+	const { course, force, cardio, gym, format, objectif, zone } = answers;
+	if (
+		!isLevel(PROFILE_LEVELS.course, course) ||
+		!isLevel(PROFILE_LEVELS.force, force) ||
+		!isLevel(PROFILE_LEVELS.cardio, cardio) ||
+		!isLevel(PROFILE_LEVELS.gym, gym) ||
+		!isQuizFormat(format) ||
+		!isQuizObjectif(objectif) ||
+		!isQuizZone(zone)
+	) {
+		return null;
+	}
+	return {
+		course: PROFILE_LEVELS.course[course],
+		force: PROFILE_LEVELS.force[force],
+		cardio: PROFILE_LEVELS.cardio[cardio],
+		gym: PROFILE_LEVELS.gym[gym],
+		format,
+		objectif,
+		zone,
+	};
+}
+
+/** Course et ses notes déjà calculées, pour expliquer un résultat sans recalculer le score. */
+export interface QuizFacts {
+	slug: string;
+	nom: string;
+	organisateur: string;
+	formats: Race["formats"];
+	notes: Record<Category, number | null>;
+	noteGlobale: number | null;
+}
+
+/** Notes calculées d'une course, avec l'organisateur (l'alternative doit venir d'un autre). */
+export function toQuizFacts(race: Race, config: BaremeConfig): QuizFacts {
+	const { categories, globale } = computeNotes(
+		race.bareme,
+		race.dureeMoyenneMin,
+		config,
+	);
+	return {
+		slug: race.slug,
+		nom: race.nom,
+		organisateur: race.organisateur,
+		formats: race.formats,
+		notes: {
+			course: categories.course.note,
+			force: categories.force.note,
+			cardio: categories.cardio.note,
+			gym: categories.gym.note,
+		},
+		noteGlobale: globale.note,
+	};
+}
+
+/** Écart signé : note de la course − niveau du profil (§7). */
+export interface CategoryGap {
+	category: Category;
+	ecart: number;
+}
+
+export function categoryGaps(
+	profile: Pick<QuizProfile, Category>,
+	notes: Record<Category, number>,
+): CategoryGap[] {
+	return CATEGORIES.map((category) => ({
+		category,
+		ecart: notes[category] - profile[category],
+	}));
+}
+
+function byCategoryOrder(a: Category, b: Category): number {
+	return CATEGORIES.indexOf(a) - CATEGORIES.indexOf(b);
+}
+
+/**
+ * Les 2 catégories à l'écart absolu le plus faible (« pourquoi elle te va »).
+ * À égalité, l'ordre du barème : course, force, cardio, gym.
+ */
+export function closestCategories(gaps: CategoryGap[]): Category[] {
+	return [...gaps]
+		.sort(
+			(a, b) =>
+				Math.abs(a.ecart) - Math.abs(b.ecart) ||
+				byCategoryOrder(a.category, b.category),
+		)
+		.slice(0, 2)
+		.map((gap) => gap.category);
+}
+
+/**
+ * La catégorie au plus gros écart positif (« point d'attention »).
+ * À égalité, l'ordre du barème. Null s'il n'y a aucun écart positif.
+ */
+export function attentionCategory(gaps: CategoryGap[]): Category | null {
+	const positive = gaps.filter((gap) => gap.ecart > 0);
+	positive.sort(
+		(a, b) => b.ecart - a.ecart || byCategoryOrder(a.category, b.category),
+	);
+	return positive[0]?.category ?? null;
+}
+
+export interface QuizRecommendation {
+	slug: string;
+	nom: string;
+	score: number;
+	prochaineDate: string | null;
+	pourquoi: Category[];
+	pointAttention: Category | null;
+}
+
+export interface QuizAlternative {
+	slug: string;
+	nom: string;
+	score: number;
+	prochaineDate: string | null;
+}
+
+/** Résultat affichable. Le score vient de rankRaces : cette fonction ne le recalcule pas. */
+export interface QuizExplanation {
+	/** Aucune course classée ne dépasse le seuil de recommandation. */
+	plancher: boolean;
+	course: QuizRecommendation;
+	alternative: QuizAlternative | null;
+}
+
+function notesAreNumbers(
+	notes: Record<Category, number | null>,
+): notes is Record<Category, number> {
+	return CATEGORIES.every((category) => notes[category] !== null);
+}
+
+/**
+ * Choisit la course à montrer et explique les écarts, à partir du classement déjà calculé.
+ * « Dépasse » est strict : un score égal au seuil ne suffit pas.
+ * Sous le seuil, la plus accessible est la note globale la plus basse ; à égalité, le nom en français.
+ * L'alternative est la première course suivante d'un autre organisateur au-dessus de son seuil.
+ */
+export function explainQuiz(
+	profile: QuizProfile,
+	ranked: ScoredRace[],
+	races: QuizFacts[],
+	config: Pick<QuizConfig, "seuilRecommandation" | "seuilAlternative">,
+): QuizExplanation | null {
+	if (ranked.length === 0) return null;
+	const bySlug = new Map(races.map((race) => [race.slug, race]));
+	const above = ranked.some((race) => race.score > config.seuilRecommandation);
+	const chosen = above
+		? ranked[0]
+		: [...ranked].sort((a, b) => {
+				const noteA =
+					bySlug.get(a.slug)?.noteGlobale ?? Number.POSITIVE_INFINITY;
+				const noteB =
+					bySlug.get(b.slug)?.noteGlobale ?? Number.POSITIVE_INFINITY;
+				return noteA - noteB || a.nom.localeCompare(b.nom, "fr");
+			})[0];
+	if (!chosen) return null;
+	const facts = bySlug.get(chosen.slug);
+	if (!facts || !notesAreNumbers(facts.notes)) return null;
+	const gaps = categoryGaps(profile, facts.notes);
+	const alternative = above
+		? (ranked.find((race) => {
+				if (race.slug === chosen.slug) return false;
+				if (race.score <= config.seuilAlternative) return false;
+				const other = bySlug.get(race.slug);
+				return other !== undefined && other.organisateur !== facts.organisateur;
+			}) ?? null)
+		: null;
+	return {
+		plancher: !above,
+		course: {
+			slug: chosen.slug,
+			nom: chosen.nom,
+			score: chosen.score,
+			prochaineDate: chosen.prochaineDate,
+			pourquoi: closestCategories(gaps),
+			pointAttention: attentionCategory(gaps),
+		},
+		alternative: alternative && {
+			slug: alternative.slug,
+			nom: alternative.nom,
+			score: alternative.score,
+			prochaineDate: alternative.prochaineDate,
+		},
+	};
+}

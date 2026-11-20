@@ -197,7 +197,9 @@ const toCheck = needsCheck(eventFiles, race.slug);
 	<section aria-labelledby="ensuite" class="next">
 		<h2 id="ensuite">Et ensuite ?</h2>
 		<p>Essayer un WOD inspiré de cette course : bientôt disponible, avec le générateur de séances.</p>
-		<p>Pas sûr que ce soit pour toi ? Le quiz d'orientation arrive bientôt.</p>
+		<p>
+			<a class="quiz-link" href={withBase(base, "/quiz/")}>Pas sûr que ce soit pour toi ? Fais le quiz</a>
+		</p>
 	</section>
 </BaseLayout>
 
@@ -367,6 +369,13 @@ const toCheck = needsCheck(eventFiles, race.slug);
 
 	.next {
 		border-bottom: 0;
+	}
+
+	.quiz-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		min-width: var(--tap-min);
 	}
 
 	.events {
