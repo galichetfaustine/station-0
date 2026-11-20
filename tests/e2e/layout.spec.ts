@@ -51,7 +51,7 @@ test("l'en-tête ne montre que les pages existantes et signale la page en cours"
 	await expect(nav.getByRole("link")).toHaveText(["Courses"]);
 
 	await nav.getByRole("link", { name: "Courses" }).click();
-	await expect(page).toHaveURL(/\/station-0\/courses\/$/);
+	await expect(page).toHaveURL(/\/courses\/$/);
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Courses");
 	await expect(nav.getByRole("link", { name: "Courses" })).toHaveAttribute(
 		"aria-current",

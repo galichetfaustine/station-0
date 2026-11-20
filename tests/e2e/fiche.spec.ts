@@ -74,7 +74,7 @@ test("Turf Games : note à venir et remarques visibles", async ({ page }) => {
 test("le catalogue mène à la fiche de chaque course", async ({ page }) => {
 	await page.goto("courses/");
 	await page.getByRole("link", { name: "DEKA STRONG" }).click();
-	await expect(page).toHaveURL(/\/station-0\/courses\/deka-strong\/$/);
+	await expect(page).toHaveURL(/\/courses\/deka-strong\/$/);
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText(
 		"DEKA STRONG",
 	);

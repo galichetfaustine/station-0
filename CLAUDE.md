@@ -12,7 +12,7 @@ Trois fonctionnalités :
 
 Cible : France et pays proches. Site en français. Mobile d'abord.
 
-Dépôt : https://github.com/galichetfaustine/station-0 — site : https://galichetfaustine.github.io/station-0/
+Dépôt : https://github.com/galichetfaustine/station-0 — l'adresse publique sera celle fournie par Vercel après connexion du dépôt.
 
 ## Source de vérité
 
@@ -27,7 +27,7 @@ Dépôt : https://github.com/galichetfaustine/station-0 — site : https://galic
 | --- | --- |
 | D1 | Nom du site : **Station 0**, centralisé dans `src/lib/site.ts` |
 | D2 | Îlots interactifs en **Svelte 5** (`docs/adr/0001-svelte-pour-les-ilots.md`) |
-| D3 | Hébergement **GitHub Pages**, automatisation **GitHub Actions**, dépôt public (`docs/adr/0002-github-pages-et-actions.md`) |
+| D3 | Hébergement **Vercel** (plan gratuit, site à la racine), CI et collecte **GitHub Actions** (`docs/adr/0003-vercel.md`) |
 | D4 | Mise à jour des dates : commit automatique si la validation passe, Pull Request seulement en cas d'anomalie (articulation avec la protection de `main` : point ouvert, Lot 1) |
 | D5 | **Spartan Sprint inclus** comme 11e course « cousine » (badge « Course à obstacles », filtre « Type ») |
 | D6 | Générateur : tout aléatoire en 1 clic, verrous optionnels, le time cap (15 ou 20 min) est toujours respecté |
@@ -37,7 +37,7 @@ Dépôt : https://github.com/galichetfaustine/station-0 — site : https://galic
 
 ## Stack
 
-- **Astro 7**, sortie **statique**, `base: "/station-0"` (tous les liens internes passent par `withBase()` de `src/lib/paths.ts`).
+- **Astro 7**, sortie **statique**, `base: "/"` (les liens internes passent par `withBase()` de `src/lib/paths.ts`).
 - **TypeScript 6 strict** (la 7 n'est pas encore acceptée par `@astrojs/check` et `@astrojs/svelte` ; Dependabot l'ignore).
 - **Svelte 5** pour les îlots (quiz, générateur, minuteur, filtres) uniquement.
 - **CSS natif** (variables, nesting, container queries). Pas de Tailwind, pas de librairie UI.
@@ -53,7 +53,7 @@ Avant d'installer quoi que ce soit, vérifie la version actuelle et l'état de m
 
 | Commande | Rôle |
 | --- | --- |
-| `npm run dev` | Site en local sur http://localhost:4321/station-0/ |
+| `npm run dev` | Site en local sur http://localhost:4321/ |
 | `npm run build` | Valide les données, vérifie les types, construit le site |
 | `npm run lint` / `npm run format` | Vérifie / corrige le style (Biome) |
 | `npm test` | Tests de logique (Vitest) |
@@ -82,7 +82,7 @@ src/
   pages/            accueil, courses/, courses/[slug], quiz, wod, methode
   styles/           tokens.css (DA), global.css
 scripts/            validate-data, check-deprecated ; scripts/collect/ : un collecteur par source
-.github/workflows/  ci.yml, deploy.yml, collect-dates.yml (Lot 1)
+.github/workflows/  ci.yml, collect-dates.yml (Lot 1)
 docs/               SPECS.md, DECISIONS.md, adr/, sources-dates.md
 ```
 
@@ -128,7 +128,7 @@ Faustine débute en code : explique simplement ce que tu fais et pourquoi, sans 
 
 - **Avance en autonomie** sur chaque user story, sans plan à faire valider avant. Ne t'arrête pour demander que si une spec est ambiguë ou contradictoire.
 - **Une branche `us/<id>-<sujet>` et une Pull Request par story** (ex. `us/0.1-init`), commits au format Conventional Commits, tests écrits avec le code. La PR dit : ce qui a changé, comment le vérifier pas à pas, ce qui reste en suspens.
-- **C'est Faustine qui fusionne.** Quand une action exige ses droits (réglage du dépôt, GitHub Pages…), donne-lui **une seule commande prête à copier**, pas une procédure clic par clic.
+- **C'est Faustine qui fusionne.** Quand une action exige ses droits (réglage du dépôt, connexion Vercel…), donne-lui **une seule commande prête à copier**, pas une procédure clic par clic.
 - **Chaque décision prise en route** est reportée dans `docs/SPECS.md` **dans la même PR** et notée dans `docs/DECISIONS.md` (date, décision, raison).
 
 ## Définition de « terminé »
