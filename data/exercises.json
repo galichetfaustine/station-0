@@ -1,0 +1,794 @@
+[
+	{
+		"id": "course",
+		"nom": "Course",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deadly-dozen",
+			"hybrid-games",
+			"athx",
+			"xenom",
+			"spartan-sprint"
+		],
+		"categorie": "course",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Course à pied, allure régulière.",
+		"alternatives": []
+	},
+	{
+		"id": "montees-genoux",
+		"nom": "Montées de genoux",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deadly-dozen",
+			"hybrid-games"
+		],
+		"categorie": "cardio",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "secondes",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sur place, genoux hauts, bras qui balancent.",
+		"alternatives": []
+	},
+	{
+		"id": "skierg",
+		"nom": "SkiErg",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games",
+			"athx",
+			"xenom"
+		],
+		"categorie": "cardio",
+		"schemaMouvement": "tirer",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Tire les poignées vers le bas, jambes et dos engagés.",
+		"alternatives": ["squats-sautes-tirage", "burpees"]
+	},
+	{
+		"id": "squats-sautes-tirage",
+		"nom": "Squats sautés, bras en tirage",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong"
+		],
+		"categorie": "cardio",
+		"schemaMouvement": "squat",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Squat sauté, bras qui tirent vers le bas comme au SkiErg.",
+		"alternatives": []
+	},
+	{
+		"id": "rameur",
+		"nom": "Rameur",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games",
+			"athx"
+		],
+		"categorie": "cardio",
+		"schemaMouvement": "tirer",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Pousse avec les jambes, puis tire les bras.",
+		"alternatives": ["burpees", "course"]
+	},
+	{
+		"id": "air-bike",
+		"nom": "Air bike",
+		"coursesOrigine": [
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games",
+			"xenom"
+		],
+		"categorie": "cardio",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "salleComplete",
+		"unite": "calories",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Pédale avec les bras et les jambes.",
+		"alternatives": ["burpees"]
+	},
+	{
+		"id": "sled-push",
+		"nom": "Sled push",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games"
+		],
+		"categorie": "force",
+		"schemaMouvement": "pousser",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Pousse le traîneau en marchant, bras tendus. En DEKA, la station mélange poussée et tirage.",
+		"alternatives": ["bear-crawl", "sprints-courts"]
+	},
+	{
+		"id": "sled-pull",
+		"nom": "Sled pull",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games"
+		],
+		"categorie": "force",
+		"schemaMouvement": "tirer",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Tire le traîneau vers toi. En DEKA, la station mélange poussée et tirage.",
+		"alternatives": ["bear-crawl", "tirage-elastique"]
+	},
+	{
+		"id": "bear-crawl",
+		"nom": "Bear crawl",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games",
+			"deadly-dozen"
+		],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "À quatre pattes, genoux décollés, avance en restant bas.",
+		"alternatives": []
+	},
+	{
+		"id": "sprints-courts",
+		"nom": "Sprints courts",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games"
+		],
+		"categorie": "course",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sprints courts avec demi-tour.",
+		"alternatives": []
+	},
+	{
+		"id": "tirage-elastique",
+		"nom": "Tirage élastique",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"hybrid-games"
+		],
+		"categorie": "force",
+		"schemaMouvement": "tirer",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Élastique fixé devant toi, tire les mains vers le buste.",
+		"alternatives": []
+	},
+	{
+		"id": "burpee-broad-jumps",
+		"nom": "Burpee broad jumps",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deadly-dozen",
+			"hybrid-games"
+		],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Burpee, puis saut en longueur. Enchaîne sur la distance.",
+		"alternatives": []
+	},
+	{
+		"id": "burpees",
+		"nom": "Burpees",
+		"coursesOrigine": ["spartan-sprint", "xenom"],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Poitrine au sol, puis saut bras tendus. À Spartan, 30 répétitions par obstacle raté.",
+		"alternatives": []
+	},
+	{
+		"id": "farmers-carry",
+		"nom": "Farmers carry",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"deadly-dozen",
+			"hybrid-games"
+		],
+		"categorie": "force",
+		"schemaMouvement": "porter",
+		"materiel": "halteresKettlebell",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Un poids dans chaque main, marche sans poser.",
+		"alternatives": ["marche-deux-sacs"]
+	},
+	{
+		"id": "marche-deux-sacs",
+		"nom": "Marche avec deux sacs",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"deadly-dozen",
+			"hybrid-games"
+		],
+		"categorie": "force",
+		"schemaMouvement": "porter",
+		"materiel": "aucun",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Un sac chargé dans chaque main, marche sans poser.",
+		"alternatives": []
+	},
+	{
+		"id": "fentes-sandbag",
+		"nom": "Fentes avec sandbag",
+		"coursesOrigine": ["hyrox-open", "hyrox-doubles", "hybrid-games"],
+		"categorie": "force",
+		"schemaMouvement": "fente",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sandbag sur les épaules, fentes marchées.",
+		"alternatives": ["fentes-halteres", "fentes-poids-corps"]
+	},
+	{
+		"id": "fentes-halteres",
+		"nom": "Fentes haltères",
+		"coursesOrigine": ["deadly-dozen", "xenom"],
+		"categorie": "force",
+		"schemaMouvement": "fente",
+		"materiel": "halteresKettlebell",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Un haltère dans chaque main, fentes marchées.",
+		"alternatives": ["fentes-poids-corps"]
+	},
+	{
+		"id": "fentes-ram",
+		"nom": "Fentes arrière lestées",
+		"coursesOrigine": ["deka-fit", "deka-mile", "deka-strong"],
+		"categorie": "force",
+		"schemaMouvement": "fente",
+		"materiel": "salleComplete",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Charge tenue, fentes arrière alternées.",
+		"alternatives": ["fentes-halteres", "fentes-poids-corps"]
+	},
+	{
+		"id": "fentes-poids-corps",
+		"nom": "Fentes au poids du corps",
+		"coursesOrigine": [
+			"hyrox-open",
+			"hyrox-doubles",
+			"hybrid-games",
+			"deadly-dozen",
+			"deka-fit",
+			"deka-mile",
+			"deka-strong",
+			"xenom"
+		],
+		"categorie": "force",
+		"schemaMouvement": "fente",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Fentes marchées, mains libres. Une fente compte pour un pas.",
+		"alternatives": []
+	},
+	{
+		"id": "wall-balls",
+		"nom": "Wall balls",
+		"coursesOrigine": ["hyrox-open", "hyrox-doubles", "hybrid-games"],
+		"categorie": "gym",
+		"schemaMouvement": "squat",
+		"materiel": "salleComplete",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Squat, puis lancer du ballon vers la cible.",
+		"alternatives": ["squats-lancer"]
+	},
+	{
+		"id": "squats-lancer",
+		"nom": "Squats et lancer au-dessus de la tête",
+		"coursesOrigine": ["hyrox-open", "hyrox-doubles", "hybrid-games"],
+		"categorie": "gym",
+		"schemaMouvement": "squat",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Squat, puis lancer des bras au-dessus de la tête, sans ballon.",
+		"alternatives": []
+	},
+	{
+		"id": "box-jump-overs",
+		"nom": "Box jump-overs",
+		"coursesOrigine": ["deka-fit", "deka-mile", "deka-strong"],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "salleComplete",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Saute sur la box et passe de l'autre côté. En DEKA, le pas par-dessus est accepté.",
+		"alternatives": ["step-ups", "sauts-lateraux"]
+	},
+	{
+		"id": "step-ups",
+		"nom": "Step-ups sur une marche",
+		"coursesOrigine": ["deka-fit", "deka-mile", "deka-strong"],
+		"categorie": "gym",
+		"schemaMouvement": "fente",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Monte et descends d'une marche, en alternant les jambes.",
+		"alternatives": []
+	},
+	{
+		"id": "sauts-lateraux",
+		"nom": "Sauts latéraux",
+		"coursesOrigine": ["deka-fit", "deka-mile", "deka-strong"],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sauts latéraux au sol, d'un côté à l'autre.",
+		"alternatives": []
+	},
+	{
+		"id": "deadlift-kettlebell",
+		"nom": "Deadlift kettlebell",
+		"coursesOrigine": ["deadly-dozen"],
+		"categorie": "force",
+		"schemaMouvement": "charniere",
+		"materiel": "halteresKettlebell",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Kettlebell au sol, pousse le sol avec les jambes pour te relever.",
+		"alternatives": ["deadlift-sac"]
+	},
+	{
+		"id": "deadlift-sac",
+		"nom": "Soulevé de terre avec un sac",
+		"coursesOrigine": ["deadly-dozen", "athx"],
+		"categorie": "force",
+		"schemaMouvement": "charniere",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sac chargé au sol, pousse le sol avec les jambes pour te relever.",
+		"alternatives": []
+	},
+	{
+		"id": "goblet-squat",
+		"nom": "Goblet squat",
+		"coursesOrigine": ["deadly-dozen"],
+		"categorie": "force",
+		"schemaMouvement": "squat",
+		"materiel": "halteresKettlebell",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Kettlebell contre la poitrine, descends en squat puis remonte.",
+		"alternatives": ["squat-poids-corps"]
+	},
+	{
+		"id": "squat-poids-corps",
+		"nom": "Squat au poids du corps",
+		"coursesOrigine": ["deadly-dozen", "athx"],
+		"categorie": "force",
+		"schemaMouvement": "squat",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Descends en squat, pieds au sol, puis remonte.",
+		"alternatives": []
+	},
+	{
+		"id": "push-press",
+		"nom": "Push press haltères",
+		"coursesOrigine": ["deadly-dozen", "athx"],
+		"categorie": "force",
+		"schemaMouvement": "pousser",
+		"materiel": "halteresKettlebell",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Haltères aux épaules, petite flexion des jambes, puis pousse au-dessus de la tête.",
+		"alternatives": ["push-press-sac"]
+	},
+	{
+		"id": "push-press-sac",
+		"nom": "Push press avec un sac",
+		"coursesOrigine": ["deadly-dozen", "athx"],
+		"categorie": "force",
+		"schemaMouvement": "pousser",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sac aux épaules, petite flexion des jambes, puis pousse au-dessus de la tête.",
+		"alternatives": []
+	},
+	{
+		"id": "snatch",
+		"nom": "Snatch haltère",
+		"coursesOrigine": ["deadly-dozen", "hybrid-games", "xenom", "athx"],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "halteresKettlebell",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Haltère du sol jusqu'au-dessus de la tête en un geste.",
+		"alternatives": ["snatch-sac"]
+	},
+	{
+		"id": "snatch-sac",
+		"nom": "Snatch avec un sac",
+		"coursesOrigine": ["deadly-dozen", "hybrid-games", "xenom", "athx"],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sac du sol jusqu'au-dessus de la tête en un geste.",
+		"alternatives": []
+	},
+	{
+		"id": "bucket-carry",
+		"nom": "Bucket carry",
+		"coursesOrigine": ["spartan-sprint"],
+		"categorie": "force",
+		"schemaMouvement": "porter",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Seau tenu à deux mains, marche sans le poser.",
+		"alternatives": ["marche-sac-poitrine"]
+	},
+	{
+		"id": "marche-sac-poitrine",
+		"nom": "Marche avec un sac contre la poitrine",
+		"coursesOrigine": ["spartan-sprint", "deadly-dozen"],
+		"categorie": "force",
+		"schemaMouvement": "porter",
+		"materiel": "aucun",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sac chargé tenu contre la poitrine, marche sans le poser.",
+		"alternatives": []
+	},
+	{
+		"id": "burpees-lestes",
+		"nom": "Burpees lestés",
+		"coursesOrigine": ["deka-fit", "deka-mile", "deka-strong"],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "salleComplete",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Burpee en tenant la charge de la course (RAM en DEKA).",
+		"alternatives": ["burpees"]
+	},
+	{
+		"id": "sandbag-carry",
+		"nom": "Sandbag carry",
+		"coursesOrigine": ["athx"],
+		"categorie": "force",
+		"schemaMouvement": "porter",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sandbag porté, marche sur la distance.",
+		"alternatives": ["marche-deux-sacs"]
+	},
+	{
+		"id": "squats-sandbag",
+		"nom": "Squats sandbag",
+		"coursesOrigine": ["athx"],
+		"categorie": "force",
+		"schemaMouvement": "squat",
+		"materiel": "salleComplete",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Sandbag contre la poitrine ou sur les épaules, squats.",
+		"alternatives": ["squat-poids-corps"]
+	},
+	{
+		"id": "front-carry",
+		"nom": "Front carry disque",
+		"coursesOrigine": ["deadly-dozen"],
+		"categorie": "force",
+		"schemaMouvement": "porter",
+		"materiel": "salleComplete",
+		"unite": "metres",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Disque tenu contre la poitrine, marche sans le poser.",
+		"alternatives": ["marche-sac-poitrine"]
+	},
+	{
+		"id": "wall-walks",
+		"nom": "Wall walks",
+		"coursesOrigine": ["xenom"],
+		"categorie": "gym",
+		"schemaMouvement": "corpsEntier",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "Pieds au mur, marche des mains vers le mur puis reviens.",
+		"alternatives": []
+	},
+	{
+		"id": "handstand-push-ups",
+		"nom": "Handstand push-ups",
+		"coursesOrigine": ["xenom"],
+		"categorie": "gym",
+		"schemaMouvement": "pousser",
+		"materiel": "aucun",
+		"unite": "repetitions",
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
+		"consigne": "En équilibre sur les mains, plie les bras puis pousse.",
+		"alternatives": []
+	}
+]
