@@ -5,7 +5,7 @@ const port = 4321;
 export default defineConfig({
 	testDir: "tests/e2e",
 	use: {
-		baseURL: `http://localhost:${port}/station-0/`,
+		baseURL: `http://localhost:${port}/`,
 	},
 	// Mobile d'abord : on teste sur un téléphone simulé.
 	projects: [{ name: "mobile", use: { ...devices["Pixel 7"] } }],
@@ -13,7 +13,7 @@ export default defineConfig({
 		// --ignore-lock : garde le serveur au premier plan (Astro 7 le passe sinon en
 		// arrière-plan quand il détecte un agent IA, et Playwright croit à un plantage).
 		command: `npm run build && npm run preview -- --port ${port} --ignore-lock`,
-		url: `http://localhost:${port}/station-0/`,
+		url: `http://localhost:${port}/`,
 		reuseExistingServer: !process.env.CI,
 	},
 });

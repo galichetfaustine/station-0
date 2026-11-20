@@ -1,7 +1,9 @@
 # ADR 0002 — GitHub Pages et GitHub Actions
 
 - **Date** : 23/10/2026
-- **Statut** : accepté (décision D3 des specs)
+- **Statut** : hébergement GitHub Pages remplacé le 20/11/2026 par Vercel (ADR 0003). GitHub Actions reste pour la CI et la collecte.
+
+> **Note (20/11/2026).** L'hébergement GitHub Pages décrit ci-dessous est remplacé. Le site n'est plus publié dans `/station-0`, et `deploy.yml` n'existe plus. GitHub Actions continue d'assurer la CI (`ci.yml`) et la collecte de nuit (`collect-dates.yml`).
 
 ## Contexte
 
