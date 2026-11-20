@@ -40,7 +40,8 @@ describe("resolveColorTokens", () => {
 	});
 });
 
-// --- Contrastes de la DA (US0.4) : toutes les combinaisons utilisées, dans les deux thèmes ---
+// --- Contrastes de la DA (US0.4) : toutes les combinaisons utilisées.
+// Le site reste sombre : un ancien bloc « mode clair » ne doit pas éclaircir le fond. ---
 
 const css = readFileSync(
 	new URL("../styles/tokens.css", import.meta.url),
@@ -84,6 +85,12 @@ describe.each(Object.entries(themes))("contrastes du thème %s", (_, tokens) => 
 });
 
 describe("règles de la DA", () => {
+	it("le fond reste l'encre, même dans la lecture du mode clair", () => {
+		expect(themes.sombre["--color-bg"]).toBe("#0b0b0f");
+		expect(themes.clair["--color-bg"]).toBe("#0b0b0f");
+		expect(themes.clair["--color-text"]).toBe("#ffffff");
+	});
+
 	it("le titre posé sur la photo d'accueil passe le contraste sur l'encre", () => {
 		const tokens = themes.sombre;
 		for (const name of [

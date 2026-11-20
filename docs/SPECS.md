@@ -50,7 +50,7 @@ Neuf choix restent ouverts. Pour chacun, je recommande une option et tu passes l
 | D6 | Mode du générateur de WOD | **Tout aléatoire en 1 clic**, avec des verrous optionnels (course, niveau, matériel, format). Le time cap (15 ou 20 min) est la seule contrainte toujours respectée. | Formulaire obligatoire avant de générer. | Validé |
 | D7 | Résultat du quiz | **1 course + 1 alternative**, l'alternative n'apparaît que si son score dépasse 60 % et qu'elle vient d'un autre organisateur. | Toujours afficher une alternative. | Validé |
 | D8 | Typographies | **Barlow Condensed** (titres, proche du logo) + **Inter** (texte), libres de droits, hébergées sur le site. | Autre paire condensée + linéale. | Validé |
-| D9 | Thème | **Sombre par défaut** (fond encre du moodboard), clair automatiquement si le téléphone est en mode clair. | Sombre uniquement. | Validé |
+| D9 | Thème | **Sombre uniquement** : fond encre et texte clair sur tout le site. Le mode clair du téléphone ne change pas les pages. | Clair automatique si le téléphone est en mode clair. | Modifié (2026-11-20) |
 
 ## 4. F1 — Catalogue de courses (fonctionnalité principale)
 
@@ -74,7 +74,7 @@ Le catalogue compare 11 formats de course, pas 11 marques : HYROX solo et HYROX 
 
 ### Page catalogue
 
-- Une carte par course : nom, note globale /5, 4 mini-jauges (course, force, cardio/ergo, gym/agilité), formats de participation, prochaine date + ville.
+- Une ligne par course, comme « Par où commencer » : nom, note globale écrite et en pastilles, 4 mini-jauges (course, force, cardio/ergo, gym/agilité), formats de participation, prochaine date + ville. Pas de carte blanche.
 - Filtres : format (solo, duo, équipe), note globale maximale, « sans course à pied », pays, « date dans les 3 mois ». Les filtres se reflètent dans l'URL pour être partageables.
 - Tri : prochaine date (par défaut) ou difficulté croissante.
 - Une course sans date à venir reste visible avec « Pas de date annoncée », en fin de liste.
@@ -370,7 +370,7 @@ La DA reprend le moodboard Allygn : fond encre, orange réservé aux actions, la
 
 | Couleur | Code | Rôle dans Station 0 |
 | --- | --- | --- |
-| Encre | #0B0B0F | Fond du mode sombre, texte du mode clair |
+| Encre | #0B0B0F | Fond de toutes les pages |
 | Orange | #FF8A3D | « Toi » : boutons d'action, CTA, temps qui défile dans le minuteur |
 | Lavande | #A99BFF | « Ton binôme » : badges Duo et Équipe, filtres de format, mode Doubles |
 | Cobalt | #3D48FF | Fonds forts : en-tête des fiches, bandeau du résultat du quiz |
@@ -379,15 +379,14 @@ La DA reprend le moodboard Allygn : fond encre, orange réservé aux actions, la
 
 - Gros chiffres comme élément graphique (les « 11.43 km » du moodboard) : notes /5, distances, minuteur.
 - Titres en capitales condensées très grasses, texte courant sobre (D8). Exception : le grand titre de l'accueil reste en minuscules (« Trouve ta première course. »), posé sur une photo de course. Le menu y est une ligne fine. Le premier mot est en cobalt éclairci `#6D7CFF`, parce que le cobalt brut ne contraste pas assez sur l'encre. La photo est décorative : on peut la remplacer par un autre fichier du même nom.
-- Le quiz est un écran sombre, comme l'accueil : fond encre et texte clair même si le téléphone est en mode clair (le focus y reste orange, le reste du site garde le thème du système), avec le menu habituel lisible sur ce fond.
-- Cartes à coins arrondis sur fond sombre, beaucoup d'air, une seule action orange par écran.
+- Le site entier reste sombre, comme l'accueil : fond encre et texte clair, même si le téléphone est en mode clair. Le mode clair ne remet plus les pages en beige. Le menu des pages intérieures est une ligne fine, sans grand logo en capitales ni pastille autour de la page en cours. La page en cours est soulignée, et signalée aux lecteurs d'écran. Les listes sont des lignes, comme « Par où commencer » : une course par ligne, la note écrite et en pastilles. Beaucoup d'air, une seule action orange par écran.
 - Jauges de difficulté en segments (5 pastilles), lisibles en un coup d'œil.
 
 **Règles d'accessibilité (non négociables) :**
 
 - Texte sur orange ou lavande : toujours en encre, jamais en blanc (le blanc sur orange ne passe pas le contraste minimum).
 - Texte sur cobalt : toujours en blanc (l'encre sur cobalt ne fait que 3,3:1).
-- En mode clair, l'orange et la lavande ne servent que de fonds (texte et bordure encre) : sur fond clair, ils ne contrastent qu'à 2,2:1. Le contour de focus y passe en cobalt.
+- L'orange et la lavande portent toujours un texte encre : le blanc dessus ne passe pas le contraste. Le contour de focus reste orange, lisible sur l'encre.
 - Contraste vérifié automatiquement : 4,5:1 pour le texte, 3:1 pour les éléments d'interface.
 - Une information n'est jamais portée par la couleur seule : le badge Duo dit « Duo ».
 - Zones tactiles d'au moins 44 × 44 px, utile en salle avec les mains moites.

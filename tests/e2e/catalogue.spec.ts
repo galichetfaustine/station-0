@@ -20,6 +20,7 @@ test("chaque carte montre la note globale, les 4 jauges et les formats", async (
 }) => {
 	await page.goto("courses/");
 	const hyrox = cards(page).filter({ hasText: "HYROX Open solo" });
+	await expect(hyrox).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
 	await expect(hyrox.locator(".global-value")).toHaveText("4");
 	await expect(hyrox.locator(".gauge")).toHaveCount(5);
 	await expect(hyrox.getByText("Course", { exact: true })).toBeVisible();

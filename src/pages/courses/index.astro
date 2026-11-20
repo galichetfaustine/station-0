@@ -17,7 +17,9 @@ const base = import.meta.env.BASE_URL;
 	<h1>Courses</h1>
 	<p class="intro">
 		11 courses notées de 1 à 5 sur la course à pied, la force, le cardio et la gym, à partir de leur règlement.
-		<a href={withBase(base, "/methode/")}>Comment on note</a>
+	</p>
+	<p>
+		<a class="method" href={withBase(base, "/methode/")}>Comment on note</a>
 	</p>
 	<Catalogue client:load races={catalogue} base={base} buildDate={buildDate} />
 </BaseLayout>
@@ -26,5 +28,12 @@ const base = import.meta.env.BASE_URL;
 	.intro {
 		max-width: 40rem;
 		color: var(--color-text-muted);
+	}
+
+	.method {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		min-width: var(--tap-min);
 	}
 </style>

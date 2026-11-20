@@ -38,6 +38,7 @@ test("la fiche HYROX Open solo présente les 7 blocs du §4", async ({
 			name: "Pas sûr que ce soit pour toi ? Fais le quiz",
 		}),
 	).toHaveAttribute("href", /\/quiz\/$/);
+	await expect(page.locator("main .button")).toHaveCount(1);
 });
 
 test("« Pourquoi 5/5 ? » affiche la donnée qui justifie la note", async ({
@@ -106,4 +107,5 @@ test("la page « Comment on note » reprend le barème depuis la configuration",
 	await expect(rows).toHaveCount(5);
 	await expect(rows.nth(4)).toContainText("à partir de 8 km");
 	await expect(rows.nth(3)).toContainText("Sled lourd (100 kg et plus)");
+	await expect(page.locator("main .button")).toHaveCount(1);
 });

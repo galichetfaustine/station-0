@@ -14,12 +14,12 @@
 	--color-headline: #6d7cff;
 	--color-on-ink: var(--color-white);
 	--color-on-ink-muted: #b3b3bf;
-	/* Surface et filet posés sur l'encre. Le mode clair ne les change pas :
-	   le quiz les reprend pour rester sombre (§9). */
+	/* Surface et filet posés sur l'encre. Le téléphone en mode clair
+	   ne les change pas : tout le site reste sombre (§9, D9). */
 	--color-ink-surface: #17171f;
 	--color-ink-line: #6e6e7a;
 
-	/* Rôles : thème sombre par défaut (D9) */
+	/* Rôles : sombre uniquement (D9) */
 	--color-bg: var(--color-ink);
 	--color-surface: var(--color-ink-surface);
 	--color-text: var(--color-white);
@@ -51,19 +51,4 @@
 	--content-max: 72rem;
 
 	color-scheme: dark;
-}
-
-/* Mode clair automatique si le téléphone est en mode clair (D9) */
-@media (prefers-color-scheme: light) {
-	:root {
-		--color-bg: #f7f6f3;
-		--color-surface: var(--color-white);
-		--color-text: var(--color-ink);
-		--color-text-muted: #4d4d59;
-		--color-line: #8a8a96;
-		/* L'orange sur fond clair ne contraste pas assez : le focus passe en cobalt. */
-		--color-focus: var(--color-cobalt);
-
-		color-scheme: light;
-	}
 }
