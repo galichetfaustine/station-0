@@ -16,9 +16,29 @@ import {
 	seedFromBytes,
 	serializeWodSearch,
 	toGeneratorLocks,
+	wodPresetPath,
 } from "./wod-page.ts";
 
 const slugs = ["hyrox-open", "deka-mile"];
+
+describe("wodPresetPath", () => {
+	it("ne verrouille que la course", () => {
+		expect(wodPresetPath("hyrox-open")).toBe("/wod/?course=hyrox-open");
+		const params = new URLSearchParams(
+			wodPresetPath("deadly-dozen").slice("/wod/?".length),
+		);
+		expect([...params.keys()]).toEqual(["course"]);
+		expect(
+			parseWodSearch(params, ["deadly-dozen", "hyrox-open"]).locks,
+		).toEqual({
+			timeCapMin: null,
+			race: "deadly-dozen",
+			level: "debutant",
+			equipment: null,
+			format: null,
+		});
+	});
+});
 
 describe("parseWodSearch", () => {
 	it("verrouille la course demandée, y compris Mix", () => {

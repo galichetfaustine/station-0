@@ -28,16 +28,28 @@ test("la fiche HYROX Open solo présente les 7 blocs du §4", async ({
 	await expect(
 		page.getByRole("link", { name: "Site officiel : hyrox.com" }),
 	).toHaveAttribute("href", "https://hyrox.com");
-	// 6. et 7. Générateur et quiz
+	// 6. et 7. Générateur pré-réglé et quiz
 	await expect(
-		page.getByText("Essayer un WOD inspiré de cette course"),
-	).toBeVisible();
+		page.getByRole("link", {
+			name: "Essayer un WOD inspiré de cette course",
+		}),
+	).toHaveAttribute("href", /\/wod\/\?course=hyrox-open$/);
 	await expect(page.getByText("Pas sûr que ce soit pour toi ?")).toBeVisible();
 	await expect(
 		page.getByRole("link", {
 			name: "Pas sûr que ce soit pour toi ? Fais le quiz",
 		}),
 	).toHaveAttribute("href", /\/quiz\/$/);
+});
+
+test("le lien WOD de la fiche verrouille cette course", async ({ page }) => {
+	await page.goto("courses/deka-mile/");
+	await page
+		.getByRole("link", { name: "Essayer un WOD inspiré de cette course" })
+		.click();
+	await expect(page).toHaveURL(/\/wod\/\?course=deka-mile$/);
+	await expect(page.getByLabel("Course")).toHaveValue("deka-mile");
+	await expect(page.getByRole("heading", { name: "Séance" })).toHaveCount(0);
 });
 
 test("« Pourquoi 5/5 ? » affiche la donnée qui justifie la note", async ({

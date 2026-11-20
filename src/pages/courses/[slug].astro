@@ -26,6 +26,7 @@ import {
 } from "../../lib/race-page";
 import { baremeConfig, eventFiles, events, races } from "../../lib/races-data";
 import type { Race } from "../../lib/schemas";
+import { wodPresetPath } from "../../lib/wod-page";
 
 export function getStaticPaths() {
 	return races.map((race) => ({
@@ -193,10 +194,14 @@ const toCheck = needsCheck(eventFiles, race.slug);
 		}
 	</section>
 
-	<!-- 6 et 7. Liens vers le générateur (Lot 3) et le quiz (Lot 2) -->
+	<!-- 6 et 7. Lien vers le générateur pré-réglé, puis le quiz -->
 	<section aria-labelledby="ensuite" class="next">
 		<h2 id="ensuite">Et ensuite ?</h2>
-		<p>Essayer un WOD inspiré de cette course : bientôt disponible, avec le générateur de séances.</p>
+		<p>
+			<a class="wod-link" href={withBase(base, wodPresetPath(race.slug))}>
+				Essayer un WOD inspiré de cette course
+			</a>
+		</p>
 		<p>
 			<a class="quiz-link" href={withBase(base, "/quiz/")}>Pas sûr que ce soit pour toi ? Fais le quiz</a>
 		</p>
@@ -371,7 +376,8 @@ const toCheck = needsCheck(eventFiles, race.slug);
 		border-bottom: 0;
 	}
 
-	.quiz-link {
+	.quiz-link,
+	.wod-link {
 		display: inline-flex;
 		align-items: center;
 		min-height: var(--tap-min);

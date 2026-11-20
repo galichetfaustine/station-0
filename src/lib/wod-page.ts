@@ -142,6 +142,24 @@ export function serializeWodSearch(address: WodAddress): URLSearchParams {
 	return params;
 }
 
+/**
+ * Lien d'une fiche ou d'un résultat de quiz (US3.5).
+ * Verrouille la course, et rien d'autre : le niveau reste le défaut, débutant.
+ */
+export function wodPresetPath(slug: string): string {
+	const params = serializeWodSearch({
+		seed: null,
+		locks: {
+			timeCapMin: null,
+			race: slug,
+			level: "debutant",
+			equipment: null,
+			format: null,
+		},
+	});
+	return `/wod/?${params.toString()}`;
+}
+
 /** Traduit les sélecteurs en verrous. Une course inconnue ne verrouille rien. */
 export function locksFromSelection(
 	selection: WodSelection,

@@ -5,6 +5,7 @@ import { COUNTRY_LABELS, formatEventDates, upcomingEvents } from "../lib/dates";
 import { withBase } from "../lib/paths";
 import type { QuizExplanation } from "../lib/quiz";
 import type { RaceEvent } from "../lib/schemas";
+import { wodPresetPath } from "../lib/wod-page";
 
 interface Props {
 	result: QuizExplanation;
@@ -78,7 +79,7 @@ function nextDate(slug: string): string {
 	{/if}
 
 	<div class="links">
-		<a class="text-link" href={withBase(base, "/wod/")}>WOD pour progresser</a>
+		<a class="text-link" href={withBase(base, wodPresetPath(course.slug))}>WOD pour progresser</a>
 		<a
 			class="text-link"
 			href={editHref}

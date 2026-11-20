@@ -25,7 +25,7 @@ Station 0 aide un débutant ou un intermédiaire à trouver la course hybride fa
 2. *« Je compare »* → catalogue filtrable → fiche course → prochaine date.
 3. *« Je veux essayer »* → générateur de WOD inspiré d'une course → minuteur → retour vers la fiche de la course.
 
-Chaque fiche course propose « Essayer un WOD inspiré de cette course », et chaque résultat de quiz propose un WOD ciblé sur le point faible détecté.
+Chaque fiche course propose « Essayer un WOD inspiré de cette course », et chaque résultat de quiz propose un WOD de la course recommandée.
 
 **Hors périmètre V1 :** comptes et favoris, mesure d'audience, inscription ou paiement sur le site, prix des billets, notifications, version anglaise, IA.
 
@@ -89,7 +89,7 @@ Spartan Sprint porte un badge « Course à obstacles » ; un filtre « Type : hy
 3. Les 4 catégories notées de 1 à 5, chacune avec un « Pourquoi 3/5 ? » qui affiche les données du barème.
 4. Les 3 prochaines dates en France et pays proches, avec ville, pays et lien d'inscription ; mention « Dates vérifiées le … ».
 5. Lien vers le site officiel. Pour HYROX, les liens (site et inscriptions) pointent uniquement vers la page d'accueil de hyrox.com, avec la mention « Inscriptions sur hyrox.com » (art. 7.4 de leurs conditions d'utilisation).
-6. Bouton « Essayer un WOD inspiré de cette course » (générateur pré-réglé).
+6. Lien « Essayer un WOD inspiré de cette course » vers `/wod/?course={slug}` (générateur pré-réglé). Ce n'est pas un second bouton orange : l'inscription l'est déjà.
 7. Lien « Pas sûr que ce soit pour toi ? Fais le quiz ».
 
 ### Données d'une course (un fichier JSON par course, validé par un schéma)
@@ -241,11 +241,11 @@ Score de compatibilité = 100 − 8 × pénalité totale, borné entre 0 et 100 
 
 - **La course recommandée** : nom, score, « Pourquoi elle te va » (les 2 catégories où l'écart est le plus faible), « Point d'attention » (la catégorie au plus gros écart positif), prochaine date, bouton vers la fiche.
 - **Une alternative** si son score dépasse 60 % et qu'elle vient d'un autre organisateur (D7).
-- **Un WOD pour progresser** : lien vers le générateur, ciblé sur la catégorie du point d'attention.
-- **Si aucune course ne dépasse 40 %** : on montre la plus accessible avec un message honnête (« Pas encore, mais voici par où commencer ») et un WOD débutant.
+- **Un WOD pour progresser** : lien vers `/wod/?course={slug}` de la course recommandée. Le point d'attention reste affiché sur le résultat ; il ne devient pas un paramètre.
+- **Si aucune course ne dépasse 40 %** : on montre la plus accessible avec un message honnête (« Pas encore, mais voici par où commencer »). Le lien WOD verrouille cette course. Le niveau reste débutant, le défaut du générateur, sans paramètre `niveau`.
 - Les réponses sont dans l'URL du résultat : partageable, et rien n'est stocké.
 
-**Précision (US2.3).** « L'écart le plus faible » est la plus petite valeur absolue de (note − niveau du profil). À égalité, l'ordre des catégories du barème : course, force, cardio, gym. Le point d'attention est la catégorie au plus grand écart positif ; à égalité, le même ordre. S'il n'y a aucun écart positif, on n'affiche pas de point d'attention. « Dépasse 40 % » et « dépasse 60 % » sont stricts : 40 % et 60 % ne suffisent pas. Ces deux seuils sont dans `data/config/quiz.json`. Sous le seuil, « la plus accessible » est la note globale la plus basse parmi les courses encore classées (le format choisi reste respecté) ; à note égale, le nom en français, comme le catalogue. L'alternative est la première course suivante du classement dont le score dépasse 60 % et dont l'organisateur est différent. L'adresse du résultat contient les 7 réponses, sans `etape` : la rouvrir redonne le même résultat. Le lien « WOD pour progresser » mène à `/wod`. Le pré-réglage depuis le quiz arrive avec US3.5 : pour l'instant ce lien n'ajoute pas `?course=`.
+**Précision (US2.3).** « L'écart le plus faible » est la plus petite valeur absolue de (note − niveau du profil). À égalité, l'ordre des catégories du barème : course, force, cardio, gym. Le point d'attention est la catégorie au plus grand écart positif ; à égalité, le même ordre. S'il n'y a aucun écart positif, on n'affiche pas de point d'attention. « Dépasse 40 % » et « dépasse 60 % » sont stricts : 40 % et 60 % ne suffisent pas. Ces deux seuils sont dans `data/config/quiz.json`. Sous le seuil, « la plus accessible » est la note globale la plus basse parmi les courses encore classées (le format choisi reste respecté) ; à note égale, le nom en français, comme le catalogue. L'alternative est la première course suivante du classement dont le score dépasse 60 % et dont l'organisateur est différent. L'adresse du résultat contient les 7 réponses, sans `etape` : la rouvrir redonne le même résultat. Le lien « WOD pour progresser » mène à `/wod/?course={slug}` de la course recommandée, y compris sous 40 % (la course affichée). Aucun autre paramètre.
 
 ### Tests de référence
 
@@ -365,7 +365,7 @@ La page `/wod` remplace « Bientôt disponible ». Le WOD est dans la navigation
 - L'adresse ne contient un verrou que s'il est posé :
   - `graine` : lettres minuscules et chiffres, de 8 à 64 caractères. Présente, la séance s'affiche tout de suite. Absente, la page attend le clic.
   - `cap` : `15` ou `20`.
-  - `course` : slug d'une course du catalogue, ou `mix`. Un slug inconnu est ignoré. `?course=slug` verrouille la course avant le premier tirage : c'est le contrat des liens qui viendront des fiches et du quiz.
+  - `course` : slug d'une course du catalogue, ou `mix`. Un slug inconnu est ignoré. `?course=slug` verrouille la course avant le premier tirage. La fiche envoie son slug, le quiz celui de la course recommandée (US3.5). Pas d'autre paramètre.
   - `niveau` : `intermediaire` ou `confirme`. Absent, ou `debutant` : débutant.
   - `materiel` : `aucun`, `halteresKettlebell` ou `salleComplete`.
   - `format` : `amrap`, `emom`, `forTime` ou `intervalles`.
@@ -523,6 +523,7 @@ Cinq lots livrés dans l'ordre 0 → 1 → 2 → 3 → 4. Le Lot 1 est un site u
   - 4 modes, décompte de 10 s, pause, compteur de tours, bips, vibration si possible, écran maintenu allumé.
   - Dérive inférieure à 1 s sur 20 min.
 - **US3.5** Depuis une fiche course ou un résultat de quiz, le générateur s'ouvre pré-réglé.
+  - La fiche ouvre `/wod/?course={slug}` de cette course. Le quiz ouvre `/wod/?course={slug}` de la course recommandée. Le générateur verrouille cette course. Pas d'autre paramètre.
 
 ### Lot 4 — Finitions (taille M)
 

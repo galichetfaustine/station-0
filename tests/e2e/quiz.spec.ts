@@ -151,6 +151,8 @@ test("l'adresse du résultat redonne Deadly Dozen, l'alternative et le lien WOD"
 	expect(results.violations).toEqual([]);
 
 	await page.getByRole("link", { name: "WOD pour progresser" }).click();
+	await expect(page).toHaveURL(/\/wod\/\?course=deadly-dozen$/);
+	await expect(page.getByLabel("Course")).toHaveValue("deadly-dozen");
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("WOD");
 	await expect(
 		page.getByRole("navigation").getByRole("link", { name: "WOD" }),
@@ -176,6 +178,9 @@ test("sous 40 %, on montre la plus accessible et le message honnête", async ({
 		0,
 	);
 	await expect(page.locator("main .button")).toHaveCount(1);
+	await expect(
+		page.getByRole("link", { name: "WOD pour progresser" }),
+	).toHaveAttribute("href", /\/wod\/\?course=deka-strong$/);
 });
 
 test("en mode clair, le quiz reste un écran encre", async ({ page }) => {
