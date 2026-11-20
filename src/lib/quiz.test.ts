@@ -3,9 +3,13 @@ import { describe, expect, it } from "vitest";
 import { mergeEvents } from "./dates.ts";
 import {
 	PROFILE_LEVELS,
+	parseQuizSearch,
+	profileFromAnswers,
+	QUIZ_QUESTIONS,
 	type QuizCandidate,
 	type QuizProfile,
 	rankRaces,
+	serializeQuizSearch,
 	toQuizCandidate,
 } from "./quiz.ts";
 import {
@@ -103,6 +107,104 @@ describe("réponses des questions", () => {
 			boxJumps: 3,
 			tractions: 4,
 			muscleUp: 5,
+		});
+	});
+});
+
+describe("questions affichées", () => {
+	it("reprend les 7 questions du §7, dans l'ordre, mot pour mot", () => {
+		expect(QUIZ_QUESTIONS.map((question) => question.prompt)).toEqual([
+			"Courir 5 km sans t'arrêter, c'est…",
+			"Les charges (kettlebell, haltères, sled)…",
+			"Rameur, SkiErg, vélo…",
+			"Le mouvement le plus technique que tu maîtrises",
+			"Tu te vois courir…",
+			"Ton objectif",
+			"Jusqu'où es-tu prêt·e à aller ?",
+		]);
+		expect(
+			QUIZ_QUESTIONS.map((question) =>
+				question.options.map((option) => option.label),
+			),
+		).toEqual([
+			[
+				"Pas encore possible",
+				"Faisable mais dur",
+				"Facile",
+				"Je cours plus loin régulièrement",
+			],
+			[
+				"Jamais touché",
+				"Un peu en salle",
+				"Régulièrement",
+				"Je fais de la barre lourde",
+			],
+			[
+				"Jamais",
+				"De temps en temps",
+				"Souvent, 20 min et plus",
+				"Gros moteur d'endurance",
+			],
+			[
+				"Aucun de ceux-là",
+				"Burpees",
+				"Box jumps",
+				"Tractions ou toes-to-bar",
+				"Muscle-up",
+			],
+			["Seul·e", "À deux", "En équipe", "Peu importe"],
+			["Finir et kiffer", "Me tester sur un chrono", "Me mesurer aux autres"],
+			["France uniquement", "France et pays frontaliers", "Peu importe"],
+		]);
+	});
+});
+
+describe("réponses dans l'adresse", () => {
+	const answers = {
+		course: "faisable",
+		force: "regulierement",
+		cardio: "souvent",
+		gym: "boxJumps",
+		format: "duo",
+		objectif: "chrono",
+		zone: "frontaliers",
+	};
+
+	it("ignore une valeur inconnue et une étape hors limites", () => {
+		const params = new URLSearchParams(
+			"course=faisable&force=n-importe&etape=8&objectif=chrono",
+		);
+		expect(parseQuizSearch(params)).toEqual({
+			answers: {
+				course: "faisable",
+				force: null,
+				cardio: null,
+				gym: null,
+				format: null,
+				objectif: "chrono",
+				zone: null,
+			},
+			etape: null,
+		});
+	});
+
+	it("retrouve les mêmes réponses après un aller-retour", () => {
+		const parsed = parseQuizSearch(serializeQuizSearch(answers, 3));
+		expect(parsed.answers).toEqual(answers);
+		expect(parsed.etape).toBe(3);
+		expect(serializeQuizSearch(answers, 1).has("etape")).toBe(false);
+	});
+
+	it("ne construit le profil que lorsque les 7 réponses sont là", () => {
+		expect(profileFromAnswers({ ...answers, zone: null })).toBeNull();
+		expect(profileFromAnswers(answers)).toEqual({
+			course: 3,
+			force: 3,
+			cardio: 4,
+			gym: 3,
+			format: "duo",
+			objectif: "chrono",
+			zone: "frontaliers",
 		});
 	});
 });
@@ -320,6 +422,20 @@ describe("profils de référence (§7)", () => {
 		objectif: "chrono",
 		zone: "frontaliers",
 	};
+
+	it("relie les libellés des questions au profil « à deux, chrono »", () => {
+		expect(
+			profileFromAnswers({
+				course: "faisable",
+				force: "regulierement",
+				cardio: "souvent",
+				gym: "boxJumps",
+				format: "duo",
+				objectif: "chrono",
+				zone: "frontaliers",
+			}),
+		).toEqual(duoChrono);
+	});
 
 	it("course 3, force 3, cardio 4, gym 3, à deux, chrono : Deadly Dozen en tête", () => {
 		expect(ranking(duoChrono)).toEqual([

@@ -7,6 +7,7 @@ const pages = [
 	{ path: "courses/hyrox-open/", title: "Fiche HYROX Open solo" },
 	{ path: "courses/turf-games/", title: "Fiche Turf Games (note à venir)" },
 	{ path: "methode/", title: "Comment on note" },
+	{ path: "quiz/", title: "Quiz" },
 ];
 
 for (const colorScheme of ["dark", "light"] as const) {
@@ -48,7 +49,7 @@ test("l'en-tête ne montre que les pages existantes et signale la page en cours"
 }) => {
 	await page.goto("./");
 	const nav = page.getByRole("navigation", { name: "Navigation principale" });
-	await expect(nav.getByRole("link")).toHaveText(["Courses"]);
+	await expect(nav.getByRole("link")).toHaveText(["Courses", "Quiz"]);
 
 	await nav.getByRole("link", { name: "Courses" }).click();
 	await expect(page).toHaveURL(/\/courses\/$/);

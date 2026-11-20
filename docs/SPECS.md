@@ -215,6 +215,8 @@ Le quiz pose 7 questions, construit un profil sur les mêmes 4 catégories que l
 | Q6 | Ton objectif | Finir et kiffer · Me tester sur un chrono · Me mesurer aux autres |
 | Q7 | Jusqu'où es-tu prêt·e à aller ? | France uniquement · France et pays frontaliers · Peu importe |
 
+**Précision (US2.2).** Les questions s'affichent une par une, avec la progression « Question n sur 7 » et un retour à la question précédente. Chaque réponse est un paramètre de l'adresse : `course`, `force`, `cardio`, `gym`, `format`, `objectif`, `zone`. `etape` est le numéro de la question affichée (omis pour la première). Rien n'est stocké sur l'appareil. Sans JavaScript, les 7 questions restent visibles ensemble et le formulaire écrit les mêmes paramètres.
+
 ### Règle de scoring
 
 **Courses sans note globale** (Turf Games, XENOM tant que leur règlement n'est pas public) : exclues du classement du quiz tant qu'une note manque.

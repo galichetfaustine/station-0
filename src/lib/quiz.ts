@@ -163,3 +163,202 @@ export function rankRaces(
 			return dateA.localeCompare(dateB) || a.nom.localeCompare(b.nom, "fr");
 		});
 }
+
+// --- Questions (§7, US2.2) ---
+// Les textes affichés sont ceux du §7, mot pour mot. Les valeurs relient chaque réponse au profil.
+
+const courseOptions = [
+	{ value: "pasEncore", label: "Pas encore possible" },
+	{ value: "faisable", label: "Faisable mais dur" },
+	{ value: "facile", label: "Facile" },
+	{ value: "plusLoin", label: "Je cours plus loin régulièrement" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.course;
+	label: string;
+}[];
+
+const forceOptions = [
+	{ value: "jamais", label: "Jamais touché" },
+	{ value: "unPeu", label: "Un peu en salle" },
+	{ value: "regulierement", label: "Régulièrement" },
+	{ value: "barreLourde", label: "Je fais de la barre lourde" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.force;
+	label: string;
+}[];
+
+const cardioOptions = [
+	{ value: "jamais", label: "Jamais" },
+	{ value: "parfois", label: "De temps en temps" },
+	{ value: "souvent", label: "Souvent, 20 min et plus" },
+	{ value: "endurance", label: "Gros moteur d'endurance" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.cardio;
+	label: string;
+}[];
+
+const gymOptions = [
+	{ value: "aucun", label: "Aucun de ceux-là" },
+	{ value: "burpees", label: "Burpees" },
+	{ value: "boxJumps", label: "Box jumps" },
+	{ value: "tractions", label: "Tractions ou toes-to-bar" },
+	{ value: "muscleUp", label: "Muscle-up" },
+] as const satisfies readonly {
+	value: keyof typeof PROFILE_LEVELS.gym;
+	label: string;
+}[];
+
+const formatOptions = [
+	{ value: "solo", label: "Seul·e" },
+	{ value: "duo", label: "À deux" },
+	{ value: "equipe", label: "En équipe" },
+	{ value: "peuImporte", label: "Peu importe" },
+] as const satisfies readonly { value: QuizFormat; label: string }[];
+
+const objectifOptions = [
+	{ value: "kiffer", label: "Finir et kiffer" },
+	{ value: "chrono", label: "Me tester sur un chrono" },
+	{ value: "mesurer", label: "Me mesurer aux autres" },
+] as const satisfies readonly { value: QuizObjectif; label: string }[];
+
+const zoneOptions = [
+	{ value: "france", label: "France uniquement" },
+	{ value: "frontaliers", label: "France et pays frontaliers" },
+	{ value: "peuImporte", label: "Peu importe" },
+] as const satisfies readonly { value: QuizZone; label: string }[];
+
+/** Les 7 questions, dans l'ordre du §7. */
+export const QUIZ_QUESTIONS = [
+	{
+		id: "course",
+		prompt: "Courir 5 km sans t'arrêter, c'est…",
+		options: courseOptions,
+	},
+	{
+		id: "force",
+		prompt: "Les charges (kettlebell, haltères, sled)…",
+		options: forceOptions,
+	},
+	{ id: "cardio", prompt: "Rameur, SkiErg, vélo…", options: cardioOptions },
+	{
+		id: "gym",
+		prompt: "Le mouvement le plus technique que tu maîtrises",
+		options: gymOptions,
+	},
+	{ id: "format", prompt: "Tu te vois courir…", options: formatOptions },
+	{ id: "objectif", prompt: "Ton objectif", options: objectifOptions },
+	{
+		id: "zone",
+		prompt: "Jusqu'où es-tu prêt·e à aller ?",
+		options: zoneOptions,
+	},
+] as const;
+
+export type QuizQuestionId = (typeof QUIZ_QUESTIONS)[number]["id"];
+
+/** Réponses présentes dans l'adresse. Une case vide n'a pas encore été choisie. */
+export type QuizAnswerMap = Record<QuizQuestionId, string | null>;
+
+export function emptyQuizAnswers(): QuizAnswerMap {
+	return {
+		course: null,
+		force: null,
+		cardio: null,
+		gym: null,
+		format: null,
+		objectif: null,
+		zone: null,
+	};
+}
+
+function isKnownAnswer(
+	id: QuizQuestionId,
+	value: string | null,
+): value is string {
+	if (value === null) return false;
+	const question = QUIZ_QUESTIONS.find((item) => item.id === id);
+	return question?.options.some((option) => option.value === value) ?? false;
+}
+
+/**
+ * Lit les réponses dans l'adresse. Une valeur inconnue est ignorée.
+ * `etape` vaut null s'il est absent ou invalide.
+ */
+export function parseQuizSearch(params: URLSearchParams): {
+	answers: QuizAnswerMap;
+	etape: number | null;
+} {
+	const answers = emptyQuizAnswers();
+	for (const question of QUIZ_QUESTIONS) {
+		const value = params.get(question.id);
+		answers[question.id] = isKnownAnswer(question.id, value) ? value : null;
+	}
+	const raw = params.get("etape");
+	const number = raw === null ? Number.NaN : Number(raw);
+	const etape =
+		Number.isInteger(number) && number >= 1 && number <= QUIZ_QUESTIONS.length
+			? number
+			: null;
+	return { answers, etape };
+}
+
+/** Écrit les réponses dans l'adresse. L'étape 1 est omise pour garder un lien court. */
+export function serializeQuizSearch(
+	answers: QuizAnswerMap,
+	etape: number,
+): URLSearchParams {
+	const params = new URLSearchParams();
+	for (const question of QUIZ_QUESTIONS) {
+		const value = answers[question.id];
+		if (isKnownAnswer(question.id, value)) params.set(question.id, value);
+	}
+	if (etape !== 1) params.set("etape", String(etape));
+	return params;
+}
+
+function isLevel<T extends object>(
+	record: T,
+	value: string | null,
+): value is Extract<keyof T, string> {
+	return value !== null && value in record;
+}
+
+function isQuizFormat(value: string | null): value is QuizFormat {
+	return formatOptions.some((option) => option.value === value);
+}
+
+function isQuizObjectif(value: string | null): value is QuizObjectif {
+	return objectifOptions.some((option) => option.value === value);
+}
+
+function isQuizZone(value: string | null): value is QuizZone {
+	return zoneOptions.some((option) => option.value === value);
+}
+
+/**
+ * Construit le profil passé à rankRaces.
+ * Renvoie null tant qu'une réponse manque : le classement ne devine pas.
+ */
+export function profileFromAnswers(answers: QuizAnswerMap): QuizProfile | null {
+	const { course, force, cardio, gym, format, objectif, zone } = answers;
+	if (
+		!isLevel(PROFILE_LEVELS.course, course) ||
+		!isLevel(PROFILE_LEVELS.force, force) ||
+		!isLevel(PROFILE_LEVELS.cardio, cardio) ||
+		!isLevel(PROFILE_LEVELS.gym, gym) ||
+		!isQuizFormat(format) ||
+		!isQuizObjectif(objectif) ||
+		!isQuizZone(zone)
+	) {
+		return null;
+	}
+	return {
+		course: PROFILE_LEVELS.course[course],
+		force: PROFILE_LEVELS.force[force],
+		cardio: PROFILE_LEVELS.cardio[cardio],
+		gym: PROFILE_LEVELS.gym[gym],
+		format,
+		objectif,
+		zone,
+	};
+}
