@@ -302,17 +302,19 @@ export function parseQuizSearch(params: URLSearchParams): {
 	return { answers, etape };
 }
 
-/** Écrit les réponses dans l'adresse. L'étape 1 est omise pour garder un lien court. */
+/** Écrit les réponses dans l'adresse. `null` : le résultat, sans étape. L'étape 1 est omise tant que les 7 réponses ne sont pas là. */
 export function serializeQuizSearch(
 	answers: QuizAnswerMap,
-	etape: number,
+	etape: number | null,
 ): URLSearchParams {
 	const params = new URLSearchParams();
 	for (const question of QUIZ_QUESTIONS) {
 		const value = answers[question.id];
 		if (isKnownAnswer(question.id, value)) params.set(question.id, value);
 	}
-	if (etape !== 1) params.set("etape", String(etape));
+	if (etape !== null && (etape !== 1 || profileFromAnswers(answers))) {
+		params.set("etape", String(etape));
+	}
 	return params;
 }
 
@@ -360,5 +362,169 @@ export function profileFromAnswers(answers: QuizAnswerMap): QuizProfile | null {
 		format,
 		objectif,
 		zone,
+	};
+}
+
+/** Course et ses notes déjà calculées, pour expliquer un résultat sans recalculer le score. */
+export interface QuizFacts {
+	slug: string;
+	nom: string;
+	organisateur: string;
+	formats: Race["formats"];
+	notes: Record<Category, number | null>;
+	noteGlobale: number | null;
+}
+
+/** Notes calculées d'une course, avec l'organisateur (l'alternative doit venir d'un autre). */
+export function toQuizFacts(race: Race, config: BaremeConfig): QuizFacts {
+	const { categories, globale } = computeNotes(
+		race.bareme,
+		race.dureeMoyenneMin,
+		config,
+	);
+	return {
+		slug: race.slug,
+		nom: race.nom,
+		organisateur: race.organisateur,
+		formats: race.formats,
+		notes: {
+			course: categories.course.note,
+			force: categories.force.note,
+			cardio: categories.cardio.note,
+			gym: categories.gym.note,
+		},
+		noteGlobale: globale.note,
+	};
+}
+
+/** Écart signé : note de la course − niveau du profil (§7). */
+export interface CategoryGap {
+	category: Category;
+	ecart: number;
+}
+
+export function categoryGaps(
+	profile: Pick<QuizProfile, Category>,
+	notes: Record<Category, number>,
+): CategoryGap[] {
+	return CATEGORIES.map((category) => ({
+		category,
+		ecart: notes[category] - profile[category],
+	}));
+}
+
+function byCategoryOrder(a: Category, b: Category): number {
+	return CATEGORIES.indexOf(a) - CATEGORIES.indexOf(b);
+}
+
+/**
+ * Les 2 catégories à l'écart absolu le plus faible (« pourquoi elle te va »).
+ * À égalité, l'ordre du barème : course, force, cardio, gym.
+ */
+export function closestCategories(gaps: CategoryGap[]): Category[] {
+	return [...gaps]
+		.sort(
+			(a, b) =>
+				Math.abs(a.ecart) - Math.abs(b.ecart) ||
+				byCategoryOrder(a.category, b.category),
+		)
+		.slice(0, 2)
+		.map((gap) => gap.category);
+}
+
+/**
+ * La catégorie au plus gros écart positif (« point d'attention »).
+ * À égalité, l'ordre du barème. Null s'il n'y a aucun écart positif.
+ */
+export function attentionCategory(gaps: CategoryGap[]): Category | null {
+	const positive = gaps.filter((gap) => gap.ecart > 0);
+	positive.sort(
+		(a, b) => b.ecart - a.ecart || byCategoryOrder(a.category, b.category),
+	);
+	return positive[0]?.category ?? null;
+}
+
+export interface QuizRecommendation {
+	slug: string;
+	nom: string;
+	score: number;
+	prochaineDate: string | null;
+	pourquoi: Category[];
+	pointAttention: Category | null;
+}
+
+export interface QuizAlternative {
+	slug: string;
+	nom: string;
+	score: number;
+	prochaineDate: string | null;
+}
+
+/** Résultat affichable. Le score vient de rankRaces : cette fonction ne le recalcule pas. */
+export interface QuizExplanation {
+	/** Aucune course classée ne dépasse le seuil de recommandation. */
+	plancher: boolean;
+	course: QuizRecommendation;
+	alternative: QuizAlternative | null;
+}
+
+function notesAreNumbers(
+	notes: Record<Category, number | null>,
+): notes is Record<Category, number> {
+	return CATEGORIES.every((category) => notes[category] !== null);
+}
+
+/**
+ * Choisit la course à montrer et explique les écarts, à partir du classement déjà calculé.
+ * « Dépasse » est strict : un score égal au seuil ne suffit pas.
+ * Sous le seuil, la plus accessible est la note globale la plus basse ; à égalité, le nom en français.
+ * L'alternative est la première course suivante d'un autre organisateur au-dessus de son seuil.
+ */
+export function explainQuiz(
+	profile: QuizProfile,
+	ranked: ScoredRace[],
+	races: QuizFacts[],
+	config: Pick<QuizConfig, "seuilRecommandation" | "seuilAlternative">,
+): QuizExplanation | null {
+	if (ranked.length === 0) return null;
+	const bySlug = new Map(races.map((race) => [race.slug, race]));
+	const above = ranked.some((race) => race.score > config.seuilRecommandation);
+	const chosen = above
+		? ranked[0]
+		: [...ranked].sort((a, b) => {
+				const noteA =
+					bySlug.get(a.slug)?.noteGlobale ?? Number.POSITIVE_INFINITY;
+				const noteB =
+					bySlug.get(b.slug)?.noteGlobale ?? Number.POSITIVE_INFINITY;
+				return noteA - noteB || a.nom.localeCompare(b.nom, "fr");
+			})[0];
+	if (!chosen) return null;
+	const facts = bySlug.get(chosen.slug);
+	if (!facts || !notesAreNumbers(facts.notes)) return null;
+	const gaps = categoryGaps(profile, facts.notes);
+	const alternative = above
+		? (ranked.find((race) => {
+				if (race.slug === chosen.slug) return false;
+				if (race.score <= config.seuilAlternative) return false;
+				const other = bySlug.get(race.slug);
+				return other !== undefined && other.organisateur !== facts.organisateur;
+			}) ?? null)
+		: null;
+	return {
+		plancher: !above,
+		course: {
+			slug: chosen.slug,
+			nom: chosen.nom,
+			score: chosen.score,
+			prochaineDate: chosen.prochaineDate,
+			pourquoi: closestCategories(gaps),
+			pointAttention: attentionCategory(gaps),
+		},
+		alternative: alternative && {
+			slug: alternative.slug,
+			nom: alternative.nom,
+			score: alternative.score,
+			prochaineDate: alternative.prochaineDate,
+		},
 	};
 }

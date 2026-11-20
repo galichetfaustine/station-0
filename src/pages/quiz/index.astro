@@ -1,17 +1,39 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
 import Quiz from "../../components/Quiz.svelte";
+import { todayInParis } from "../../lib/dates";
 import { withBase } from "../../lib/paths";
+import { toQuizFacts } from "../../lib/quiz";
+import { baremeConfig, events, quizConfig, races } from "../../lib/races-data";
 
 const base = import.meta.env.BASE_URL;
+const quizRaces = races.map((race) => toQuizFacts(race, baremeConfig));
 ---
 
 <BaseLayout title="Quiz" description="Sept questions pour trouver ta course hybride. Rien n'est enregistré.">
+	<script is:inline>
+		(function () {
+			var params = new URLSearchParams(location.search);
+			var keys = ["course", "force", "cardio", "gym", "format", "objectif", "zone"];
+			var complete = keys.every(function (key) {
+				return params.get(key);
+			});
+			if (complete && !params.get("etape")) document.documentElement.dataset.quizResultat = "1";
+		})();
+	</script>
 	<h1>Quiz</h1>
 	<p class="intro">
 		Sept questions. Tes réponses restent dans l'adresse de la page, rien n'est enregistré.
 	</p>
-	<Quiz client:load action={withBase(base, "/quiz/")} />
+	<Quiz
+		client:load
+		action={withBase(base, "/quiz/")}
+		{base}
+		races={quizRaces}
+		{events}
+		config={quizConfig}
+		buildDate={todayInParis()}
+	/>
 </BaseLayout>
 
 <style>

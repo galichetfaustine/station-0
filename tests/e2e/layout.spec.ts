@@ -8,6 +8,7 @@ const pages = [
 	{ path: "courses/turf-games/", title: "Fiche Turf Games (note à venir)" },
 	{ path: "methode/", title: "Comment on note" },
 	{ path: "quiz/", title: "Quiz" },
+	{ path: "wod/", title: "WOD" },
 ];
 
 for (const colorScheme of ["dark", "light"] as const) {

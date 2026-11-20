@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 test("l'en-tête mène au quiz et signale la page", async ({ page }) => {
@@ -91,6 +92,93 @@ test("les sept questions du §7 sont dans la page", async ({ page }) => {
 	await expect(page.locator("legend").nth(6)).toContainText(
 		"Jusqu'où es-tu prêt·e à aller ?",
 	);
+});
+
+const reference =
+	"quiz/?course=faisable&force=regulierement&cardio=souvent&gym=boxJumps&format=duo&objectif=chrono&zone=frontaliers";
+
+test("terminer les 7 questions montre la course, et l'adresse redonne le même résultat", async ({
+	page,
+}) => {
+	await page.goto("quiz/");
+	await expect(page.locator("#quiz-progress")).toHaveText("Question 1 sur 7");
+	const steps: [string, string][] = [
+		["Faisable mais dur", "Continuer"],
+		["Régulièrement", "Continuer"],
+		["Souvent, 20 min et plus", "Continuer"],
+		["Box jumps", "Continuer"],
+		["À deux", "Continuer"],
+		["Me tester sur un chrono", "Continuer"],
+		["France et pays frontaliers", "Voir ma course"],
+	];
+	for (const [answer, button] of steps) {
+		await page.getByRole("radio", { name: answer }).check();
+		await page.getByRole("button", { name: button }).click();
+	}
+	await expect(
+		page.getByRole("heading", { level: 2, name: "Deadly Dozen" }),
+	).toBeVisible();
+	await expect(page.getByText("Score : 100 %")).toBeVisible();
+	await expect(page).toHaveURL(/course=faisable/);
+	await expect(page).not.toHaveURL(/etape=/);
+	await expect(page.locator("main .button")).toHaveCount(1);
+
+	await page.getByRole("link", { name: "Modifier mes réponses" }).click();
+	await expect(page.locator("#quiz-progress")).toHaveText("Question 1 sur 7");
+	await expect(
+		page.getByRole("radio", { name: "Faisable mais dur" }),
+	).toBeChecked();
+});
+
+test("l'adresse du résultat redonne Deadly Dozen, l'alternative et le lien WOD", async ({
+	page,
+}) => {
+	await page.goto(reference);
+	await expect(
+		page.getByRole("heading", { level: 2, name: "Deadly Dozen" }),
+	).toBeVisible();
+	await expect(page.locator("article li")).toHaveText(["Course", "Force"]);
+	await expect(
+		page.getByRole("heading", { name: "Point d'attention" }),
+	).toHaveCount(0);
+	await expect(page.getByRole("link", { name: "DEKA MILE" })).toHaveAttribute(
+		"href",
+		/\/courses\/deka-mile\/$/,
+	);
+	await expect(
+		page.getByRole("link", { name: "Voir la fiche" }),
+	).toHaveAttribute("href", /\/courses\/deadly-dozen\/$/);
+	const results = await new AxeBuilder({ page }).analyze();
+	expect(results.violations).toEqual([]);
+
+	await page.getByRole("link", { name: "WOD pour progresser" }).click();
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+		"Bientôt disponible",
+	);
+	await expect(
+		page.getByRole("navigation").getByRole("link", { name: "WOD" }),
+	).toHaveCount(0);
+});
+
+test("sous 40 %, on montre la plus accessible et le message honnête", async ({
+	page,
+}) => {
+	await page.goto(
+		"quiz/?course=pasEncore&force=regulierement&cardio=jamais&gym=aucun&format=solo&objectif=kiffer&zone=frontaliers",
+	);
+	await expect(
+		page.getByText("Pas encore, mais voici par où commencer"),
+	).toBeVisible();
+	await expect(
+		page.getByRole("heading", { level: 2, name: "DEKA STRONG" }),
+	).toBeVisible();
+	await expect(
+		page.getByRole("heading", { name: "Point d'attention" }),
+	).toBeVisible();
+	await expect(page.getByRole("heading", { name: "Alternative" })).toHaveCount(
+		0,
+	);
+	await expect(page.locator("main .button")).toHaveCount(1);
 });
 
 test.describe("sans JavaScript", () => {

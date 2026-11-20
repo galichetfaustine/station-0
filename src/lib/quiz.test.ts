@@ -2,15 +2,21 @@ import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { mergeEvents } from "./dates.ts";
 import {
+	attentionCategory,
+	categoryGaps,
+	closestCategories,
+	explainQuiz,
 	PROFILE_LEVELS,
 	parseQuizSearch,
 	profileFromAnswers,
 	QUIZ_QUESTIONS,
 	type QuizCandidate,
+	type QuizFacts,
 	type QuizProfile,
 	rankRaces,
 	serializeQuizSearch,
 	toQuizCandidate,
+	toQuizFacts,
 } from "./quiz.ts";
 import {
 	baremeConfigSchema,
@@ -192,7 +198,14 @@ describe("réponses dans l'adresse", () => {
 		const parsed = parseQuizSearch(serializeQuizSearch(answers, 3));
 		expect(parsed.answers).toEqual(answers);
 		expect(parsed.etape).toBe(3);
-		expect(serializeQuizSearch(answers, 1).has("etape")).toBe(false);
+	});
+
+	it("omet l'étape 1 tant que le quiz n'est pas fini, et l'enlève du résultat", () => {
+		expect(
+			serializeQuizSearch({ ...answers, zone: null }, 1).has("etape"),
+		).toBe(false);
+		expect(serializeQuizSearch(answers, 1).get("etape")).toBe("1");
+		expect(serializeQuizSearch(answers, null).has("etape")).toBe(false);
 	});
 
 	it("ne construit le profil que lorsque les 7 réponses sont là", () => {
@@ -627,5 +640,223 @@ describe("profils complémentaires", () => {
 		expect(slugs).toHaveLength(9);
 		expect(slugs).not.toContain("turf-games");
 		expect(slugs).not.toContain("xenom");
+	});
+});
+
+const facts = readDir("data/races").map((file) =>
+	toQuizFacts(raceSchema.parse(readJson(`data/races/${file}`)), bareme),
+);
+
+function explanation(profile: QuizProfile) {
+	return explainQuiz(
+		profile,
+		rankRaces(profile, facts, events, config, JOUR),
+		facts,
+		config,
+	);
+}
+
+describe("écarts expliqués", () => {
+	const gaps = categoryGaps(
+		{ course: 3, force: 3, cardio: 3, gym: 3 },
+		{ course: 1, force: 3, cardio: 4, gym: 5 },
+	);
+
+	it("calcule l'écart signé note − profil", () => {
+		expect(gaps).toEqual([
+			{ category: "course", ecart: -2 },
+			{ category: "force", ecart: 0 },
+			{ category: "cardio", ecart: 1 },
+			{ category: "gym", ecart: 2 },
+		]);
+	});
+
+	it("garde les 2 plus petits écarts absolus, et l'ordre du barème à égalité", () => {
+		expect(closestCategories(gaps)).toEqual(["force", "cardio"]);
+		expect(
+			closestCategories([
+				{ category: "gym", ecart: 1 },
+				{ category: "course", ecart: -1 },
+				{ category: "force", ecart: 0 },
+				{ category: "cardio", ecart: 3 },
+			]),
+		).toEqual(["force", "course"]);
+	});
+
+	it("pointe le plus gros écart positif, et rien s'il n'y en a pas", () => {
+		expect(attentionCategory(gaps)).toBe("gym");
+		expect(
+			attentionCategory([
+				{ category: "force", ecart: 2 },
+				{ category: "course", ecart: 2 },
+				{ category: "cardio", ecart: -1 },
+				{ category: "gym", ecart: 0 },
+			]),
+		).toBe("course");
+		expect(
+			attentionCategory([
+				{ category: "course", ecart: 0 },
+				{ category: "force", ecart: -1 },
+				{ category: "cardio", ecart: 0 },
+				{ category: "gym", ecart: -2 },
+			]),
+		).toBeNull();
+	});
+});
+
+describe("résultat (§7)", () => {
+	const duoChrono: QuizProfile = {
+		course: levels.course.faisable,
+		force: levels.force.regulierement,
+		cardio: levels.cardio.souvent,
+		gym: levels.gym.boxJumps,
+		format: "duo",
+		objectif: "chrono",
+		zone: "frontaliers",
+	};
+
+	it("recommande Deadly Dozen et DEKA MILE, pas DEKA STRONG à 60 %", () => {
+		expect(explanation(duoChrono)).toEqual({
+			plancher: false,
+			course: {
+				slug: "deadly-dozen",
+				nom: "Deadly Dozen",
+				score: 100,
+				prochaineDate: expect.any(String),
+				pourquoi: ["course", "force"],
+				pointAttention: null,
+			},
+			alternative: {
+				slug: "deka-mile",
+				nom: "DEKA MILE",
+				score: 64,
+				prochaineDate: expect.any(String),
+			},
+		});
+	});
+
+	it("sous 40 %, montre la plus accessible et le message de plancher", () => {
+		const result = explanation({
+			course: levels.course.pasEncore,
+			force: levels.force.regulierement,
+			cardio: levels.cardio.jamais,
+			gym: levels.gym.aucun,
+			format: "solo",
+			objectif: "kiffer",
+			zone: "frontaliers",
+		});
+		expect(result?.plancher).toBe(true);
+		expect(result?.alternative).toBeNull();
+		expect(result?.course).toMatchObject({
+			slug: "deka-strong",
+			nom: "DEKA STRONG",
+			score: 0,
+			pourquoi: ["force", "course"],
+			pointAttention: "cardio",
+		});
+	});
+
+	it("saute une alternative du même organisateur, et ignore un score de 60 %", () => {
+		const notes = { course: 3, force: 3, cardio: 3, gym: 3 };
+		const races: QuizFacts[] = [
+			{
+				slug: "a",
+				nom: "A",
+				organisateur: "Même",
+				formats: ["solo"],
+				notes,
+				noteGlobale: 3,
+			},
+			{
+				slug: "b",
+				nom: "B",
+				organisateur: "Même",
+				formats: ["solo"],
+				notes,
+				noteGlobale: 2,
+			},
+			{
+				slug: "c",
+				nom: "C",
+				organisateur: "Autre",
+				formats: ["solo"],
+				notes,
+				noteGlobale: 4,
+			},
+		];
+		const ranked = [
+			{ slug: "a", nom: "A", score: 90, prochaineDate: "2027-01-01" },
+			{ slug: "b", nom: "B", score: 80, prochaineDate: "2027-02-01" },
+			{ slug: "c", nom: "C", score: 70, prochaineDate: "2027-03-01" },
+		];
+		const profile: QuizProfile = {
+			course: 3,
+			force: 3,
+			cardio: 3,
+			gym: 3,
+			format: "solo",
+			objectif: "kiffer",
+			zone: "france",
+		};
+		expect(
+			explainQuiz(profile, ranked, races, {
+				seuilRecommandation: 40,
+				seuilAlternative: 60,
+			})?.alternative?.slug,
+		).toBe("c");
+		expect(
+			explainQuiz(
+				profile,
+				[
+					ranked[0],
+					{ slug: "c", nom: "C", score: 60, prochaineDate: "2027-03-01" },
+				],
+				races,
+				{ seuilRecommandation: 40, seuilAlternative: 60 },
+			)?.alternative,
+		).toBeNull();
+	});
+
+	it("à 40 % pile, ce n'est pas encore une recommandation", () => {
+		const notes = { course: 3, force: 3, cardio: 3, gym: 3 };
+		const races: QuizFacts[] = [
+			{
+				slug: "dure",
+				nom: "Dure",
+				organisateur: "Un",
+				formats: ["solo"],
+				notes,
+				noteGlobale: 4,
+			},
+			{
+				slug: "facile",
+				nom: "Facile",
+				organisateur: "Deux",
+				formats: ["solo"],
+				notes,
+				noteGlobale: 1,
+			},
+		];
+		const profile: QuizProfile = {
+			course: 3,
+			force: 3,
+			cardio: 3,
+			gym: 3,
+			format: "solo",
+			objectif: "kiffer",
+			zone: "france",
+		};
+		const result = explainQuiz(
+			profile,
+			[
+				{ slug: "dure", nom: "Dure", score: 40, prochaineDate: null },
+				{ slug: "facile", nom: "Facile", score: 10, prochaineDate: null },
+			],
+			races,
+			config,
+		);
+		expect(result?.plancher).toBe(true);
+		expect(result?.course.slug).toBe("facile");
+		expect(result?.alternative).toBeNull();
 	});
 });
