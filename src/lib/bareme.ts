@@ -60,6 +60,11 @@ const numberFormat = new Intl.NumberFormat("fr-FR", {
 	maximumFractionDigits: 2,
 });
 const formatNumber = (value: number) => numberFormat.format(value);
+
+/** Note affichée à la française (« 3,5 »), « ? » si elle manque. */
+export function formatNote(note: number | null): string {
+	return note === null ? "?" : formatNumber(note);
+}
 const formatKm = (meters: number) => `${formatNumber(meters / 1000)} km`;
 
 function courseNote(bareme: Bareme, config: BaremeConfig): CategoryNote {
@@ -130,6 +135,18 @@ function cardioNote(bareme: Bareme, config: BaremeConfig): CategoryNote {
 	const shared = bareme.partageEffort > 1 ? " par athlète" : "";
 	const ergo = ergoM === null ? null : Math.round(ergoM / bareme.partageEffort);
 	const byErgo = ergo === null ? 0 : levelFor(ergo, config.cardio.ergoM);
+	// En duo, la note ne compte que le volume d'ergo par athlète : la durée est partagée avec le binôme.
+	if (bareme.partageEffort === 2) {
+		if (ergo === null)
+			return {
+				note: null,
+				justification: "Volume d'ergo par athlète à confirmer",
+			};
+		return {
+			note: byErgo,
+			justification: `${formatNumber(ergo)} m d'ergo par athlète (en duo, la durée ne compte pas)`,
+		};
+	}
 	const byDuration =
 		dureeEffortMin === null
 			? 0
@@ -215,7 +232,11 @@ export function computeNotes(
 			(sum, category) => sum + (categories[category].note ?? 0),
 			0,
 		) / CATEGORIES.length;
-	const note = Math.min(5, Math.max(1, Math.round(moyenne + ajustement)));
+	// Arrondi au demi-point le plus proche (x,25 → x,5 ; x,75 → x+1), borné entre 1 et 5.
+	const note = Math.min(
+		5,
+		Math.max(1, Math.round((moyenne + ajustement) * 2) / 2),
+	);
 	const ajustementText =
 		ajustement === 0
 			? ""

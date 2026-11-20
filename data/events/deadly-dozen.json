@@ -1,0 +1,148 @@
+{
+	"source": "deadly-dozen",
+	"verifieLe": "2026-10-23T17:20:00.199Z",
+	"courses": ["deadly-dozen"],
+	"evenements": [
+		{
+			"course": "deadly-dozen",
+			"date": "2027-08-14",
+			"ville": "Davos",
+			"pays": "CH",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-davos"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-04-24",
+			"ville": "Cologne",
+			"pays": "DE",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-koln"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-05-01",
+			"ville": "Leipzig",
+			"pays": "DE",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-leipzig"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-05-08",
+			"ville": "Lac de Constance",
+			"pays": "DE",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-bodensee"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-05-22",
+			"ville": "Karlsruhe",
+			"pays": "DE",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-karlsruhe"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-06-19",
+			"dateFin": "2027-06-20",
+			"ville": "Bottrop",
+			"pays": "DE",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-bottrop"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-07-03",
+			"ville": "Aschaffenburg",
+			"pays": "DE",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-aschaffenburg"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-08-28",
+			"ville": "Fürth",
+			"pays": "DE",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-furth?race=28-august-2027"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-05-15",
+			"ville": "Rezzato",
+			"pays": "IT",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-rezzato"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-07-24",
+			"ville": "Lac de Garde",
+			"pays": "IT",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-garda-lake"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-09-11",
+			"ville": "Monza",
+			"pays": "IT",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-monza"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2026-10-31",
+			"ville": "Malaga",
+			"pays": "ES",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-malaga"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-04-17",
+			"ville": "Middlesbrough",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-middlesbrough"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-04-24",
+			"ville": "Bristol",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-bristol"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-05-08",
+			"ville": "Macclesfield",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-macclesfield"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-06-05",
+			"ville": "Macclesfield",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-macclesfield?race=5-june-2027"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-06-19",
+			"ville": "Édimbourg",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-edinburgh"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-06-26",
+			"ville": "Crawley",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-crawley"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-07-03",
+			"ville": "Liverpool",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-liverpool"
+		},
+		{
+			"course": "deadly-dozen",
+			"date": "2027-08-14",
+			"ville": "Portsmouth",
+			"pays": "GB",
+			"lienInscription": "https://www.deadlydozen.com/deadly-dozen-portsmouth"
+		}
+	]
+}

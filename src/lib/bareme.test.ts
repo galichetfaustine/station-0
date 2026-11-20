@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { computeNotes, levelFor } from "./bareme.ts";
+import { computeNotes, formatNote, levelFor } from "./bareme.ts";
 import { type Bareme, baremeConfigSchema, raceSchema } from "./schemas.ts";
 
 const readJson = (path: string) =>
@@ -107,19 +107,19 @@ describe("cardio", () => {
 		expect(cardio.note).toBe(4);
 		expect(cardio.justification).toBe("Environ 70 min d'effort, 500 m d'ergo");
 	});
-	it("divise les mètres d'ergo entre les athlètes qui se partagent les stations", () => {
+	it("en duo, ne compte que le volume d'ergo par athlète, sans la durée", () => {
 		const cardio = computeNotes(
 			{
 				...base,
 				partageEffort: 2,
-				cardio: { ergoM: 2000, dureeEffortMin: 30 },
+				cardio: { ergoM: 2000, dureeEffortMin: 80 },
 			},
-			30,
+			80,
 			config,
 		).categories.cardio;
 		expect(cardio.note).toBe(3);
 		expect(cardio.justification).toBe(
-			"1\u202f000 m d'ergo par athlète, environ 30 min d'effort",
+			"1\u202f000 m d'ergo par athlète (en duo, la durée ne compte pas)",
 		);
 	});
 	it("se contente de la donnée connue", () => {
@@ -138,7 +138,19 @@ describe("note globale", () => {
 		expect(computeNotes(base, 90, config).globale.ajustement).toBe(0);
 		expect(computeNotes(base, 91, config).globale.ajustement).toBe(0.5);
 	});
-	it("arrondit à l'entier le plus proche (x,5 vers le haut) et reste entre 1 et 5", () => {
+	it("arrondit au demi-point le plus proche (x,25 et x,75 vers le haut) et reste entre 1 et 5", () => {
+		const avec = (gym: "wallBalls" | "snatchHaltere", duree: number) =>
+			computeNotes(
+				{
+					...base,
+					cardio: { ergoM: 2000, dureeEffortMin: 70 },
+					gym: { mouvementLePlusTechnique: gym },
+				},
+				duree,
+				config,
+			).globale.note;
+		expect(avec("wallBalls", 60)).toBe(4); // 3,75 → 4
+		expect(avec("wallBalls", 20)).toBe(3.5); // 3,75 − 0,5 = 3,25 → 3,5
 		const facile: Bareme = {
 			partageEffort: 1,
 			course: { distanceM: 0 },
@@ -154,6 +166,13 @@ describe("note globale", () => {
 		};
 		expect(computeNotes(dur, 300, config).globale.note).toBe(5);
 	});
+	it("s'affiche à la française", () => {
+		expect([formatNote(3.5), formatNote(4), formatNote(null)]).toEqual([
+			"3,5",
+			"4",
+			"?",
+		]);
+	});
 	it("reste à confirmer si une catégorie manque", () => {
 		const { globale, categories } = computeNotes(
 			{ ...base, gym: null },
@@ -164,6 +183,33 @@ describe("note globale", () => {
 		expect(globale.note).toBeNull();
 		expect(globale.justification).toBe("À confirmer (gym / agilité)");
 	});
+});
+
+describe("résultats de référence validés (revue du 23/10/2026)", () => {
+	it.each([
+		["hyrox-open", 4],
+		["athx", 4],
+		["hybrid-games", 4],
+		["spartan-sprint", 4],
+		["hyrox-doubles", 3.5],
+		["deadly-dozen", 3.5],
+		["deka-fit", 3],
+		["deka-mile", 2.5],
+		["deka-strong", 2],
+	])("%s : note globale %d", (slug, expected) => {
+		expect(notesOf(slug).globale.note).toBe(expected);
+	});
+
+	it("HYROX Doubles : cardio 3 (1 000 m d'ergo par athlète)", () => {
+		expect(notesOf("hyrox-doubles").categories.cardio.note).toBe(3);
+	});
+
+	it.each(["turf-games", "xenom"])(
+		"%s : note globale à venir (règlement non public)",
+		(slug) => {
+			expect(notesOf(slug).globale.note).toBeNull();
+		},
+	);
 });
 
 describe("les 11 courses", () => {

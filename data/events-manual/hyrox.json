@@ -1,0 +1,407 @@
+{
+	"source": "manuel",
+	"verifieLe": "2026-10-23T16:35:00+02:00",
+	"courses": ["hyrox-open", "hyrox-doubles"],
+	"evenements": [
+		{
+			"course": "hyrox-open",
+			"date": "2026-10-29",
+			"dateFin": "2026-11-01",
+			"ville": "Nice",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-12-12",
+			"dateFin": "2026-12-20",
+			"ville": "Paris",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-02-03",
+			"dateFin": "2027-02-07",
+			"ville": "Toulouse",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-04-08",
+			"dateFin": "2027-04-12",
+			"ville": "Paris (Grand Palais)",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-05-12",
+			"dateFin": "2027-05-16",
+			"ville": "Lyon",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-12-17",
+			"dateFin": "2026-12-20",
+			"ville": "Gand",
+			"pays": "BE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-03-03",
+			"dateFin": "2027-03-07",
+			"ville": "Malines",
+			"pays": "BE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-02-12",
+			"dateFin": "2027-02-14",
+			"ville": "Bâle",
+			"pays": "CH",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-10-28",
+			"dateFin": "2026-11-01",
+			"ville": "Hambourg",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-11-11",
+			"dateFin": "2026-11-15",
+			"ville": "Düsseldorf",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-12-10",
+			"dateFin": "2026-12-13",
+			"ville": "Francfort",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-04-08",
+			"dateFin": "2027-04-11",
+			"ville": "Cologne",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-12-04",
+			"dateFin": "2026-12-06",
+			"ville": "Milan",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-01-28",
+			"dateFin": "2027-01-31",
+			"ville": "Vérone",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-04-02",
+			"dateFin": "2027-04-04",
+			"ville": "Bari",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-05-27",
+			"dateFin": "2027-05-30",
+			"ville": "Rimini",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-11-11",
+			"dateFin": "2026-11-15",
+			"ville": "Barcelone",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-02-06",
+			"dateFin": "2027-02-07",
+			"ville": "Bilbao",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-03-17",
+			"dateFin": "2027-03-21",
+			"ville": "Madrid",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-04-15",
+			"dateFin": "2027-04-18",
+			"ville": "Malaga",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-10-27",
+			"dateFin": "2026-11-01",
+			"ville": "Birmingham",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2026-12-02",
+			"dateFin": "2026-12-06",
+			"ville": "Londres (ExCeL)",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-01-20",
+			"dateFin": "2027-01-31",
+			"ville": "Manchester",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-03-10",
+			"dateFin": "2027-03-14",
+			"ville": "Glasgow",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-open",
+			"date": "2027-05-20",
+			"dateFin": "2027-05-29",
+			"ville": "Cardiff",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-10-29",
+			"dateFin": "2026-11-01",
+			"ville": "Nice",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-12-12",
+			"dateFin": "2026-12-20",
+			"ville": "Paris",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-02-03",
+			"dateFin": "2027-02-07",
+			"ville": "Toulouse",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-04-08",
+			"dateFin": "2027-04-12",
+			"ville": "Paris (Grand Palais)",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-05-12",
+			"dateFin": "2027-05-16",
+			"ville": "Lyon",
+			"pays": "FR",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-12-17",
+			"dateFin": "2026-12-20",
+			"ville": "Gand",
+			"pays": "BE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-03-03",
+			"dateFin": "2027-03-07",
+			"ville": "Malines",
+			"pays": "BE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-02-12",
+			"dateFin": "2027-02-14",
+			"ville": "Bâle",
+			"pays": "CH",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-10-28",
+			"dateFin": "2026-11-01",
+			"ville": "Hambourg",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-11-11",
+			"dateFin": "2026-11-15",
+			"ville": "Düsseldorf",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-12-10",
+			"dateFin": "2026-12-13",
+			"ville": "Francfort",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-04-08",
+			"dateFin": "2027-04-11",
+			"ville": "Cologne",
+			"pays": "DE",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-12-04",
+			"dateFin": "2026-12-06",
+			"ville": "Milan",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-01-28",
+			"dateFin": "2027-01-31",
+			"ville": "Vérone",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-04-02",
+			"dateFin": "2027-04-04",
+			"ville": "Bari",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-05-27",
+			"dateFin": "2027-05-30",
+			"ville": "Rimini",
+			"pays": "IT",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-11-11",
+			"dateFin": "2026-11-15",
+			"ville": "Barcelone",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-02-06",
+			"dateFin": "2027-02-07",
+			"ville": "Bilbao",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-03-17",
+			"dateFin": "2027-03-21",
+			"ville": "Madrid",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-04-15",
+			"dateFin": "2027-04-18",
+			"ville": "Malaga",
+			"pays": "ES",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-10-27",
+			"dateFin": "2026-11-01",
+			"ville": "Birmingham",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2026-12-02",
+			"dateFin": "2026-12-06",
+			"ville": "Londres (ExCeL)",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-01-20",
+			"dateFin": "2027-01-31",
+			"ville": "Manchester",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-03-10",
+			"dateFin": "2027-03-14",
+			"ville": "Glasgow",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		},
+		{
+			"course": "hyrox-doubles",
+			"date": "2027-05-20",
+			"dateFin": "2027-05-29",
+			"ville": "Cardiff",
+			"pays": "GB",
+			"lienInscription": "https://hyrox.com"
+		}
+	]
+}

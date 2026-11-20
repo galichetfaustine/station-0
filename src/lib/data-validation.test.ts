@@ -34,6 +34,7 @@ const race = {
 const eventFile = {
 	source: "hyrox",
 	verifieLe: "2026-10-23T03:00:00+02:00",
+	courses: ["hyrox-open"],
 	evenements: [
 		{
 			course: "hyrox-open",
@@ -222,6 +223,21 @@ describe("validateDataFiles", () => {
 				expect.stringContaining(
 					"evenements.0.course : course « hyrox-pro » introuvable",
 				),
+			);
+		});
+
+		it("refuse un événement d'une course non listée dans « courses »", () => {
+			const errors = errorsWith("data/events/hyrox.json", {
+				...eventFile,
+				courses: ["autre"],
+			});
+			expect(errors).toContainEqual(
+				expect.stringContaining(
+					"→ evenements.0.course : « hyrox-open » doit figurer dans « courses »",
+				),
+			);
+			expect(errors).toContainEqual(
+				expect.stringContaining("→ courses.0 : course « autre » introuvable"),
 			);
 		});
 

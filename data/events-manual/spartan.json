@@ -1,0 +1,36 @@
+{
+	"source": "manuel",
+	"verifieLe": "2026-10-23T16:45:00+02:00",
+	"courses": ["deka-fit", "deka-mile", "deka-strong", "spartan-sprint"],
+	"evenements": [
+		{
+			"course": "deka-fit",
+			"date": "2026-11-28",
+			"ville": "Farnborough",
+			"pays": "GB",
+			"lienInscription": "https://nl.spartan.com/nl/race/detail/10454/overview"
+		},
+		{
+			"course": "deka-mile",
+			"date": "2026-11-29",
+			"ville": "Farnborough",
+			"pays": "GB",
+			"lienInscription": "https://nl.spartan.com/nl/race/detail/10454/overview"
+		},
+		{
+			"course": "deka-strong",
+			"date": "2026-11-29",
+			"ville": "Farnborough",
+			"pays": "GB",
+			"lienInscription": "https://nl.spartan.com/nl/race/detail/10454/overview"
+		},
+		{
+			"course": "spartan-sprint",
+			"date": "2027-05-08",
+			"dateFin": "2027-05-09",
+			"ville": "Carcassonne",
+			"pays": "FR",
+			"lienInscription": "https://www.spartan.com/en/races/carcassonne"
+		}
+	]
+}

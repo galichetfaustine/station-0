@@ -1,0 +1,35 @@
+# Rappel mensuel (US1.5) : un ticket le 1er de chaque mois pour revoir les dates saisies à la main.
+name: Rappel des dates manuelles
+
+on:
+  schedule:
+    - cron: "0 7 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  rappeler:
+    name: Ouvrir le ticket de rappel
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Ouvrir le ticket
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create rappel --color A99BFF --description "Rappel mensuel des dates manuelles" --force
+          node scripts/collect/reminder.ts > "$RUNNER_TEMP/rappel.md"
+          gh issue create --label rappel --title "Rappel : revoir les dates saisies à la main ($(date -u +%Y-%m))" --body-file "$RUNNER_TEMP/rappel.md"

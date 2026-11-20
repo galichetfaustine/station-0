@@ -4,6 +4,9 @@ import { expect, test } from "@playwright/test";
 const pages = [
 	{ path: "./", title: "Station 0" },
 	{ path: "courses/", title: "Courses" },
+	{ path: "courses/hyrox-open/", title: "Fiche HYROX Open solo" },
+	{ path: "courses/turf-games/", title: "Fiche Turf Games (note à venir)" },
+	{ path: "methode/", title: "Comment on note" },
 ];
 
 for (const colorScheme of ["dark", "light"] as const) {

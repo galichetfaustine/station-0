@@ -100,7 +100,15 @@ export function validateDataFiles(files: DataFile[]): string[] {
 				errors.push(...formatIssues(path, result.error));
 				continue;
 			}
+			result.data.courses.forEach((slug, index) => {
+				references.push({ field: `${path} → courses.${index}`, slug });
+			});
 			result.data.evenements.forEach((event, index) => {
+				if (!result.data.courses.includes(event.course)) {
+					errors.push(
+						`${path} → evenements.${index}.course : « ${event.course} » doit figurer dans « courses »`,
+					);
+				}
 				references.push({
 					field: `${path} → evenements.${index}.course`,
 					slug: event.course,

@@ -21,7 +21,7 @@ test("chaque carte montre la note globale, les 4 jauges et les formats", async (
 	await page.goto("courses/");
 	const hyrox = cards(page).filter({ hasText: "HYROX Open solo" });
 	await expect(hyrox.locator(".global-value")).toHaveText("4");
-	await expect(hyrox.locator(".gauge")).toHaveCount(4);
+	await expect(hyrox.locator(".gauge")).toHaveCount(5);
 	await expect(hyrox.getByText("Course", { exact: true })).toBeVisible();
 	await expect(
 		hyrox.getByRole("listitem").filter({ hasText: "Solo" }),
@@ -56,4 +56,26 @@ test("une note maximale écarte les courses plus dures et celles à confirmer", 
 	await page.goto("courses/?noteMax=2");
 	await expect(cards(page)).toHaveCount(1);
 	await expect(cards(page)).toContainText("DEKA STRONG");
+});
+
+test("une note globale en demi-point s'affiche « 3,5 » avec une demi-pastille", async ({
+	page,
+}) => {
+	await page.goto("courses/");
+	const doubles = cards(page).filter({ hasText: "HYROX Doubles" });
+	await expect(doubles.locator(".global-value")).toHaveText("3,5");
+	await expect(
+		doubles.locator(".gauge").first().locator(".dot.half"),
+	).toHaveCount(1);
+});
+
+test("Turf Games et XENOM affichent « Note à venir — règlement non public »", async ({
+	page,
+}) => {
+	await page.goto("courses/");
+	for (const name of ["Turf Games", "XENOM"]) {
+		await expect(cards(page).filter({ hasText: name })).toContainText(
+			"Note à venir — règlement non public",
+		);
+	}
 });
