@@ -2,10 +2,10 @@ import { expect, test } from "@playwright/test";
 
 test("l'accueil affiche le nom et la promesse", async ({ page }) => {
 	await page.goto("./");
-	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Station 0");
-	await expect(
-		page.getByText("Trouve ta première course hybride"),
-	).toBeVisible();
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+		"Trouve ta première course.",
+	);
+	await expect(page.getByText("notées de 1 à 5")).toBeVisible();
 });
 
 test("l'accueil mène au catalogue par une seule action", async ({ page }) => {
