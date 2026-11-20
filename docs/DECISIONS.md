@@ -62,6 +62,7 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Villes en français** dans les dates collectées ; pour ATHX, la ville vient du nom de l'événement (`venue.city` donne parfois la commune du parc des expositions : Laeken, Rho…). | Site en français ; priorité manuelle par ville. |
 | 2026-10-23 | **Marqueur `aVerifier`** dans un fichier de dates gardé par le garde-fou ; la fiche affiche « Dates à vérifier ». | « La course est marquée à vérifier » (§6). |
 | 2026-10-23 | **Pages enregistrées** pour les tests dans `fixtures/collect/` (relevé du 23/10/2026), exclues de Biome. | Aucun appel réseau dans les tests. |
+| 2026-11-20 | **Volumes et temps de la banque** : `volumeParNiveau` et `secondesParUnite` restent `null` tant que le nombre n'est pas dans les specs. | US3.1 les avait estimés. Même règle que les notes de barème introuvables : on ne devine pas une donnée sportive. SPECS §8. |
 
 ## Points ouverts
 

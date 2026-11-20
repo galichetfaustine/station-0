@@ -297,6 +297,22 @@ describe("validateDataFiles", () => {
 				expect.stringMatching(/→ 1\.volumeParNiveau\.intermediaire : /),
 			);
 		});
+
+		it("accepte un volume et un temps laissés vides", () => {
+			const withEmpty = [
+				exercises[1],
+				{
+					...exercises[0],
+					volumeParNiveau: {
+						debutant: null,
+						intermediaire: null,
+						confirme: null,
+					},
+					secondesParUnite: null,
+				},
+			];
+			expect(errorsWith("data/exercises.json", withEmpty)).toEqual([]);
+		});
 	});
 
 	it("signale un JSON mal formé avec le nom du fichier", () => {

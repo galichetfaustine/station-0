@@ -45,4 +45,15 @@ describe("banque d'exercices (US3.1)", () => {
 	it("passe le schéma et la validation des données du dépôt", () => {
 		expect(validateDataFiles(dataFiles())).toEqual([]);
 	});
+
+	it("laisse vides les volumes et les temps absents des specs", () => {
+		for (const exercise of bank) {
+			expect(exercise.volumeParNiveau).toEqual({
+				debutant: null,
+				intermediaire: null,
+				confirme: null,
+			});
+			expect(exercise.secondesParUnite).toBeNull();
+		}
+	});
 });

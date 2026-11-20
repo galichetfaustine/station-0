@@ -199,12 +199,17 @@ export const exerciseSchema = z.strictObject({
 	]),
 	materiel: z.enum(MATERIELS),
 	unite: z.enum(UNITES),
+	/**
+	 * Volume de séance par niveau. `null` tant que le nombre n'est pas dans les specs :
+	 * on ne l'estime pas (un volume de course n'est pas un volume par niveau).
+	 */
 	volumeParNiveau: z.strictObject({
-		debutant: z.number().positive(),
-		intermediaire: z.number().positive(),
-		confirme: z.number().positive(),
+		debutant: z.number().positive().nullable(),
+		intermediaire: z.number().positive().nullable(),
+		confirme: z.number().positive().nullable(),
 	}),
-	secondesParUnite: z.number().positive(),
+	/** Secondes pour une unité. `null` tant que le nombre n'est pas dans les specs. */
+	secondesParUnite: z.number().positive().nullable(),
 	consigne: z.string().min(1),
 	/** Identifiants d'exercices de la banque qui remplacent celui-ci avec moins de matériel. */
 	alternatives: z.array(slug),

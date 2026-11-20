@@ -18,11 +18,11 @@
 		"materiel": "aucun",
 		"unite": "metres",
 		"volumeParNiveau": {
-			"debutant": 200,
-			"intermediaire": 400,
-			"confirme": 600
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
 		},
-		"secondesParUnite": 0.3,
+		"secondesParUnite": null,
 		"consigne": "Course à pied, allure régulière.",
 		"alternatives": []
 	},
@@ -42,11 +42,11 @@
 		"materiel": "aucun",
 		"unite": "secondes",
 		"volumeParNiveau": {
-			"debutant": 60,
-			"intermediaire": 120,
-			"confirme": 180
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
 		},
-		"secondesParUnite": 1,
+		"secondesParUnite": null,
 		"consigne": "Sur place, genoux hauts, bras qui balancent.",
 		"alternatives": []
 	},
@@ -68,11 +68,11 @@
 		"materiel": "salleComplete",
 		"unite": "metres",
 		"volumeParNiveau": {
-			"debutant": 250,
-			"intermediaire": 500,
-			"confirme": 750
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
 		},
-		"secondesParUnite": 0.24,
+		"secondesParUnite": null,
 		"consigne": "Tire les poignées vers le bas, jambes et dos engagés.",
 		"alternatives": ["squats-sautes-tirage", "burpees"]
 	},
@@ -90,8 +90,12 @@
 		"schemaMouvement": "squat",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 30, "intermediaire": 60, "confirme": 90 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Squat sauté, bras qui tirent vers le bas comme au SkiErg.",
 		"alternatives": []
 	},
@@ -112,11 +116,11 @@
 		"materiel": "salleComplete",
 		"unite": "metres",
 		"volumeParNiveau": {
-			"debutant": 250,
-			"intermediaire": 500,
-			"confirme": 750
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
 		},
-		"secondesParUnite": 0.24,
+		"secondesParUnite": null,
 		"consigne": "Pousse avec les jambes, puis tire les bras.",
 		"alternatives": ["burpees", "course"]
 	},
@@ -134,8 +138,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "salleComplete",
 		"unite": "calories",
-		"volumeParNiveau": { "debutant": 12, "intermediaire": 24, "confirme": 36 },
-		"secondesParUnite": 5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Pédale avec les bras et les jambes.",
 		"alternatives": ["burpees"]
 	},
@@ -154,8 +162,12 @@
 		"schemaMouvement": "pousser",
 		"materiel": "salleComplete",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Pousse le traîneau en marchant, bras tendus. En DEKA, la station mélange poussée et tirage.",
 		"alternatives": ["bear-crawl", "sprints-courts"]
 	},
@@ -174,8 +186,12 @@
 		"schemaMouvement": "tirer",
 		"materiel": "salleComplete",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Tire le traîneau vers toi. En DEKA, la station mélange poussée et tirage.",
 		"alternatives": ["bear-crawl", "tirage-elastique"]
 	},
@@ -195,8 +211,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "aucun",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "À quatre pattes, genoux décollés, avance en restant bas.",
 		"alternatives": []
 	},
@@ -216,12 +236,12 @@
 		"materiel": "aucun",
 		"unite": "metres",
 		"volumeParNiveau": {
-			"debutant": 50,
-			"intermediaire": 100,
-			"confirme": 150
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
 		},
-		"secondesParUnite": 0.8,
-		"consigne": "Sprints courts avec demi-tour. Le temps estimé inclut le demi-tour.",
+		"secondesParUnite": null,
+		"consigne": "Sprints courts avec demi-tour.",
 		"alternatives": []
 	},
 	{
@@ -239,8 +259,12 @@
 		"schemaMouvement": "tirer",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Élastique fixé devant toi, tire les mains vers le buste.",
 		"alternatives": []
 	},
@@ -257,8 +281,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "aucun",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 3,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Burpee, puis saut en longueur. Enchaîne sur la distance.",
 		"alternatives": []
 	},
@@ -270,8 +298,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 15, "intermediaire": 30, "confirme": 45 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Poitrine au sol, puis saut bras tendus. À Spartan, 30 répétitions par obstacle raté.",
 		"alternatives": []
 	},
@@ -291,8 +323,12 @@
 		"schemaMouvement": "porter",
 		"materiel": "halteresKettlebell",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 40, "intermediaire": 80, "confirme": 120 },
-		"secondesParUnite": 1.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Un poids dans chaque main, marche sans poser.",
 		"alternatives": ["marche-deux-sacs"]
 	},
@@ -312,8 +348,12 @@
 		"schemaMouvement": "porter",
 		"materiel": "aucun",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 40, "intermediaire": 80, "confirme": 120 },
-		"secondesParUnite": 1.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Un sac chargé dans chaque main, marche sans poser.",
 		"alternatives": []
 	},
@@ -325,8 +365,12 @@
 		"schemaMouvement": "fente",
 		"materiel": "salleComplete",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sandbag sur les épaules, fentes marchées.",
 		"alternatives": ["fentes-halteres", "fentes-poids-corps"]
 	},
@@ -338,8 +382,12 @@
 		"schemaMouvement": "fente",
 		"materiel": "halteresKettlebell",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Un haltère dans chaque main, fentes marchées.",
 		"alternatives": ["fentes-poids-corps"]
 	},
@@ -351,8 +399,12 @@
 		"schemaMouvement": "fente",
 		"materiel": "salleComplete",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Charge tenue, fentes arrière alternées.",
 		"alternatives": ["fentes-halteres", "fentes-poids-corps"]
 	},
@@ -373,8 +425,12 @@
 		"schemaMouvement": "fente",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 40, "confirme": 60 },
-		"secondesParUnite": 2.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Fentes marchées, mains libres. Une fente compte pour un pas.",
 		"alternatives": []
 	},
@@ -386,8 +442,12 @@
 		"schemaMouvement": "squat",
 		"materiel": "salleComplete",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 15, "intermediaire": 25, "confirme": 40 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Squat, puis lancer du ballon vers la cible.",
 		"alternatives": ["squats-lancer"]
 	},
@@ -399,8 +459,12 @@
 		"schemaMouvement": "squat",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 15, "intermediaire": 25, "confirme": 40 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Squat, puis lancer des bras au-dessus de la tête, sans ballon.",
 		"alternatives": []
 	},
@@ -412,8 +476,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "salleComplete",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 10, "intermediaire": 16, "confirme": 24 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Saute sur la box et passe de l'autre côté. En DEKA, le pas par-dessus est accepté.",
 		"alternatives": ["step-ups", "sauts-lateraux"]
 	},
@@ -425,8 +493,12 @@
 		"schemaMouvement": "fente",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 10, "intermediaire": 16, "confirme": 24 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Monte et descends d'une marche, en alternant les jambes.",
 		"alternatives": []
 	},
@@ -438,8 +510,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 20, "intermediaire": 32, "confirme": 48 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sauts latéraux au sol, d'un côté à l'autre.",
 		"alternatives": []
 	},
@@ -451,8 +527,12 @@
 		"schemaMouvement": "charniere",
 		"materiel": "halteresKettlebell",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 10, "intermediaire": 16, "confirme": 24 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Kettlebell au sol, pousse le sol avec les jambes pour te relever.",
 		"alternatives": ["deadlift-sac"]
 	},
@@ -464,8 +544,12 @@
 		"schemaMouvement": "charniere",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 10, "intermediaire": 16, "confirme": 24 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sac chargé au sol, pousse le sol avec les jambes pour te relever.",
 		"alternatives": []
 	},
@@ -477,8 +561,12 @@
 		"schemaMouvement": "squat",
 		"materiel": "halteresKettlebell",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 12, "intermediaire": 20, "confirme": 30 },
-		"secondesParUnite": 3,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Kettlebell contre la poitrine, descends en squat puis remonte.",
 		"alternatives": ["squat-poids-corps"]
 	},
@@ -490,8 +578,12 @@
 		"schemaMouvement": "squat",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 12, "intermediaire": 20, "confirme": 30 },
-		"secondesParUnite": 3,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Descends en squat, pieds au sol, puis remonte.",
 		"alternatives": []
 	},
@@ -503,8 +595,12 @@
 		"schemaMouvement": "pousser",
 		"materiel": "halteresKettlebell",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 12, "intermediaire": 20, "confirme": 30 },
-		"secondesParUnite": 2.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Haltères aux épaules, petite flexion des jambes, puis pousse au-dessus de la tête.",
 		"alternatives": ["push-press-sac"]
 	},
@@ -516,8 +612,12 @@
 		"schemaMouvement": "pousser",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 12, "intermediaire": 20, "confirme": 30 },
-		"secondesParUnite": 2.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sac aux épaules, petite flexion des jambes, puis pousse au-dessus de la tête.",
 		"alternatives": []
 	},
@@ -529,8 +629,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "halteresKettlebell",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 8, "intermediaire": 14, "confirme": 20 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Haltère du sol jusqu'au-dessus de la tête en un geste.",
 		"alternatives": ["snatch-sac"]
 	},
@@ -542,8 +646,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 8, "intermediaire": 14, "confirme": 20 },
-		"secondesParUnite": 4,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sac du sol jusqu'au-dessus de la tête en un geste.",
 		"alternatives": []
 	},
@@ -555,8 +663,12 @@
 		"schemaMouvement": "porter",
 		"materiel": "salleComplete",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 30, "intermediaire": 60, "confirme": 90 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Seau tenu à deux mains, marche sans le poser.",
 		"alternatives": ["marche-sac-poitrine"]
 	},
@@ -568,8 +680,12 @@
 		"schemaMouvement": "porter",
 		"materiel": "aucun",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 30, "intermediaire": 60, "confirme": 90 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sac chargé tenu contre la poitrine, marche sans le poser.",
 		"alternatives": []
 	},
@@ -581,8 +697,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "salleComplete",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 12, "intermediaire": 24, "confirme": 36 },
-		"secondesParUnite": 5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Burpee en tenant la charge de la course (RAM en DEKA).",
 		"alternatives": ["burpees"]
 	},
@@ -594,8 +714,12 @@
 		"schemaMouvement": "porter",
 		"materiel": "salleComplete",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 40, "intermediaire": 80, "confirme": 120 },
-		"secondesParUnite": 1.5,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sandbag porté, marche sur la distance.",
 		"alternatives": ["marche-deux-sacs"]
 	},
@@ -607,8 +731,12 @@
 		"schemaMouvement": "squat",
 		"materiel": "salleComplete",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 12, "intermediaire": 20, "confirme": 30 },
-		"secondesParUnite": 3,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Sandbag contre la poitrine ou sur les épaules, squats.",
 		"alternatives": ["squat-poids-corps"]
 	},
@@ -620,8 +748,12 @@
 		"schemaMouvement": "porter",
 		"materiel": "salleComplete",
 		"unite": "metres",
-		"volumeParNiveau": { "debutant": 30, "intermediaire": 60, "confirme": 90 },
-		"secondesParUnite": 2,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Disque tenu contre la poitrine, marche sans le poser.",
 		"alternatives": ["marche-sac-poitrine"]
 	},
@@ -633,8 +765,12 @@
 		"schemaMouvement": "corpsEntier",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 4, "intermediaire": 6, "confirme": 8 },
-		"secondesParUnite": 15,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "Pieds au mur, marche des mains vers le mur puis reviens.",
 		"alternatives": []
 	},
@@ -646,8 +782,12 @@
 		"schemaMouvement": "pousser",
 		"materiel": "aucun",
 		"unite": "repetitions",
-		"volumeParNiveau": { "debutant": 3, "intermediaire": 6, "confirme": 10 },
-		"secondesParUnite": 6,
+		"volumeParNiveau": {
+			"debutant": null,
+			"intermediaire": null,
+			"confirme": null
+		},
+		"secondesParUnite": null,
 		"consigne": "En équilibre sur les mains, plie les bras puis pousse.",
 		"alternatives": []
 	}
