@@ -1,8 +1,11 @@
 // Schémas des données (US0.5) : course (§4, §5), événement (§6), exercice (§8).
 // Les noms de champs sont ceux de docs/SPECS.md. Messages d'erreur en français.
 import * as z from "zod";
+import { MATERIELS, WOD_FORMATS, WOD_LEVELS } from "./enums.ts";
 
 z.config(z.locales.fr());
+
+export { MATERIELS, WOD_FORMATS, WOD_LEVELS };
 
 const slug = z
 	.string()
@@ -176,13 +179,6 @@ export type EventFile = z.infer<typeof eventFileSchema>;
 
 // --- Exercice (§8) ---
 
-/** Matériel, du plus léger au plus complet (paramètre « Matériel » du générateur). */
-export const MATERIELS = [
-	"aucun",
-	"halteresKettlebell",
-	"salleComplete",
-] as const;
-
 export const exerciseSchema = z.strictObject({
 	id: slug,
 	nom: z.string().min(1),
@@ -289,9 +285,6 @@ export const quizConfigSchema = z.strictObject({
 export type QuizConfig = z.infer<typeof quizConfigSchema>;
 
 // --- Coefficients du générateur (data/config/wod.json, §8) ---
-
-export const WOD_LEVELS = ["debutant", "intermediaire", "confirme"] as const;
-export const WOD_FORMATS = ["amrap", "emom", "forTime", "intervalles"] as const;
 
 export const wodConfigSchema = z.strictObject({
 	/** Time caps tirés au sort, en minutes. */

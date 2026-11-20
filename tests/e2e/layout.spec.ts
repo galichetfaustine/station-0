@@ -50,12 +50,20 @@ test("l'en-tête ne montre que les pages existantes et signale la page en cours"
 }) => {
 	await page.goto("./");
 	const nav = page.getByRole("navigation", { name: "Navigation principale" });
-	await expect(nav.getByRole("link")).toHaveText(["Courses", "Quiz"]);
+	await expect(nav.getByRole("link")).toHaveText(["Courses", "Quiz", "WOD"]);
 
 	await nav.getByRole("link", { name: "Courses" }).click();
 	await expect(page).toHaveURL(/\/courses\/$/);
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Courses");
 	await expect(nav.getByRole("link", { name: "Courses" })).toHaveAttribute(
+		"aria-current",
+		"page",
+	);
+
+	await nav.getByRole("link", { name: "WOD" }).click();
+	await expect(page).toHaveURL(/\/wod\/$/);
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText("WOD");
+	await expect(nav.getByRole("link", { name: "WOD" })).toHaveAttribute(
 		"aria-current",
 		"page",
 	);
