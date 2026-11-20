@@ -287,3 +287,36 @@ export const quizConfigSchema = z.strictObject({
 });
 
 export type QuizConfig = z.infer<typeof quizConfigSchema>;
+
+// --- Coefficients du générateur (data/config/wod.json, §8) ---
+
+export const WOD_LEVELS = ["debutant", "intermediaire", "confirme"] as const;
+export const WOD_FORMATS = ["amrap", "emom", "forTime", "intervalles"] as const;
+
+export const wodConfigSchema = z.strictObject({
+	/** Time caps tirés au sort, en minutes. */
+	timeCapMin: z.tuple([z.literal(15), z.literal(20)]),
+	/** Niveau utilisé quand il n'est pas verrouillé (§8 : débutant). */
+	niveauParDefaut: z.enum(WOD_LEVELS),
+	exercicesMin: z.int().positive(),
+	exercicesMax: z.int().positive(),
+	/** Part minimale d'exercices issus de la course d'inspiration. Mix n'utilise pas ce quota. */
+	partCourseInspiration: z.number().gt(0).max(1),
+	/** For Time : travail total ≤ cette part du time cap. */
+	forTimePartMax: z.number().gt(0).max(1),
+	/** AMRAP : durée d'un tour, en secondes. */
+	amrapTourMinSec: z.int().positive(),
+	amrapTourMaxSec: z.int().positive(),
+	/** EMOM : travail d'une minute, en secondes. */
+	emomTravailMinSec: z.int().positive(),
+	emomTravailMaxSec: z.int().positive(),
+	/** Intervalles : effort puis repos, en secondes. */
+	intervallesTravailSec: z.int().positive(),
+	intervallesReposSec: z.int().nonnegative(),
+	/** Échauffement proposé, hors time cap. */
+	echauffementMin: z.int().nonnegative(),
+});
+
+export type WodConfig = z.infer<typeof wodConfigSchema>;
+export type WodLevel = (typeof WOD_LEVELS)[number];
+export type WodFormat = (typeof WOD_FORMATS)[number];
