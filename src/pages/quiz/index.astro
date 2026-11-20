@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import Quiz from "../../components/Quiz.svelte";
+import { withBase } from "../../lib/paths";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Quiz" description="Sept questions pour trouver ta course hybride. Rien n'est enregistré.">
+	<h1>Quiz</h1>
+	<p class="intro">
+		Sept questions. Tes réponses restent dans l'adresse de la page, rien n'est enregistré.
+	</p>
+	<Quiz client:load action={withBase(base, "/quiz/")} />
+</BaseLayout>
+
+<style>
+	.intro {
+		max-width: 36rem;
+		color: var(--color-text-muted);
+	}
+</style>

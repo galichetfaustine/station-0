@@ -24,6 +24,9 @@ const starters = mostAccessible(catalogue, 3, buildDate);
 			force, cardio et gym, notés de 1 à 5 d'après leur règlement.
 		</p>
 		<a class="button" href={withBase(base, "/courses/")}>Voir les courses</a>
+		<p class="quiz-entry">
+			<a href={withBase(base, "/quiz/")}>Pas sûr que ce soit pour toi ? Fais le quiz</a>
+		</p>
 	</section>
 
 	<section aria-labelledby="debuter">
@@ -63,6 +66,13 @@ const starters = mostAccessible(catalogue, 3, buildDate);
 	.pitch {
 		max-width: 36rem;
 		color: var(--color-text-muted);
+	}
+
+	.quiz-entry a {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		min-width: var(--tap-min);
 	}
 
 	h2 {
