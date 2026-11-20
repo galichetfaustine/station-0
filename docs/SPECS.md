@@ -379,6 +379,16 @@ La page `/wod` remplace « Bientôt disponible ». Le WOD est dans la navigation
 - Bips sonores ; vibration sur les téléphones qui la permettent ; l'écran reste allumé pendant la séance (API Wake Lock du navigateur).
 - Le temps est calculé à partir de l'horloge, pas en additionnant des secondes : il reste juste même si le téléphone ralentit l'onglet.
 
+### Minuteur (US3.4)
+
+Le minuteur est sur la page de la séance. Il dure `sessionSeconds`, la durée déjà calculée par le générateur.
+
+- AMRAP : compte à rebours de cette durée. For Time : chronomètre qui s'arrête à cette durée. EMOM : les chiffres montrent le temps qui reste dans la minute, avec le nom de l'exercice en cours. Intervalles : 40 s de travail puis 20 s de repos, un tour après l'autre.
+- Décompte de 10 s. Bip à 3, à 2, à 1 et au départ. EMOM : bip en plus à chaque minute. Intervalles : bip au passage entre travail et repos. AMRAP et For Time bipent au départ et à la fin.
+- Pause et reprise : le temps passé en pause ne compte pas. Le compteur de tours n'augmente qu'au tap, il ne se déduit pas.
+- Si l'onglet ralentit ou si l'écran se verrouille, au retour on relit l'horloge. Un seul bip est joué, le dernier. L'écran reste allumé pendant la séance, pause comprise (Wake Lock), puis le téléphone peut se rendormir à la fin.
+- Une seule action orange : « Lancer », qui devient « Pause », « Reprendre », puis « Recommencer ». « Relancer » passe en bouton discret dès que la séance est affichée. Les chiffres sont en encre sur un fond orange, pour rester lisibles en mode clair.
+
 ## 9. Direction artistique
 
 La DA reprend le moodboard Allygn : fond encre, orange réservé aux actions, lavande pour tout ce qui se fait à deux, cobalt pour les grands aplats. Ces couleurs deviennent des variables CSS, seule source de vérité du style.

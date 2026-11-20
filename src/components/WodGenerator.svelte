@@ -18,6 +18,7 @@ import {
 	type WodAddressLocks,
 	type WodRaceOption,
 } from "../lib/wod-page";
+import WodTimer from "./WodTimer.svelte";
 
 interface Props {
 	exercises: Exercise[];
@@ -179,7 +180,7 @@ onMount(() => {
 		</div>
 	</fieldset>
 
-	<button class="button" type="submit" disabled={!ready}>
+	<button class={session ? "secondary" : "button"} type="submit" disabled={!ready}>
 		{seed ? "Relancer" : "Générer"}
 	</button>
 </form>
@@ -190,9 +191,10 @@ onMount(() => {
 	</p>
 {/if}
 
-{#if brief}
+{#if session && brief}
 	<section id="seance" aria-labelledby="seance-titre">
 		<h2 id="seance-titre" tabindex="-1">Séance</h2>
+		<WodTimer {session} />
 		<ul class="facts" aria-label="Réglages de la séance">
 			{#each brief.facts as fact (fact.label)}
 				<li><span>{fact.label}</span> {fact.value}</li>
@@ -274,7 +276,8 @@ onMount(() => {
 		color: var(--color-text-muted);
 	}
 
-	.button {
+	form > .button,
+	form > .secondary {
 		width: 100%;
 	}
 
