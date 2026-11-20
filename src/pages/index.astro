@@ -79,7 +79,9 @@ function dots(note: number | null): Dot[] {
 		min-height: min(88vh, 44rem);
 		margin-inline: calc(50% - 50vw);
 		width: 100vw;
-		padding: 6.5rem var(--space-4) var(--space-5);
+		padding-block: 6.5rem var(--space-5);
+		/* 24 px minimum : le texte ne doit pas toucher le bord de l'écran. */
+		padding-inline: max(24px, var(--space-4));
 		background-color: var(--color-ink);
 		background-image:
 			linear-gradient(
@@ -98,16 +100,23 @@ function dots(note: number | null): Dot[] {
 		color: var(--color-on-ink);
 	}
 
+	/* Assez large pour « Trouve ta » et « première » à la taille maximale du titre,
+	   sans dépasser l'écran. Le titre est plafonné à cette boîte. */
 	.hero-copy {
-		max-width: 16rem;
+		width: min(24rem, 100%);
+		max-width: 100%;
+		min-width: 0;
 	}
 
 	h1 {
-		max-width: 8ch;
+		max-width: 100%;
 		font-size: clamp(4.25rem, 9vw, 6.75rem);
 		line-height: 0.86;
 		letter-spacing: -0.03em;
 		text-transform: none;
+		overflow-wrap: normal;
+		word-break: normal;
+		hyphens: none;
 	}
 
 	h1 span {
@@ -116,7 +125,7 @@ function dots(note: number | null): Dot[] {
 	}
 
 	.pitch {
-		max-width: 28rem;
+		max-width: 100%;
 		margin-top: var(--space-3);
 		color: var(--color-on-ink-muted);
 	}
@@ -130,10 +139,15 @@ function dots(note: number | null): Dot[] {
 	}
 
 	.quiz-entry a {
-		display: inline-flex;
-		align-items: center;
+		display: inline-block;
+		max-width: 100%;
 		min-height: var(--tap-min);
 		min-width: var(--tap-min);
+		padding-block: max(0px, calc((var(--tap-min) - 1lh) / 2));
+		white-space: normal;
+		overflow-wrap: normal;
+		word-break: normal;
+		hyphens: none;
 	}
 
 	h2 {
@@ -233,7 +247,7 @@ function dots(note: number | null): Dot[] {
 		}
 
 		.hero-copy {
-			max-width: none;
+			width: 100%;
 		}
 	}
 </style>
