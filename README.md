@@ -2,7 +2,7 @@
 
 Trouve ta première course hybride, et commence à t'y préparer aujourd'hui.
 
-Site en ligne : https://galichetfaustine.github.io/station-0/ (mis à jour à chaque fusion sur `main`).
+L'adresse publique sera celle fournie par Vercel après connexion du dépôt `galichetfaustine/station-0` (le site est mis à jour à chaque push sur `main`).
 
 Les règles du projet sont dans [`CLAUDE.md`](CLAUDE.md), les specs dans [`docs/SPECS.md`](docs/SPECS.md).
 
@@ -13,7 +13,7 @@ Prérequis : Node.js 26 (la version est fixée dans `.nvmrc`).
 ```sh
 nvm use          # passe sur la bonne version de Node
 npm install      # installe les dépendances
-npm run dev      # site en local sur http://localhost:4321/station-0/
+npm run dev      # site en local sur http://localhost:4321/
 ```
 
 ## Commandes

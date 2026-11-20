@@ -62,6 +62,7 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Villes en français** dans les dates collectées ; pour ATHX, la ville vient du nom de l'événement (`venue.city` donne parfois la commune du parc des expositions : Laeken, Rho…). | Site en français ; priorité manuelle par ville. |
 | 2026-10-23 | **Marqueur `aVerifier`** dans un fichier de dates gardé par le garde-fou ; la fiche affiche « Dates à vérifier ». | « La course est marquée à vérifier » (§6). |
 | 2026-10-23 | **Pages enregistrées** pour les tests dans `fixtures/collect/` (relevé du 23/10/2026), exclues de Biome. | Aucun appel réseau dans les tests. |
+| 2026-11-20 | **Hébergement sur Vercel** (plan gratuit), site statique à la racine (`base: "/"`). GitHub Actions garde la CI et la collecte de nuit. `deploy.yml` supprimé : un push sur `main` suffit pour que Vercel reconstruise. ADR 0003 ; D3 modifiée. | Décision de Faustine. GitHub Pages publiait le site dans `/station-0` ; Vercel le sert à la racine, sans serveur, sans base de données et sans nouveau paquet. |
 
 ## Points ouverts
 

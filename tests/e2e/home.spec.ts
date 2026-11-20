@@ -12,7 +12,7 @@ test("l'accueil mène au catalogue par une seule action", async ({ page }) => {
 	await page.goto("./");
 	await expect(page.locator("main .button")).toHaveCount(1);
 	await page.getByRole("link", { name: "Voir les courses" }).click();
-	await expect(page).toHaveURL(/\/station-0\/courses\/$/);
+	await expect(page).toHaveURL(/\/courses\/$/);
 });
 
 test("« Par où commencer ? » propose les 3 courses les plus accessibles", async ({

@@ -1,5 +1,6 @@
 # Collecte de nuit des dates (US1.5, §6) : ATHX et Deadly Dozen.
-# Collecte, valide, applique le garde-fou, ouvre un ticket en cas d'anomalie, commite sur main et redéploie.
+# Collecte, valide, applique le garde-fou, ouvre un ticket en cas d'anomalie et commite sur main.
+# Un push sur main suffit : Vercel reconstruit le site une fois le dépôt connecté.
 # Le robot (GitHub Actions) est autorisé à contourner la protection de main (décision D4) : il valide avant d'écrire.
 name: Collecte des dates
 
@@ -11,7 +12,6 @@ on:
 permissions:
   contents: write
   issues: write
-  actions: write
 
 concurrency:
   group: collecte
@@ -71,7 +71,6 @@ jobs:
           done
 
       - name: Enregistrer sur main
-        id: enregistrer
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -82,11 +81,3 @@ jobs:
           fi
           git commit -m "chore(dates): collecte du $(date -u +%F)"
           git push
-          echo "publie=true" >> "$GITHUB_OUTPUT"
-
-      # Un commit fait avec le jeton du workflow ne déclenche pas les autres workflows : on lance le déploiement.
-      - name: Redéployer le site
-        if: steps.enregistrer.outputs.publie == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run deploy.yml --ref main
