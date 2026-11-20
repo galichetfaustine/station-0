@@ -333,6 +333,40 @@ describe("validateDataFiles", () => {
 			).toEqual([]);
 		});
 
+		it("nomme un coefficient du générateur invalide", () => {
+			const wodConfig = {
+				timeCapMin: [15, 20],
+				niveauParDefaut: "debutant",
+				exercicesMin: 3,
+				exercicesMax: 5,
+				partCourseInspiration: 0.7,
+				forTimePartMax: 0.85,
+				amrapTourMinSec: 180,
+				amrapTourMaxSec: 300,
+				emomTravailMinSec: 35,
+				emomTravailMaxSec: 45,
+				intervallesTravailSec: 40,
+				intervallesReposSec: 20,
+				echauffementMin: 5,
+			};
+			expect(
+				validateDataFiles([
+					...validFiles(),
+					{ path: "data/config/wod.json", content: json(wodConfig) },
+				]),
+			).toEqual([]);
+			const errors = validateDataFiles([
+				...validFiles(),
+				{
+					path: "data/config/wod.json",
+					content: json({ ...wodConfig, forTimePartMax: 0 }),
+				},
+			]);
+			expect(errors).toContainEqual(
+				expect.stringMatching(/data\/config\/wod\.json → forTimePartMax : /),
+			);
+		});
+
 		it("nomme un coefficient de quiz invalide", () => {
 			const errors = validateDataFiles([
 				...validFiles(),

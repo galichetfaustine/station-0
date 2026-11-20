@@ -294,6 +294,19 @@ Chaque exercice décrit : nom, courses d'origine, catégorie (course, force, car
 
 Le tirage est piloté par une graine dans l'URL : le même lien redonne exactement le même WOD. C'est ce qui permet de partager un WOD sans compte, et de tester le générateur de façon reproductible.
 
+### Précisions de génération (US3.2)
+
+Le tableau et les cinq règles ci-dessus restent la référence. Ces précisions les rendent calculables. Elles n'ajoutent aucune durée : `volumeParNiveau` et `secondesParUnite` restent vides dans la banque tant que le nombre n'est pas écrit plus haut.
+
+- **Graine.** C'est une chaîne (celle du lien). Deux appels avec la même graine, la même banque et les mêmes verrous donnent la même séance. Le générateur n'appelle pas `Math.random()`.
+- **Verrous.** Il tire d'abord le time cap, la course (ou Mix), le matériel et le format, puis applique les verrous par-dessus. Le niveau n'est pas tiré : sans verrou, c'est débutant, comme dans le tableau. « Relancer » est un nouvel appel avec une nouvelle graine et les mêmes verrous.
+- **Temps manquant.** Sans `secondesParUnite`, l'exercice est écarté. Le générateur ne remplit pas ce nombre, et il ne le remplace pas par une alternative. L'alternative sert seulement quand le matériel ne suffit pas : la première de la liste qui se fait avec le matériel disponible, en suivant la chaîne si besoin. Un volume vide n'écarte pas l'exercice.
+- **Volumes.** S'ils sont écrits pour chaque exercice de la séance, à ce niveau, et que le total tient déjà dans la fenêtre du format, on les garde. S'ils dépassent, on les baisse d'une unité à la fois, sans descendre sous 1. S'ils manquent, ou s'ils sont trop courts pour un minimum (tour AMRAP, minute EMOM), on les calcule à partir de `secondesParUnite` pour entrer dans la fenêtre, au plus juste.
+- **Fenêtres.** For Time : quand les volumes sont vides, le travail total monte jusqu'à 85 % du cap, sans le dépasser. AMRAP : un tour juste assez long pour atteindre 3 min, et pas plus de 5 ; le compte à rebours dure le cap. EMOM : un exercice par minute (le minuteur affiche « l'exercice en cours »), entre 35 et 45 s, pendant tout le cap. Intervalles : le plus grand volume qui tient en 40 s, puis 20 s de repos, répété tant que le cap n'est pas dépassé.
+- **Course d'inspiration.** Au moins 70 % des exercices choisis ont cette course dans `coursesOrigine`. Sur 3, 4 et 5 exercices, il en faut 3, 3 et 4. Mix n'impose pas de course : toute la banque peut entrer.
+- **Échauffement.** 5 min, hors time cap. Ses exercices ne sont pas listés : la spec n'en donne pas.
+- **Échec.** Si aucune sélection ne respecte ces règles, le générateur ne renvoie pas de séance.
+
 ### Minuteur intégré
 
 - Un mode par format : compte à rebours (AMRAP), bip chaque minute avec l'exercice en cours (EMOM), chronomètre avec cap (For Time), alternance travail/repos (Intervalles).

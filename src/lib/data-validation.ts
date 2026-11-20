@@ -8,6 +8,7 @@ import {
 	MATERIELS,
 	quizConfigSchema,
 	raceSchema,
+	wodConfigSchema,
 } from "./schemas.ts";
 
 export interface DataFile {
@@ -120,6 +121,9 @@ export function validateDataFiles(files: DataFile[]): string[] {
 			if (!result.success) errors.push(...formatIssues(path, result.error));
 		} else if (path === "data/config/quiz.json") {
 			const result = quizConfigSchema.safeParse(data);
+			if (!result.success) errors.push(...formatIssues(path, result.error));
+		} else if (path === "data/config/wod.json") {
+			const result = wodConfigSchema.safeParse(data);
 			if (!result.success) errors.push(...formatIssues(path, result.error));
 		} else if (path === "data/exercises.json") {
 			const result = exerciseBankSchema.safeParse(data);
