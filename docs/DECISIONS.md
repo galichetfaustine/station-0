@@ -72,6 +72,7 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-11-20 | **Générateur : un exercice sans `secondesParUnite` est écarté.** Un volume vide est calculé depuis ce temps et les fenêtres du §8. Un volume déjà écrit est gardé s'il tient dans la fenêtre, sinon il est ajusté d'une unité à la fois. | On ne devine pas une durée absente. Le dimensionnement, lui, est décrit au §8. |
 | 2026-11-20 | **Générateur, tirage déterministe.** Niveau débutant s'il n'est pas verrouillé (le tableau, pas le titre « tout aléatoire »). Les autres paramètres sont tirés, puis le verrou remplace la valeur. Mix : pas de quota de course. Course précise : au moins 70 % (3, 3 et 4 sur 3, 4 et 5 exercices). EMOM : un exercice par minute. Échec s'il n'existe aucune séance valide. | Le minuteur parle de « l'exercice en cours » pour l'EMOM. Détail dans SPECS §8, à valider. |
 | 2026-11-20 | **Quiz parcouru et validé par Faustine.** | Elle a fait le test et l'a trouvé bon. Le passage chronométré avec 3 personnes reste le critère d'US2.2 s'il n'a pas encore été fait. |
+| 2026-11-20 | **Le quiz est un écran sombre, comme l'accueil.** Fond encre et texte clair même en mode clair. Le menu habituel reste, lisible sur l'encre. La question est un grand titre, les réponses sont de grandes lignes avec le mot « Choisie ». Une seule action orange : avancer, puis « Voir la fiche ». | L'accueil est sombre, aéré, avec un seul bouton orange. Le quiz montrait encore l'ancien design : page claire, petit texte, cases de formulaire. SPECS §9. |
 
 ## Points ouverts
 

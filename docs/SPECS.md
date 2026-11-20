@@ -379,6 +379,7 @@ La DA reprend le moodboard Allygn : fond encre, orange réservé aux actions, la
 
 - Gros chiffres comme élément graphique (les « 11.43 km » du moodboard) : notes /5, distances, minuteur.
 - Titres en capitales condensées très grasses, texte courant sobre (D8). Exception : le grand titre de l'accueil reste en minuscules (« Trouve ta première course. »), posé sur une photo de course. Le menu y est une ligne fine. Le premier mot est en cobalt éclairci `#6D7CFF`, parce que le cobalt brut ne contraste pas assez sur l'encre. La photo est décorative : on peut la remplacer par un autre fichier du même nom.
+- Le quiz est un écran sombre, comme l'accueil : fond encre et texte clair même si le téléphone est en mode clair (le focus y reste orange, le reste du site garde le thème du système), avec le menu habituel lisible sur ce fond.
 - Cartes à coins arrondis sur fond sombre, beaucoup d'air, une seule action orange par écran.
 - Jauges de difficulté en segments (5 pastilles), lisibles en un coup d'œil.
 
