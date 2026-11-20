@@ -2,11 +2,17 @@
 import { withBase } from "../lib/paths";
 import { NAV, SITE } from "../lib/site";
 
+interface Props {
+	/** Menu fin, posé sur la photo de l'accueil. */
+	quiet?: boolean;
+}
+
+const { quiet = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const current = Astro.url.pathname;
 ---
 
-<header class="site-header">
+<header class:list={["site-header", { quiet }]}>
 	<div class="container inner">
 		<a class="logo" href={withBase(base, "/")}>{SITE.name}</a>
 		<nav aria-label="Navigation principale">
@@ -80,6 +86,39 @@ const current = Astro.url.pathname;
 			text-decoration: underline;
 			text-underline-offset: 0.3em;
 			outline: 1px solid var(--color-line);
+		}
+	}
+
+	/* Accueil : une ligne discrète sur la photo, zones tactiles inchangées. */
+	.quiet {
+		position: absolute;
+		z-index: 2;
+		inset: 0 0 auto;
+		border-bottom: 0;
+		background: transparent;
+		color: var(--color-on-ink);
+	}
+
+	.quiet .logo {
+		font-family: var(--font-text);
+		font-size: 1rem;
+		font-weight: 500;
+		text-transform: none;
+	}
+
+	.quiet .logo,
+	.quiet nav a {
+		text-shadow:
+			0 1px 10px var(--color-ink),
+			0 0 2px var(--color-ink);
+	}
+
+	.quiet nav a {
+		font-weight: 400;
+		font-size: 0.95rem;
+
+		&[aria-current="page"] {
+			outline-color: var(--color-on-ink);
 		}
 	}
 </style>

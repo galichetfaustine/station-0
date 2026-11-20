@@ -10,6 +10,10 @@
 	--color-lavender: #a99bff;
 	--color-cobalt: #3d48ff;
 	--color-white: #ffffff;
+	/* Titre posé sur la photo d'accueil. Le cobalt brut fait 3,3:1 sur l'encre. */
+	--color-headline: #6d7cff;
+	--color-on-ink: var(--color-white);
+	--color-on-ink-muted: #b3b3bf;
 
 	/* Rôles : thème sombre par défaut (D9) */
 	--color-bg: var(--color-ink);
