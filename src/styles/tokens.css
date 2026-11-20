@@ -14,13 +14,17 @@
 	--color-headline: #6d7cff;
 	--color-on-ink: var(--color-white);
 	--color-on-ink-muted: #b3b3bf;
+	/* Surface et filet posés sur l'encre. Le mode clair ne les change pas :
+	   le quiz les reprend pour rester sombre (§9). */
+	--color-ink-surface: #17171f;
+	--color-ink-line: #6e6e7a;
 
 	/* Rôles : thème sombre par défaut (D9) */
 	--color-bg: var(--color-ink);
-	--color-surface: #17171f;
+	--color-surface: var(--color-ink-surface);
 	--color-text: var(--color-white);
 	--color-text-muted: #b3b3bf;
-	--color-line: #6e6e7a;
+	--color-line: var(--color-ink-line);
 	--color-focus: var(--color-orange);
 
 	/* Action (orange) et binôme (lavande) : toujours du texte encre dessus */

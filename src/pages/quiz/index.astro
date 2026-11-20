@@ -21,24 +21,45 @@ const quizRaces = races.map((race) => toQuizFacts(race, baremeConfig));
 			if (complete && !params.get("etape")) document.documentElement.dataset.quizResultat = "1";
 		})();
 	</script>
-	<h1>Quiz</h1>
-	<p class="intro">
-		Sept questions. Tes réponses restent dans l'adresse de la page, rien n'est enregistré.
-	</p>
-	<Quiz
-		client:load
-		action={withBase(base, "/quiz/")}
-		{base}
-		races={quizRaces}
-		{events}
-		config={quizConfig}
-		buildDate={todayInParis()}
-	/>
+	<div class="quiz-screen">
+		<h1>Quiz</h1>
+		<p class="intro">
+			Sept questions. Tes réponses restent dans l'adresse de la page, rien n'est enregistré.
+		</p>
+		<Quiz
+			client:load
+			action={withBase(base, "/quiz/")}
+			{base}
+			races={quizRaces}
+			{events}
+			config={quizConfig}
+			buildDate={todayInParis()}
+		/>
+	</div>
 </BaseLayout>
 
 <style>
+	/* Fond encre même en mode clair. Le menu est hors de cette zone,
+	   mais il lit les mêmes couleurs, donc il reste lisible. */
+	:global(:root:has(.quiz-screen)) {
+		--color-bg: var(--color-ink);
+		--color-surface: var(--color-ink-surface);
+		--color-text: var(--color-on-ink);
+		--color-text-muted: var(--color-on-ink-muted);
+		--color-line: var(--color-ink-line);
+		--color-focus: var(--color-orange);
+		background-color: var(--color-ink);
+		color-scheme: dark;
+	}
+
+	h1 {
+		font-size: clamp(2rem, 5vw, 2.75rem);
+		letter-spacing: -0.03em;
+	}
+
 	.intro {
-		max-width: 36rem;
+		max-width: 28rem;
+		margin-top: var(--space-3);
 		color: var(--color-text-muted);
 	}
 </style>

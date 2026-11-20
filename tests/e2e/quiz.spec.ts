@@ -178,6 +178,46 @@ test("sous 40 %, on montre la plus accessible et le message honnête", async ({
 	await expect(page.locator("main .button")).toHaveCount(1);
 });
 
+test("en mode clair, le quiz reste un écran encre", async ({ page }) => {
+	await page.emulateMedia({ colorScheme: "light" });
+	await page.goto("quiz/");
+	await expect(page.locator("body")).toHaveCSS(
+		"background-color",
+		"rgb(11, 11, 15)",
+	);
+	await expect(page.locator("body")).toHaveCSS("color", "rgb(255, 255, 255)");
+	await expect(page.locator(".site-header")).toHaveCSS(
+		"color",
+		"rgb(255, 255, 255)",
+	);
+	const question = page.locator("#quiz-question");
+	await expect(question).toBeVisible();
+	expect(
+		await question.evaluate((el) =>
+			Number.parseFloat(getComputedStyle(el).fontSize),
+		),
+	).toBeGreaterThanOrEqual(40);
+
+	await page.goto(reference);
+	const band = page.locator("header.band");
+	await expect(band).toHaveCSS("background-color", "rgb(61, 72, 255)");
+	const name = band.getByRole("heading", { level: 2 });
+	await expect(name).toHaveCSS("color", "rgb(255, 255, 255)");
+	expect(
+		await name.evaluate((el) =>
+			Number.parseFloat(getComputedStyle(el).fontSize),
+		),
+	).toBeGreaterThanOrEqual(64);
+	await expect(page.locator("main .button")).toHaveCount(1);
+	expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+
+	await page.goto("courses/");
+	await expect(page.locator("body")).toHaveCSS(
+		"background-color",
+		"rgb(247, 246, 243)",
+	);
+});
+
 test.describe("sans JavaScript", () => {
 	test.use({ javaScriptEnabled: false });
 

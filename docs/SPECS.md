@@ -345,7 +345,7 @@ Le tirage est piloté par une graine dans l'URL : le même lien redonne exacteme
 
 ### Précisions de génération (US3.2)
 
-Le tableau et les cinq règles ci-dessus restent la référence. Ces précisions les rendent calculables. Elles n'inventent aucune durée : `secondesParUnite` est celui du tableau plus haut, et un exercice qui ne l'a pas est écarté. `volumeParNiveau` reste vide.
+Le tableau et les cinq règles ci-dessus restent la référence. Ces précisions les rendent calculables. `secondesParUnite` contient les estimations d'entraînement demandées par Faustine. `volumeParNiveau` reste vide : le générateur le calcule à partir de ce temps.
 
 - **Graine.** C'est une chaîne (celle du lien). Deux appels avec la même graine, la même banque et les mêmes verrous donnent la même séance. Le générateur n'appelle pas `Math.random()`.
 - **Verrous.** Il tire d'abord le time cap, la course (ou Mix), le matériel et le format, puis applique les verrous par-dessus. Le niveau n'est pas tiré : sans verrou, c'est débutant, comme dans le tableau. « Relancer » est un nouvel appel avec une nouvelle graine et les mêmes verrous.
@@ -394,6 +394,7 @@ La DA reprend le moodboard Allygn : fond encre, orange réservé aux actions, la
 
 - Gros chiffres comme élément graphique (les « 11.43 km » du moodboard) : notes /5, distances, minuteur.
 - Titres en capitales condensées très grasses, texte courant sobre (D8). Exception : le grand titre de l'accueil reste en minuscules (« Trouve ta première course. »), posé sur une photo de course. Le menu y est une ligne fine. Le premier mot est en cobalt éclairci `#6D7CFF`, parce que le cobalt brut ne contraste pas assez sur l'encre. La photo est décorative : on peut la remplacer par un autre fichier du même nom.
+- Le quiz est un écran sombre, comme l'accueil : fond encre et texte clair même si le téléphone est en mode clair (le focus y reste orange, le reste du site garde le thème du système), avec le menu habituel lisible sur ce fond.
 - Cartes à coins arrondis sur fond sombre, beaucoup d'air, une seule action orange par écran.
 - Jauges de difficulté en segments (5 pastilles), lisibles en un coup d'œil.
 

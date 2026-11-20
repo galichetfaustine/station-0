@@ -95,7 +95,7 @@ function editAnswers() {
 {#if showResult && result}
 	<QuizResult {result} {events} {today} {base} {editHref} onedit={editAnswers} />
 {:else if showResult}
-	<p>Aucune course notée ne correspond à ce format.</p>
+	<p class="empty">Aucune course notée ne correspond à ce format.</p>
 	<p><a class="text-link" href={editHref} onclick={(event) => { event.preventDefault(); editAnswers(); }}>Modifier mes réponses</a></p>
 {:else}
 <form
@@ -141,7 +141,7 @@ function editAnswers() {
 						required={!ready || index === step - 1}
 						onchange={() => choose(question.id, option.value)}
 					/>
-					<span>{option.label}</span>
+					<span class="label">{option.label}</span>
 					{#if answers[question.id] === option.value}
 						<span class="chosen">Choisie</span>
 					{/if}
@@ -179,18 +179,20 @@ function editAnswers() {
 
 	form {
 		display: grid;
-		gap: var(--space-3);
-		max-width: 32rem;
+		gap: var(--space-4);
+		max-width: 40rem;
+		margin-top: var(--space-5);
 	}
 
 	#quiz-progress {
-		margin: 0;
+		margin: 0 0 calc(-1 * var(--space-3));
+		color: var(--color-text-muted);
 		font-weight: 600;
 	}
 
 	progress {
 		width: 100%;
-		height: 0.5rem;
+		height: 0.35rem;
 		border: 0;
 		border-radius: 999px;
 		background: var(--color-surface);
@@ -214,10 +216,12 @@ function editAnswers() {
 
 	fieldset {
 		display: grid;
-		gap: var(--space-2);
+		gap: 0;
 		margin: 0;
 		padding: 0;
 		border: 0;
+		border-bottom: 1px solid var(--color-line);
+		min-inline-size: 0;
 	}
 
 	/* Le style ci-dessus gagne sur l'attribut hidden : on le rétablit. */
@@ -226,65 +230,95 @@ function editAnswers() {
 	}
 
 	legend {
-		margin-bottom: var(--space-2);
+		max-width: 14ch;
+		margin: 0 0 var(--space-4);
 		padding: 0;
-		font-size: 1.35rem;
-		font-weight: 700;
-		line-height: 1.3;
+		font-family: var(--font-title);
+		font-size: clamp(2.75rem, 8vw, 4.5rem);
+		font-weight: 800;
+		line-height: 0.92;
+		letter-spacing: -0.03em;
+		text-transform: none;
+		text-wrap: balance;
 	}
 
 	.choice {
+		position: relative;
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
-		gap: var(--space-2);
+		justify-content: space-between;
+		gap: var(--space-2) var(--space-3);
 		min-height: var(--tap-min);
-		padding: var(--space-2) var(--space-3);
-		border: 1px solid var(--color-line);
-		border-radius: var(--radius);
-		background: var(--color-surface);
+		padding-block: var(--space-3);
+		border-top: 1px solid var(--color-line);
 		cursor: pointer;
 	}
 
-	/* Réponse choisie : bordure plus forte et le mot « Choisie », pas seulement une couleur. */
+	/* Ligne choisie : trait plus fort et le mot « Choisie », pas seulement une couleur. */
 	.choice:has(:checked) {
-		border: 2px solid var(--color-text);
-		font-weight: 700;
+		background: var(--color-surface);
+		box-shadow:
+			inset 0 2px 0 var(--color-text),
+			inset 0 -2px 0 var(--color-text);
 	}
 
+	.label {
+		font-family: var(--font-title);
+		font-size: clamp(1.35rem, 4vw, 1.75rem);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: 0.01em;
+		text-transform: uppercase;
+	}
+
+	@media (hover: hover) {
+		.choice:hover .label {
+			text-decoration: underline;
+			text-underline-offset: 0.12em;
+		}
+	}
+
+	/* Case native invisible, étirée sur la ligne : le clic et le focus couvrent toute la réponse. */
 	input {
-		width: 1.25rem;
-		height: 1.25rem;
-		accent-color: var(--color-text);
+		position: absolute;
+		z-index: 1;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		appearance: none;
+		border: 0;
+		background: transparent;
+		cursor: pointer;
 	}
 
 	.chosen {
 		margin-left: auto;
-		font-size: 0.875rem;
-		font-weight: 600;
+		font-weight: 700;
 	}
 
 	.actions {
 		display: grid;
+		justify-items: start;
 		gap: var(--space-2);
-	}
-
-	.button {
-		width: 100%;
+		margin-top: var(--space-2);
 	}
 
 	.back {
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
 		min-height: var(--tap-min);
 		min-width: var(--tap-min);
-		padding: var(--space-2) var(--space-4);
-		border: 1px solid var(--color-line);
-		border-radius: 999px;
-		background: transparent;
-		color: var(--color-text);
+		padding: 0;
+		border: 0;
+		background: none;
+		color: var(--color-text-muted);
 		font: inherit;
 		font-weight: 600;
+		text-decoration: underline;
+		text-underline-offset: 0.25em;
+		cursor: pointer;
 	}
 
 	.visually-hidden {
@@ -296,10 +330,17 @@ function editAnswers() {
 		white-space: nowrap;
 	}
 
+	.empty {
+		max-width: 36rem;
+		font-size: 1.25rem;
+	}
+
 	.text-link {
 		display: inline-flex;
 		align-items: center;
 		min-height: var(--tap-min);
 		min-width: var(--tap-min);
+		color: var(--color-text-muted);
+		text-underline-offset: 0.25em;
 	}
 </style>
