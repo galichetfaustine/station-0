@@ -321,6 +321,8 @@ describe("validateDataFiles", () => {
 			poidsEcartNegatif: { kiffer: 0.25, chrono: 0.5, mesurer: 1 },
 			penaliteSansDate: 3,
 			fenetreDateMois: 12,
+			seuilRecommandation: 40,
+			seuilAlternative: 60,
 			score: { base: 100, multiplicateurPenalite: 8, min: 0, max: 100 },
 		};
 

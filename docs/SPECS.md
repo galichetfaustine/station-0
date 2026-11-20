@@ -215,6 +215,8 @@ Le quiz pose 7 questions, construit un profil sur les mêmes 4 catégories que l
 | Q6 | Ton objectif | Finir et kiffer · Me tester sur un chrono · Me mesurer aux autres |
 | Q7 | Jusqu'où es-tu prêt·e à aller ? | France uniquement · France et pays frontaliers · Peu importe |
 
+**Précision (US2.2).** Les questions s'affichent une par une, avec la progression « Question n sur 7 » et un retour à la question précédente. Chaque réponse est un paramètre de l'adresse : `course`, `force`, `cardio`, `gym`, `format`, `objectif`, `zone`. `etape` est le numéro de la question affichée. Il est omis pour la première question tant que les 7 réponses ne sont pas données. Rien n'est stocké sur l'appareil. Sans JavaScript, les 7 questions restent visibles ensemble et le formulaire écrit les mêmes paramètres.
+
 ### Règle de scoring
 
 **Courses sans note globale** (Turf Games, XENOM tant que leur règlement n'est pas public) : exclues du classement du quiz tant qu'une note manque.
@@ -242,6 +244,8 @@ Score de compatibilité = 100 − 8 × pénalité totale, borné entre 0 et 100 
 - **Un WOD pour progresser** : lien vers le générateur, ciblé sur la catégorie du point d'attention.
 - **Si aucune course ne dépasse 40 %** : on montre la plus accessible avec un message honnête (« Pas encore, mais voici par où commencer ») et un WOD débutant.
 - Les réponses sont dans l'URL du résultat : partageable, et rien n'est stocké.
+
+**Précision (US2.3).** « L'écart le plus faible » est la plus petite valeur absolue de (note − niveau du profil). À égalité, l'ordre des catégories du barème : course, force, cardio, gym. Le point d'attention est la catégorie au plus grand écart positif ; à égalité, le même ordre. S'il n'y a aucun écart positif, on n'affiche pas de point d'attention. « Dépasse 40 % » et « dépasse 60 % » sont stricts : 40 % et 60 % ne suffisent pas. Ces deux seuils sont dans `data/config/quiz.json`. Sous le seuil, « la plus accessible » est la note globale la plus basse parmi les courses encore classées (le format choisi reste respecté) ; à note égale, le nom en français, comme le catalogue. L'alternative est la première course suivante du classement dont le score dépasse 60 % et dont l'organisateur est différent. L'adresse du résultat contient les 7 réponses, sans `etape` : la rouvrir redonne le même résultat. Le lien « WOD pour progresser » mène à `/wod`, qui affiche « Bientôt disponible » tant que le générateur (Lot 3) n'existe pas.
 
 ### Tests de référence
 
