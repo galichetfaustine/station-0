@@ -245,7 +245,7 @@ Score de compatibilité = 100 − 8 × pénalité totale, borné entre 0 et 100 
 - **Si aucune course ne dépasse 40 %** : on montre la plus accessible avec un message honnête (« Pas encore, mais voici par où commencer ») et un WOD débutant.
 - Les réponses sont dans l'URL du résultat : partageable, et rien n'est stocké.
 
-**Précision (US2.3).** « L'écart le plus faible » est la plus petite valeur absolue de (note − niveau du profil). À égalité, l'ordre des catégories du barème : course, force, cardio, gym. Le point d'attention est la catégorie au plus grand écart positif ; à égalité, le même ordre. S'il n'y a aucun écart positif, on n'affiche pas de point d'attention. « Dépasse 40 % » et « dépasse 60 % » sont stricts : 40 % et 60 % ne suffisent pas. Ces deux seuils sont dans `data/config/quiz.json`. Sous le seuil, « la plus accessible » est la note globale la plus basse parmi les courses encore classées (le format choisi reste respecté) ; à note égale, le nom en français, comme le catalogue. L'alternative est la première course suivante du classement dont le score dépasse 60 % et dont l'organisateur est différent. L'adresse du résultat contient les 7 réponses, sans `etape` : la rouvrir redonne le même résultat. Le lien « WOD pour progresser » mène à `/wod`, qui affiche « Bientôt disponible » tant que le générateur (Lot 3) n'existe pas.
+**Précision (US2.3).** « L'écart le plus faible » est la plus petite valeur absolue de (note − niveau du profil). À égalité, l'ordre des catégories du barème : course, force, cardio, gym. Le point d'attention est la catégorie au plus grand écart positif ; à égalité, le même ordre. S'il n'y a aucun écart positif, on n'affiche pas de point d'attention. « Dépasse 40 % » et « dépasse 60 % » sont stricts : 40 % et 60 % ne suffisent pas. Ces deux seuils sont dans `data/config/quiz.json`. Sous le seuil, « la plus accessible » est la note globale la plus basse parmi les courses encore classées (le format choisi reste respecté) ; à note égale, le nom en français, comme le catalogue. L'alternative est la première course suivante du classement dont le score dépasse 60 % et dont l'organisateur est différent. L'adresse du résultat contient les 7 réponses, sans `etape` : la rouvrir redonne le même résultat. Le lien « WOD pour progresser » mène à `/wod`. Le pré-réglage depuis le quiz arrive avec US3.5 : pour l'instant ce lien n'ajoute pas `?course=`.
 
 ### Tests de référence
 
@@ -355,6 +355,21 @@ Le tableau et les cinq règles ci-dessus restent la référence. Ces précisions
 - **Course d'inspiration.** Au moins 70 % des exercices choisis ont cette course dans `coursesOrigine`. Sur 3, 4 et 5 exercices, il en faut 3, 3 et 4. Mix n'impose pas de course : toute la banque peut entrer.
 - **Échauffement.** 5 min, hors time cap. Ses exercices ne sont pas listés : la spec n'en donne pas.
 - **Échec.** Si aucune sélection ne respecte ces règles, le générateur ne renvoie pas de séance.
+
+### Page (US3.3)
+
+La page `/wod` remplace « Bientôt disponible ». Le WOD est dans la navigation.
+
+- Un bouton « Générer ». Une fois la séance affichée, il devient « Relancer » : nouvelle graine, mêmes verrous.
+- Verrous optionnels : durée (15 ou 20 min), course (une des 11, ou Mix), niveau, matériel, format. « Au hasard » veut dire pas verrouillé. Le niveau n'est pas tiré : le sélecteur vaut Débutant tant qu'on n'en choisit pas un autre.
+- L'adresse ne contient un verrou que s'il est posé :
+  - `graine` : lettres minuscules et chiffres, de 8 à 64 caractères. Présente, la séance s'affiche tout de suite. Absente, la page attend le clic.
+  - `cap` : `15` ou `20`.
+  - `course` : slug d'une course du catalogue, ou `mix`. Un slug inconnu est ignoré. `?course=slug` verrouille la course avant le premier tirage : c'est le contrat des liens qui viendront des fiches et du quiz.
+  - `niveau` : `intermediaire` ou `confirme`. Absent, ou `debutant` : débutant.
+  - `materiel` : `aucun`, `halteresKettlebell` ou `salleComplete`.
+  - `format` : `amrap`, `emom`, `forTime` ou `intervalles`.
+- La même adresse redonne la même séance. Le lien affiché sous la séance est cette adresse. Rien n'est enregistré. Une nouvelle graine vient de `crypto.getRandomValues`, pas de `Math.random()`.
 
 ### Minuteur intégré
 

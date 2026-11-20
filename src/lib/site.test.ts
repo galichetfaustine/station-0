@@ -12,7 +12,12 @@ describe("SITE", () => {
 });
 
 describe("NAV", () => {
-	it("ne montre que les pages qui existent : Courses et Quiz, pas encore WOD", () => {
-		expect(NAV.map((item) => item.label)).toEqual(["Courses", "Quiz"]);
+	it("montre les pages qui existent : Courses, Quiz et WOD", () => {
+		expect(NAV.map((item) => item.label)).toEqual(["Courses", "Quiz", "WOD"]);
+		expect(NAV.map((item) => item.path)).toEqual([
+			"/courses/",
+			"/quiz/",
+			"/wod/",
+		]);
 	});
 });

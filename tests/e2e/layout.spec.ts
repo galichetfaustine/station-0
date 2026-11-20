@@ -52,7 +52,7 @@ test("l'en-tête ne montre que les pages existantes et signale la page en cours"
 }) => {
 	await page.goto("./");
 	const nav = page.getByRole("navigation", { name: "Navigation principale" });
-	await expect(nav.getByRole("link")).toHaveText(["Courses", "Quiz"]);
+	await expect(nav.getByRole("link")).toHaveText(["Courses", "Quiz", "WOD"]);
 
 	await nav.getByRole("link", { name: "Courses" }).click();
 	await expect(page).toHaveURL(/\/courses\/$/);
@@ -64,6 +64,14 @@ test("l'en-tête ne montre que les pages existantes et signale la page en cours"
 	await expect(page.locator(".site-header .logo")).toHaveCSS(
 		"text-transform",
 		"none",
+	);
+
+	await nav.getByRole("link", { name: "WOD" }).click();
+	await expect(page).toHaveURL(/\/wod\/$/);
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText("WOD");
+	await expect(nav.getByRole("link", { name: "WOD" })).toHaveAttribute(
+		"aria-current",
+		"page",
 	);
 });
 

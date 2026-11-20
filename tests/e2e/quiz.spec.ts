@@ -4,7 +4,6 @@ import { expect, test } from "@playwright/test";
 test("l'en-tête mène au quiz et signale la page", async ({ page }) => {
 	await page.goto("./");
 	const nav = page.getByRole("navigation", { name: "Navigation principale" });
-	await expect(nav.getByRole("link", { name: "WOD" })).toHaveCount(0);
 	await nav.getByRole("link", { name: "Quiz" }).click();
 	await expect(page).toHaveURL(/\/quiz\/$/);
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quiz");
@@ -152,12 +151,10 @@ test("l'adresse du résultat redonne Deadly Dozen, l'alternative et le lien WOD"
 	expect(results.violations).toEqual([]);
 
 	await page.getByRole("link", { name: "WOD pour progresser" }).click();
-	await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-		"Bientôt disponible",
-	);
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText("WOD");
 	await expect(
 		page.getByRole("navigation").getByRole("link", { name: "WOD" }),
-	).toHaveCount(0);
+	).toHaveAttribute("aria-current", "page");
 });
 
 test("sous 40 %, on montre la plus accessible et le message honnête", async ({
