@@ -228,6 +228,13 @@ Pour chaque course et chacune des 4 catégories, écart = note de la course − 
 
 Score de compatibilité = 100 − 8 × pénalité totale, borné entre 0 et 100 %. À égalité, la course dont la prochaine date est la plus proche passe devant. Tous les coefficients sont dans un fichier de config.
 
+**Précisions (US2.1).**
+
+- Un écart de 0 ne coûte rien.
+- « En équipe » (Q5) correspond aux formats `equipe` et `relais`, comme le filtre « Équipe » du catalogue. « Peu importe » n'exclut aucun format.
+- Zone de Q7 : « France uniquement » = FR ; « France et pays frontaliers » = FR, BE, CH, LU, DE, IT, ES (liste du §2 ; le Royaume-Uni n'en fait pas partie) ; « Peu importe » = n'importe quel pays.
+- « Passé » a le même sens que dans le catalogue : le dernier jour d'un événement compte encore. La fenêtre de 12 mois part du jour (heure de Paris). Pour départager deux scores égaux, la prochaine date est celle du catalogue (18 mois, tous pays) ; sans date, la course passe après ; à date égale, le nom en français départage.
+
 ### Résultat
 
 - **La course recommandée** : nom, score, « Pourquoi elle te va » (les 2 catégories où l'écart est le plus faible), « Point d'attention » (la catégorie au plus gros écart positif), prochaine date, bouton vers la fiche.
@@ -238,7 +245,10 @@ Score de compatibilité = 100 − 8 × pénalité totale, borné entre 0 et 100 
 
 ### Tests de référence
 
-Des profils types sont vérifiés automatiquement à chaque modification des règles. Exemple : profil « course 3, force 3, cardio 4, gym 3, à deux, chrono » → HYROX Doubles ou DEKA MILE en tête. Exemple : profil « ne court pas, force 3, seul·e, kiffer » → DEKA STRONG.
+Des profils types sont vérifiés automatiquement à chaque modification des règles. Recalculés avec les notes du §5 (US2.1) : les têtes citées avant ce calcul ne sortent pas de la formule.
+
+- Profil « course 3, force 3, cardio 4, gym 3, à deux, chrono ». La zone n'était pas nommée : le test prend « France et pays frontaliers ». Deadly Dozen en tête (100 %), puis DEKA MILE (64 %) et DEKA STRONG (60 %). Deadly Dozen reste en tête pour les trois zones. HYROX Doubles est à 12 % : sa course est notée 5, très au-dessus du profil.
+- Profil « ne court pas, force 3, seul·e, kiffer ». « Ne court pas » = Q1 « Pas encore possible » (course 2). Cardio, gym et zone n'étaient pas nommés. Pour chaque réponse possible à ces trois questions, DEKA MILE devance DEKA STRONG : la question course commence à 2, DEKA MILE est notée 2 et DEKA STRONG est notée 1. Avec cardio « jamais », gym « aucun » et la zone « France et pays frontaliers », les huit courses solo notées sont à 0 % ; l'ordre est alors celui des prochaines dates (DEKA FIT, DEKA MILE, DEKA STRONG).
 
 ## 8. F3 — Générateur de WOD et minuteur
 

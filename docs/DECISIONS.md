@@ -62,6 +62,8 @@ Chaque décision prise en route est notée ici (date, décision, raison) et repo
 | 2026-10-23 | **Villes en français** dans les dates collectées ; pour ATHX, la ville vient du nom de l'événement (`venue.city` donne parfois la commune du parc des expositions : Laeken, Rho…). | Site en français ; priorité manuelle par ville. |
 | 2026-10-23 | **Marqueur `aVerifier`** dans un fichier de dates gardé par le garde-fou ; la fiche affiche « Dates à vérifier ». | « La course est marquée à vérifier » (§6). |
 | 2026-10-23 | **Pages enregistrées** pour les tests dans `fixtures/collect/` (relevé du 23/10/2026), exclues de Biome. | Aucun appel réseau dans les tests. |
+| 2026-11-20 | **Quiz, exemples du §7 recalculés.** La formule est inchangée. Le profil « 3, 3, 4, 3, à deux, chrono » met Deadly Dozen en tête, pas HYROX Doubles ni DEKA MILE. Le profil « ne court pas, force 3, seul·e, kiffer » ne met pas DEKA STRONG devant DEKA MILE : Q1 commence à 2, DEKA MILE est notée 2 en course et DEKA STRONG est notée 1. | Les exemples n'avaient pas été recalculés après la revue des notes. |
+| 2026-11-20 | **Quiz, quatre précisions pour un classement déterministe.** Écart 0 = pénalité 0. Q5 « En équipe » = `equipe` et `relais` (comme le filtre du catalogue). Q7 : France = FR ; frontaliers = FR, BE, CH, LU, DE, IT, ES (§2, sans le Royaume-Uni) ; « Peu importe » = tous les pays. À score égal : prochaine date du catalogue (18 mois), sans date en dernier, puis le nom en français. | La formule ne détaillait pas ces cas. Aligné sur le catalogue là où il avait déjà tranché. |
 
 ## Points ouverts
 

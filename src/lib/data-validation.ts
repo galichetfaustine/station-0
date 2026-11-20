@@ -6,6 +6,7 @@ import {
 	eventFileSchema,
 	exerciseBankSchema,
 	MATERIELS,
+	quizConfigSchema,
 	raceSchema,
 } from "./schemas.ts";
 
@@ -116,6 +117,9 @@ export function validateDataFiles(files: DataFile[]): string[] {
 			});
 		} else if (path === "data/config/bareme.json") {
 			const result = baremeConfigSchema.safeParse(data);
+			if (!result.success) errors.push(...formatIssues(path, result.error));
+		} else if (path === "data/config/quiz.json") {
+			const result = quizConfigSchema.safeParse(data);
 			if (!result.success) errors.push(...formatIssues(path, result.error));
 		} else if (path === "data/exercises.json") {
 			const result = exerciseBankSchema.safeParse(data);
