@@ -272,7 +272,52 @@ Un verrou fige une valeur ; « Relancer » ne retire que le reste. Depuis une fi
 
 ### Banque d'exercices (un fichier JSON)
 
-Chaque exercice décrit : nom, courses d'origine, catégorie (course, force, cardio/ergo, gym), schéma de mouvement (pousser, tirer, squat, fente, charnière, porter, corps entier), matériel, unité (répétitions, mètres, calories, secondes), volume par niveau, temps estimé par unité, consigne courte et **alternatives sans le matériel**. Noms des champs (US0.5) : `id`, `nom`, `coursesOrigine` (slugs), `categorie` (`course`, `force`, `cardio`, `gym`), `schemaMouvement` (`pousser`, `tirer`, `squat`, `fente`, `charniere`, `porter`, `corpsEntier`), `materiel` (`aucun`, `halteresKettlebell`, `salleComplete`), `unite`, `volumeParNiveau` (`debutant`, `intermediaire`, `confirme`), `secondesParUnite`, `consigne`, `alternatives` (identifiants d'autres exercices de la banque, qui demandent moins de matériel ; au moins une dès que `materiel` n'est pas `aucun`). `volumeParNiveau` et `secondesParUnite` valent `null` tant que le nombre n'est pas écrit ici : on ne l'estime pas. Un volume relevé dans le déroulé d'une course n'est pas un volume de séance par niveau. Point de départ (à compléter et valider par toi) :
+Chaque exercice décrit : nom, courses d'origine, catégorie (course, force, cardio/ergo, gym), schéma de mouvement (pousser, tirer, squat, fente, charnière, porter, corps entier), matériel, unité (répétitions, mètres, calories, secondes), volume par niveau, temps estimé par unité, consigne courte et **alternatives sans le matériel**. Noms des champs (US0.5) : `id`, `nom`, `coursesOrigine` (slugs), `categorie` (`course`, `force`, `cardio`, `gym`), `schemaMouvement` (`pousser`, `tirer`, `squat`, `fente`, `charniere`, `porter`, `corpsEntier`), `materiel` (`aucun`, `halteresKettlebell`, `salleComplete`), `unite`, `volumeParNiveau` (`debutant`, `intermediaire`, `confirme`), `secondesParUnite`, `consigne`, `alternatives` (identifiants d'autres exercices de la banque, qui demandent moins de matériel ; au moins une dès que `materiel` n'est pas `aucun`). `volumeParNiveau` (`debutant`, `intermediaire`, `confirme`) reste `null` : le générateur calcule le volume à partir du temps. Un volume relevé dans le déroulé d'une course n'est pas un volume de séance par niveau. `secondesParUnite` est rempli, en secondes par unité de l'exercice. Ce sont des estimations d'entraînement, pas des temps officiels de course. Elles restent corrigeables.
+
+| Exercice | Unité | Secondes par unité |
+| --- | --- | --- |
+| course | mètres | 0,36 (environ 6 min/km) |
+| montees-genoux | secondes | 1 |
+| skierg | mètres | 0,3 (environ 2 min 30 / 500 m) |
+| squats-sautes-tirage | répétitions | 1,5 |
+| rameur | mètres | 0,3 |
+| air-bike | calories | 4 |
+| sled-push | mètres | 3 |
+| sled-pull | mètres | 3,5 |
+| bear-crawl | mètres | 3 |
+| sprints-courts | mètres | 0,22 |
+| tirage-elastique | répétitions | 2 |
+| burpee-broad-jumps | mètres | 2 |
+| burpees | répétitions | 4 |
+| farmers-carry | mètres | 1,2 |
+| marche-deux-sacs | mètres | 1,5 |
+| fentes-sandbag | mètres | 2 |
+| fentes-halteres | mètres | 2 |
+| fentes-ram | répétitions | 3 |
+| fentes-poids-corps | répétitions | 2,5 |
+| wall-balls | répétitions | 3 |
+| squats-lancer | répétitions | 2,5 |
+| box-jump-overs | répétitions | 3 |
+| step-ups | répétitions | 2,5 |
+| sauts-lateraux | répétitions | 1,5 |
+| deadlift-kettlebell | répétitions | 3 |
+| deadlift-sac | répétitions | 3 |
+| goblet-squat | répétitions | 3 |
+| squat-poids-corps | répétitions | 2 |
+| push-press | répétitions | 3 |
+| push-press-sac | répétitions | 3 |
+| snatch | répétitions | 4 |
+| snatch-sac | répétitions | 4 |
+| bucket-carry | mètres | 1,5 |
+| marche-sac-poitrine | mètres | 1,5 |
+| burpees-lestes | répétitions | 5 |
+| sandbag-carry | mètres | 1,5 |
+| squats-sandbag | répétitions | 3,5 |
+| front-carry | mètres | 1,4 |
+| wall-walks | répétitions | 15 |
+| handstand-push-ups | répétitions | 8 |
+
+Point de départ (à compléter et valider par toi) :
 
 | Exercice | Vient de | Alternative si matériel absent |
 | --- | --- | --- |
@@ -300,7 +345,7 @@ Le tirage est piloté par une graine dans l'URL : le même lien redonne exacteme
 
 ### Précisions de génération (US3.2)
 
-Le tableau et les cinq règles ci-dessus restent la référence. Ces précisions les rendent calculables. Elles n'ajoutent aucune durée : `volumeParNiveau` et `secondesParUnite` restent vides dans la banque tant que le nombre n'est pas écrit plus haut.
+Le tableau et les cinq règles ci-dessus restent la référence. Ces précisions les rendent calculables. `secondesParUnite` contient les estimations d'entraînement demandées par Faustine. `volumeParNiveau` reste vide : le générateur le calcule à partir de ce temps.
 
 - **Graine.** C'est une chaîne (celle du lien). Deux appels avec la même graine, la même banque et les mêmes verrous donnent la même séance. Le générateur n'appelle pas `Math.random()`.
 - **Verrous.** Il tire d'abord le time cap, la course (ou Mix), le matériel et le format, puis applique les verrous par-dessus. Le niveau n'est pas tiré : sans verrou, c'est débutant, comme dans le tableau. « Relancer » est un nouvel appel avec une nouvelle graine et les mêmes verrous.
@@ -333,7 +378,7 @@ La DA reprend le moodboard Allygn : fond encre, orange réservé aux actions, la
 **Principes tirés des références :**
 
 - Gros chiffres comme élément graphique (les « 11.43 km » du moodboard) : notes /5, distances, minuteur.
-- Titres en capitales condensées très grasses, texte courant sobre (D8).
+- Titres en capitales condensées très grasses, texte courant sobre (D8). Exception : le grand titre de l'accueil reste en minuscules (« Trouve ta première course. »), posé sur une photo de course. Le menu y est une ligne fine. Le premier mot est en cobalt éclairci `#6D7CFF`, parce que le cobalt brut ne contraste pas assez sur l'encre. La photo est décorative : on peut la remplacer par un autre fichier du même nom.
 - Cartes à coins arrondis sur fond sombre, beaucoup d'air, une seule action orange par écran.
 - Jauges de difficulté en segments (5 pastilles), lisibles en un coup d'œil.
 

@@ -84,6 +84,20 @@ describe.each(Object.entries(themes))("contrastes du thème %s", (_, tokens) => 
 });
 
 describe("règles de la DA", () => {
+	it("le titre posé sur la photo d'accueil passe le contraste sur l'encre", () => {
+		const tokens = themes.sombre;
+		for (const name of [
+			"--color-headline",
+			"--color-on-ink",
+			"--color-on-ink-muted",
+		]) {
+			expect(
+				contrastRatio(tokens[name] as string, tokens["--color-ink"] as string),
+			).toBeGreaterThanOrEqual(TEXT);
+		}
+		expect(themes.clair["--color-headline"]).toBe("#6d7cff");
+	});
+
 	it("le texte sur orange et sur lavande est toujours en encre", () => {
 		for (const tokens of Object.values(themes)) {
 			expect(tokens["--color-action-text"]).toBe(tokens["--color-ink"]);

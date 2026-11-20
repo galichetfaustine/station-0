@@ -44,6 +44,10 @@ main {
 	padding-block: var(--space-4) var(--space-5);
 }
 
+main.hero-page {
+	padding-top: 0;
+}
+
 .container {
 	width: 100%;
 	max-width: var(--content-max);
