@@ -67,20 +67,18 @@ function nextDate(slug: string): string {
 	{#if alternative}
 		<section aria-labelledby="alternative">
 			<h3 id="alternative">Alternative</h3>
-			<p>
-				<a class="text-link" href={withBase(base, `/courses/${alternative.slug}/`)}>
+			<p class="alt-line">
+				<a class="alt-name" href={withBase(base, `/courses/${alternative.slug}/`)}>
 					{alternative.nom}
 				</a>
-				· {formatScore(alternative.score)}
+				<span>{formatScore(alternative.score)}</span>
 			</p>
 			<p>Prochaine date : {nextDate(alternative.slug)}</p>
 		</section>
 	{/if}
 
-	<p>
+	<div class="links">
 		<a class="text-link" href={withBase(base, "/wod/")}>WOD pour progresser</a>
-	</p>
-	<p>
 		<a
 			class="text-link"
 			href={editHref}
@@ -91,19 +89,20 @@ function nextDate(slug: string): string {
 		>
 			Modifier mes réponses
 		</a>
-	</p>
+	</div>
 </article>
 
 <style>
 	.result {
 		display: grid;
-		gap: var(--space-4);
-		max-width: 36rem;
+		gap: var(--space-5);
+		max-width: 40rem;
+		margin-top: var(--space-5);
 	}
 
 	.band {
 		display: grid;
-		gap: var(--space-2);
+		gap: var(--space-3);
 		margin-inline: calc(-1 * var(--space-3));
 		padding: var(--space-5) var(--space-3);
 		border-radius: 0 0 var(--radius) var(--radius);
@@ -124,20 +123,94 @@ function nextDate(slug: string): string {
 		margin: 0;
 	}
 
+	h2 {
+		max-width: 8ch;
+		font-size: clamp(4.25rem, 12vw, 6.75rem);
+		line-height: 0.86;
+		letter-spacing: -0.03em;
+		text-wrap: balance;
+	}
+
+	h3 {
+		font-size: clamp(1.35rem, 3vw, 1.75rem);
+		letter-spacing: -0.02em;
+	}
+
 	.score {
 		font-family: var(--font-title);
-		font-size: 2.5rem;
+		font-size: clamp(2rem, 5vw, 2.75rem);
 		font-weight: 800;
 		line-height: 1;
 	}
 
+	section {
+		display: grid;
+		gap: var(--space-3);
+	}
+
+	section p {
+		max-width: 36rem;
+		font-size: 1.125rem;
+	}
+
 	ul {
-		margin: var(--space-2) 0 0;
-		padding-left: 1.25rem;
+		display: grid;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	li {
+		padding-block: var(--space-3);
+		border-top: 1px solid var(--color-line);
+		font-family: var(--font-title);
+		font-size: clamp(1.35rem, 4vw, 1.75rem);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: 0.01em;
+		text-transform: uppercase;
 	}
 
 	.button {
 		justify-self: start;
+	}
+
+	.alt-line {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: var(--space-2) var(--space-3);
+	}
+
+	.alt-name {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--tap-min);
+		font-family: var(--font-title);
+		font-size: clamp(1.75rem, 4vw, 2.25rem);
+		font-weight: 800;
+		line-height: 1;
+		letter-spacing: 0.01em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.alt-name:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.12em;
+	}
+
+	.alt-line span {
+		font-family: var(--font-title);
+		font-size: 1.5rem;
+		font-weight: 800;
+	}
+
+	.links {
+		display: grid;
+		justify-items: start;
+		gap: var(--space-1);
 	}
 
 	.text-link {
@@ -145,5 +218,7 @@ function nextDate(slug: string): string {
 		align-items: center;
 		min-height: var(--tap-min);
 		min-width: var(--tap-min);
+		color: var(--color-text-muted);
+		text-underline-offset: 0.25em;
 	}
 </style>
