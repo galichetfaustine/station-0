@@ -272,7 +272,52 @@ Un verrou fige une valeur ; « Relancer » ne retire que le reste. Depuis une fi
 
 ### Banque d'exercices (un fichier JSON)
 
-Chaque exercice décrit : nom, courses d'origine, catégorie (course, force, cardio/ergo, gym), schéma de mouvement (pousser, tirer, squat, fente, charnière, porter, corps entier), matériel, unité (répétitions, mètres, calories, secondes), volume par niveau, temps estimé par unité, consigne courte et **alternatives sans le matériel**. Noms des champs (US0.5) : `id`, `nom`, `coursesOrigine` (slugs), `categorie` (`course`, `force`, `cardio`, `gym`), `schemaMouvement` (`pousser`, `tirer`, `squat`, `fente`, `charniere`, `porter`, `corpsEntier`), `materiel` (`aucun`, `halteresKettlebell`, `salleComplete`), `unite`, `volumeParNiveau` (`debutant`, `intermediaire`, `confirme`), `secondesParUnite`, `consigne`, `alternatives` (identifiants d'autres exercices de la banque, qui demandent moins de matériel ; au moins une dès que `materiel` n'est pas `aucun`). `volumeParNiveau` et `secondesParUnite` valent `null` tant que le nombre n'est pas écrit ici : on ne l'estime pas. Un volume relevé dans le déroulé d'une course n'est pas un volume de séance par niveau. Point de départ (à compléter et valider par toi) :
+Chaque exercice décrit : nom, courses d'origine, catégorie (course, force, cardio/ergo, gym), schéma de mouvement (pousser, tirer, squat, fente, charnière, porter, corps entier), matériel, unité (répétitions, mètres, calories, secondes), volume par niveau, temps estimé par unité, consigne courte et **alternatives sans le matériel**. Noms des champs (US0.5) : `id`, `nom`, `coursesOrigine` (slugs), `categorie` (`course`, `force`, `cardio`, `gym`), `schemaMouvement` (`pousser`, `tirer`, `squat`, `fente`, `charniere`, `porter`, `corpsEntier`), `materiel` (`aucun`, `halteresKettlebell`, `salleComplete`), `unite`, `volumeParNiveau` (`debutant`, `intermediaire`, `confirme`), `secondesParUnite`, `consigne`, `alternatives` (identifiants d'autres exercices de la banque, qui demandent moins de matériel ; au moins une dès que `materiel` n'est pas `aucun`). `volumeParNiveau` (`debutant`, `intermediaire`, `confirme`) reste `null` : le générateur calcule le volume à partir du temps. Un volume relevé dans le déroulé d'une course n'est pas un volume de séance par niveau. `secondesParUnite` est rempli, en secondes par unité de l'exercice. Ce sont des estimations d'entraînement, pas des temps officiels de course. Elles restent corrigeables.
+
+| Exercice | Unité | Secondes par unité |
+| --- | --- | --- |
+| course | mètres | 0,36 (environ 6 min/km) |
+| montees-genoux | secondes | 1 |
+| skierg | mètres | 0,3 (environ 2 min 30 / 500 m) |
+| squats-sautes-tirage | répétitions | 1,5 |
+| rameur | mètres | 0,3 |
+| air-bike | calories | 4 |
+| sled-push | mètres | 3 |
+| sled-pull | mètres | 3,5 |
+| bear-crawl | mètres | 3 |
+| sprints-courts | mètres | 0,22 |
+| tirage-elastique | répétitions | 2 |
+| burpee-broad-jumps | mètres | 2 |
+| burpees | répétitions | 4 |
+| farmers-carry | mètres | 1,2 |
+| marche-deux-sacs | mètres | 1,5 |
+| fentes-sandbag | mètres | 2 |
+| fentes-halteres | mètres | 2 |
+| fentes-ram | répétitions | 3 |
+| fentes-poids-corps | répétitions | 2,5 |
+| wall-balls | répétitions | 3 |
+| squats-lancer | répétitions | 2,5 |
+| box-jump-overs | répétitions | 3 |
+| step-ups | répétitions | 2,5 |
+| sauts-lateraux | répétitions | 1,5 |
+| deadlift-kettlebell | répétitions | 3 |
+| deadlift-sac | répétitions | 3 |
+| goblet-squat | répétitions | 3 |
+| squat-poids-corps | répétitions | 2 |
+| push-press | répétitions | 3 |
+| push-press-sac | répétitions | 3 |
+| snatch | répétitions | 4 |
+| snatch-sac | répétitions | 4 |
+| bucket-carry | mètres | 1,5 |
+| marche-sac-poitrine | mètres | 1,5 |
+| burpees-lestes | répétitions | 5 |
+| sandbag-carry | mètres | 1,5 |
+| squats-sandbag | répétitions | 3,5 |
+| front-carry | mètres | 1,4 |
+| wall-walks | répétitions | 15 |
+| handstand-push-ups | répétitions | 8 |
+
+Point de départ (à compléter et valider par toi) :
 
 | Exercice | Vient de | Alternative si matériel absent |
 | --- | --- | --- |

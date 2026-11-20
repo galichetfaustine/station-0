@@ -22,7 +22,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 0.36,
 		"consigne": "Course à pied, allure régulière.",
 		"alternatives": []
 	},
@@ -46,7 +46,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1,
 		"consigne": "Sur place, genoux hauts, bras qui balancent.",
 		"alternatives": []
 	},
@@ -72,7 +72,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 0.3,
 		"consigne": "Tire les poignées vers le bas, jambes et dos engagés.",
 		"alternatives": ["squats-sautes-tirage", "burpees"]
 	},
@@ -95,7 +95,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.5,
 		"consigne": "Squat sauté, bras qui tirent vers le bas comme au SkiErg.",
 		"alternatives": []
 	},
@@ -120,7 +120,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 0.3,
 		"consigne": "Pousse avec les jambes, puis tire les bras.",
 		"alternatives": ["burpees", "course"]
 	},
@@ -143,7 +143,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 4,
 		"consigne": "Pédale avec les bras et les jambes.",
 		"alternatives": ["burpees"]
 	},
@@ -167,7 +167,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Pousse le traîneau en marchant, bras tendus. En DEKA, la station mélange poussée et tirage.",
 		"alternatives": ["bear-crawl", "sprints-courts"]
 	},
@@ -191,7 +191,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3.5,
 		"consigne": "Tire le traîneau vers toi. En DEKA, la station mélange poussée et tirage.",
 		"alternatives": ["bear-crawl", "tirage-elastique"]
 	},
@@ -216,7 +216,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "À quatre pattes, genoux décollés, avance en restant bas.",
 		"alternatives": []
 	},
@@ -240,7 +240,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 0.22,
 		"consigne": "Sprints courts avec demi-tour.",
 		"alternatives": []
 	},
@@ -264,7 +264,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2,
 		"consigne": "Élastique fixé devant toi, tire les mains vers le buste.",
 		"alternatives": []
 	},
@@ -286,7 +286,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2,
 		"consigne": "Burpee, puis saut en longueur. Enchaîne sur la distance.",
 		"alternatives": []
 	},
@@ -303,7 +303,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 4,
 		"consigne": "Poitrine au sol, puis saut bras tendus. À Spartan, 30 répétitions par obstacle raté.",
 		"alternatives": []
 	},
@@ -328,7 +328,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.2,
 		"consigne": "Un poids dans chaque main, marche sans poser.",
 		"alternatives": ["marche-deux-sacs"]
 	},
@@ -353,7 +353,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.5,
 		"consigne": "Un sac chargé dans chaque main, marche sans poser.",
 		"alternatives": []
 	},
@@ -370,7 +370,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2,
 		"consigne": "Sandbag sur les épaules, fentes marchées.",
 		"alternatives": ["fentes-halteres", "fentes-poids-corps"]
 	},
@@ -387,7 +387,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2,
 		"consigne": "Un haltère dans chaque main, fentes marchées.",
 		"alternatives": ["fentes-poids-corps"]
 	},
@@ -404,7 +404,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Charge tenue, fentes arrière alternées.",
 		"alternatives": ["fentes-halteres", "fentes-poids-corps"]
 	},
@@ -430,7 +430,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2.5,
 		"consigne": "Fentes marchées, mains libres. Une fente compte pour un pas.",
 		"alternatives": []
 	},
@@ -447,7 +447,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Squat, puis lancer du ballon vers la cible.",
 		"alternatives": ["squats-lancer"]
 	},
@@ -464,7 +464,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2.5,
 		"consigne": "Squat, puis lancer des bras au-dessus de la tête, sans ballon.",
 		"alternatives": []
 	},
@@ -481,7 +481,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Saute sur la box et passe de l'autre côté. En DEKA, le pas par-dessus est accepté.",
 		"alternatives": ["step-ups", "sauts-lateraux"]
 	},
@@ -498,7 +498,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2.5,
 		"consigne": "Monte et descends d'une marche, en alternant les jambes.",
 		"alternatives": []
 	},
@@ -515,7 +515,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.5,
 		"consigne": "Sauts latéraux au sol, d'un côté à l'autre.",
 		"alternatives": []
 	},
@@ -532,7 +532,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Kettlebell au sol, pousse le sol avec les jambes pour te relever.",
 		"alternatives": ["deadlift-sac"]
 	},
@@ -549,7 +549,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Sac chargé au sol, pousse le sol avec les jambes pour te relever.",
 		"alternatives": []
 	},
@@ -566,7 +566,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Kettlebell contre la poitrine, descends en squat puis remonte.",
 		"alternatives": ["squat-poids-corps"]
 	},
@@ -583,7 +583,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 2,
 		"consigne": "Descends en squat, pieds au sol, puis remonte.",
 		"alternatives": []
 	},
@@ -600,7 +600,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Haltères aux épaules, petite flexion des jambes, puis pousse au-dessus de la tête.",
 		"alternatives": ["push-press-sac"]
 	},
@@ -617,7 +617,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3,
 		"consigne": "Sac aux épaules, petite flexion des jambes, puis pousse au-dessus de la tête.",
 		"alternatives": []
 	},
@@ -634,7 +634,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 4,
 		"consigne": "Haltère du sol jusqu'au-dessus de la tête en un geste.",
 		"alternatives": ["snatch-sac"]
 	},
@@ -651,7 +651,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 4,
 		"consigne": "Sac du sol jusqu'au-dessus de la tête en un geste.",
 		"alternatives": []
 	},
@@ -668,7 +668,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.5,
 		"consigne": "Seau tenu à deux mains, marche sans le poser.",
 		"alternatives": ["marche-sac-poitrine"]
 	},
@@ -685,7 +685,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.5,
 		"consigne": "Sac chargé tenu contre la poitrine, marche sans le poser.",
 		"alternatives": []
 	},
@@ -702,7 +702,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 5,
 		"consigne": "Burpee en tenant la charge de la course (RAM en DEKA).",
 		"alternatives": ["burpees"]
 	},
@@ -719,7 +719,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.5,
 		"consigne": "Sandbag porté, marche sur la distance.",
 		"alternatives": ["marche-deux-sacs"]
 	},
@@ -736,7 +736,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 3.5,
 		"consigne": "Sandbag contre la poitrine ou sur les épaules, squats.",
 		"alternatives": ["squat-poids-corps"]
 	},
@@ -753,7 +753,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 1.4,
 		"consigne": "Disque tenu contre la poitrine, marche sans le poser.",
 		"alternatives": ["marche-sac-poitrine"]
 	},
@@ -770,7 +770,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 15,
 		"consigne": "Pieds au mur, marche des mains vers le mur puis reviens.",
 		"alternatives": []
 	},
@@ -787,7 +787,7 @@
 			"intermediaire": null,
 			"confirme": null
 		},
-		"secondesParUnite": null,
+		"secondesParUnite": 8,
 		"consigne": "En équilibre sur les mains, plie les bras puis pousse.",
 		"alternatives": []
 	}
